@@ -28,6 +28,12 @@ import org.hibernate.criterion.Restrictions;
 import darkengines.database.DBSessionFactory;
 
 public class Importer {
+	private Session session;
+
+	public Importer() {
+		session = DBSessionFactory.GetSession();
+	}
+
 	public ImportResult Import(String dataFilePath) throws IOException,
 			ClassNotFoundException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
@@ -58,16 +64,13 @@ public class Importer {
 				}
 				boolean isKey = sheet.getRow(1).getCell(columnIndex)
 						.getBooleanCellValue();
-				if (isKey) {
-					classInfo.getKeyFields().add(fieldName);
-				}
+				fieldInfo.setKey(isKey);
 				classInfo.getFieldInfos().put(fieldName, fieldInfo);
 			}
 			infos.put(className, classInfo);
 			i++;
 		}
 		i = 0;
-		Session session = DBSessionFactory.GetSession();
 		while (i < sheetCount) {
 			Sheet sheet = workbook.getSheetAt(i);
 			String className = sheet.getRow(0).getCell(0).getStringCellValue();
@@ -78,7 +81,8 @@ public class Importer {
 			for (Row row : sheet) {
 				int rowIndex = row.getRowNum();
 				if (rowIndex > 3) {
-					Object x = c.getConstructor().newInstance();
+					Map<String, String> xKeyFieldValues = new HashMap<String, String>();
+					Map<String, Object> xFieldValues = new HashMap<String, Object>();
 					for (Cell cell : fieldsRow) {
 						int columnIndex = cell.getColumnIndex();
 						String fieldName = sheet.getRow(3).getCell(columnIndex)
@@ -93,22 +97,24 @@ public class Importer {
 							ArrayList<String> keys = new ArrayList<String>();
 							keys.addAll(Arrays.asList(row.getCell(columnIndex)
 									.getStringCellValue().split(",")));
-							Criteria criteria = session.createCriteria(field
-									.getType());
-							int keyIndex = 0;
-							for (String keyField : fieldInfo.getKeys()) {
-								criteria.add(Restrictions.eq(
-										keyField,
-										convert(String.class,
-												keys.get(keyIndex))));
-								keyIndex++;
-							}
-							value = criteria.uniqueResult();
+							Map<String, String> keyFieldValues = toKeyFieldValuesMap(fieldInfo.getKeys(), keys);
+							value = getEntityByKey(field.getType(), keyFieldValues);
 						} else {
 							value = CellToObject(row.getCell(columnIndex));
 						}
+						if (fieldInfo.isKey()) {
+							xKeyFieldValues.put(fieldName, value.toString());
+						}
+						xFieldValues.put(fieldName, value);
+					}
+					Object x = getEntityByKey(c, xKeyFieldValues);
+					if (x == null) {
+						x = c.getConstructor().newInstance();
+					}
+					for (String fieldName: xFieldValues.keySet()) {
+						Field field = c.getDeclaredField(fieldName);
 						field.setAccessible(true);
-						field.set(x, value);
+						field.set(x, xFieldValues.get(fieldName));
 					}
 					session.saveOrUpdate(x);
 					session.flush();
@@ -119,6 +125,25 @@ public class Importer {
 		}
 		session.close();
 		return null;
+	}
+	
+	private Map<String, String> toKeyFieldValuesMap(ArrayList<String> keyFields, ArrayList<String> keyValues) {
+		Map<String, String> keyFieldValues = new HashMap<String, String>();
+		int keyIndex = 0;
+		for (String keyField : keyFields) {
+			keyFieldValues.put(keyField, keyValues.get(keyIndex));
+			keyIndex++;
+		}
+		return keyFieldValues;
+	}
+	
+	private Object getEntityByKey(Class<?> type, Map<String, String> keyFieldValues) {
+		Criteria criteria = session.createCriteria(type);
+		for (String key: keyFieldValues.keySet()) {
+			criteria.add(Restrictions.eq(key,
+					convert(String.class, keyFieldValues.get(key))));
+		}
+		return criteria.uniqueResult();
 	}
 
 	private Object convert(Class<?> targetType, String text) {
