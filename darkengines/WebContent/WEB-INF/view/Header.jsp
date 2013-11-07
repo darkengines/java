@@ -14,9 +14,15 @@
 <div class="Container">
 	<div class="Header">Dark Engines</div>
 	<div class="Menu">
-		<a class="Option" href="">Qui ?</a>
-		<a class="Option" href="">Quand ?</a>
-		<a class="Option" href="">Comment ?</a>
-		<a class="Option" href="">Pourquoi ?</a>
-		<a class="Option" href="">Où ?</a>
+		<div class="Left">
+			<a href="">Qui ?</a>
+			<a href="">Quand ?</a>
+			<a href="">Comment ?</a>
+			<a href="">Pourquoi ?</a>
+			<a href="">Où ?</a>
+		</div>
+		<div class="Right">
+			<a href="">Connexion</a>
+			<a href="register">Ouvrir un compte</a>
+		</div>
 	</div>

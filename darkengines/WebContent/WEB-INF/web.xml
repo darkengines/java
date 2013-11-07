@@ -3,11 +3,26 @@
   <display-name>darkengines</display-name>
   <servlet>
     <servlet-name>index</servlet-name>
-    <servlet-class>darkengines.client.Index
-      </servlet-class>
+    <servlet-class>darkengines.client.Index</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>create_account</servlet-name>
+    <servlet-class>darkengines.client.CreateAccount</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>edit_dev_identity</servlet-name>
+    <servlet-class>darkengines.client.EditDevIdentity</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>index</servlet-name>
     <url-pattern></url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>create_account</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>edit_dev_identity</servlet-name>
+    <url-pattern>/edit_dev_identity</url-pattern>
   </servlet-mapping>
 </web-app>

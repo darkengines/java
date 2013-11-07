@@ -32,21 +32,30 @@ body {
 	height: 32px;
 	width: 100%;
 	cursor: default;
+	border-bottom: dotted rgba(240, 173, 0, 1) 3px;
 }
-.Menu .Option {
+.Menu .Left {
+	text-align: left;
+	float: left;
+	width: 50%;
+}
+.Menu .Right {
+	text-align: Right;
+	float: right;
+	width: 50%;
+}
+.Menu a {
 	list-style: none;
 	display: inline-block;
-	margin: 0 4px 0 0;
 	padding: 4px;
 	font-weight: bold;
 	text-decoration: none;
 	color: inherit;	
 }
-.Menu .Option:hover {
+.Menu a:hover {
 	color: rgba(240, 173, 0, 1);
 }
 .Content {
-	border-top: dotted rgba(240, 173, 0, 1) 3px;
 	margin: auto;
 	width: 100%;
 	height: 1024px;
@@ -57,7 +66,7 @@ form .Field {
 	width: 100%;
 }
 form .Field input[type=text], form .Field input[type=password], form .Field input[type=file] {
-	border: solid 2px rgba(240, 173, 0, 1);
+	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
 	margin: 0;
@@ -69,10 +78,13 @@ form .Field input[type=text], form .Field input[type=password], form .Field inpu
 	box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
-	width: 100%;
+	width: 256px;
+}
+form .Field input:focus {
+	border-color: rgba(240, 173, 0, 1);
 }
 form .Field textarea {
-	border: solid 2px rgba(240, 173, 0, 1);
+	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
 	margin: 0;
@@ -94,49 +106,48 @@ form .Field label {
 	font-size: 18px;
 	color: rgba(100,100,100,1);
 }
-form .Field input[type=submit] {
-	background-image: -webkit-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: -moz-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: -ms-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: -o-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	border: solid 2px rgba(240, 173, 0, 1);
+form .Field input[type=submit], form .Field button {
+	background-image: -webkit-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: -moz-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: -ms-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: -o-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	margin: 0;
 	padding: 0 0 0 2px;
 	height: 30px;
 	line-height: 30px;
 	color: rgba(224,224,224,1);
-	width: 100%;
 	font-size: 18px;
 	cursor: pointer;
+	display: inline-block;
 }
 form .Field .File {
 	position: relative;
 	height: 30px;
 }
 form .Field .File .Browse {
-	background-image: -webkit-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: -moz-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: -ms-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: -o-linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	background-image: linear-gradient(bottom,rgba(240, 173, 0, 1),rgba(150,40,40,1));
-	border: solid 2px rgba(240, 173, 0, 1);
+	background-image: -webkit-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: -moz-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: -ms-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: -o-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	background-image: linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
+	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	margin: 0;
-	padding: 0 0 0 2px;
+	padding: 4px;
 	height: 30px;
-	line-height: 30px;
 	color: rgba(224,224,224,1);
 	width: 17%;
-	font-size: 18px;
+	font-size: 16px;
 	cursor: pointer;
 	position: absolute;
 	left: 0;
 	top: 0;
 }
 form .Field .File .Filename {
-	border: solid 2px rgba(240, 173, 0, 1);
+	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
 	margin: 0;
@@ -149,4 +160,20 @@ form .Field .File .Filename {
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+form .Field .Result {
+	display: inline-block;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+	min-width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+	margin: 0 0 0 4px;
+}
+form .Field .Result.Ok {
+	background-image: url(../image/ok.png);
+}
+form .Field .Result.Error {
+	background-image: url(../image/error.png);
 }
