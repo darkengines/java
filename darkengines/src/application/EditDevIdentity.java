@@ -1,4 +1,4 @@
-package darkengines.client;
+package application;
 
 import java.io.IOException;
 
@@ -11,9 +11,10 @@ import darkengines.service.Service;
 public class EditDevIdentity extends Service {
 
 	@Override
-	public void service(ServletRequest request, ServletResponse response)
+	public void processRequest(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/WEB-INF/view/EditDevIdentity.jsp").forward(request,response);
+		
 	}
 
 }

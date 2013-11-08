@@ -11,8 +11,8 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.reflections.Reflections;
 
+import server.User;
 import darkengines.reflexion.ReflectionsFactory;
-import darkengines.user.User;
 
 public class DBSessionFactory {
 	private static SessionFactory sessionFactory = null;

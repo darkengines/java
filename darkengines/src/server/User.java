@@ -1,4 +1,4 @@
-package darkengines.user;
+package server;
 
 import javax.persistence.Entity;
 
@@ -9,7 +9,8 @@ public class User extends IdentifiedEntity {
 	
 	private String email;
 	private String password;
-
+	private UserType type;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -22,4 +23,11 @@ public class User extends IdentifiedEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public UserType getType() {
+		return type;
+	}
+	public void setType(UserType type) {
+		this.type = type;
+	}
+	
 }

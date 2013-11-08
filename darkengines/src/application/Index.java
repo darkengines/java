@@ -1,4 +1,4 @@
-package darkengines.client;
+package application;
 
 import java.io.IOException;
 
@@ -10,15 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import server.User;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.Service;
-import darkengines.user.User;
 
 public class Index extends Service {
 	@Override
-	public void service(ServletRequest request, ServletResponse response)
-			throws ServletException, IOException {
-		Session s = DBSessionFactory.GetSession();
+	public void processRequest(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/WEB-INF/view/Index.jsp").forward(request,response);
 	}
 }

@@ -81,7 +81,7 @@ public class Importer {
 			for (Row row : sheet) {
 				int rowIndex = row.getRowNum();
 				if (rowIndex > 3) {
-					Map<String, String> xKeyFieldValues = new HashMap<String, String>();
+					Map<String, Object> xKeyFieldValues = new HashMap<String, Object>();
 					Map<String, Object> xFieldValues = new HashMap<String, Object>();
 					for (Cell cell : fieldsRow) {
 						int columnIndex = cell.getColumnIndex();
@@ -97,8 +97,8 @@ public class Importer {
 							ArrayList<String> keys = new ArrayList<String>();
 							keys.addAll(Arrays.asList(row.getCell(columnIndex)
 									.getStringCellValue().split(",")));
-							Map<String, String> keyFieldValues = toKeyFieldValuesMap(fieldInfo.getKeys(), keys);
-							value = getEntityByKey(field.getType(), keyFieldValues);
+							Map<String, Object> keyFieldValues = toKeyFieldValuesMap(fieldInfo.getKeys(), keys);
+							value = getEntityByKey(field.getType(), keyFieldValues, infos);
 						} else {
 							value = CellToObject(row.getCell(columnIndex));
 						}
@@ -107,7 +107,7 @@ public class Importer {
 						}
 						xFieldValues.put(fieldName, value);
 					}
-					Object x = getEntityByKey(c, xKeyFieldValues);
+					Object x = getEntityByKey(c, xKeyFieldValues, infos);
 					if (x == null) {
 						x = c.getConstructor().newInstance();
 					}
@@ -127,8 +127,8 @@ public class Importer {
 		return null;
 	}
 	
-	private Map<String, String> toKeyFieldValuesMap(ArrayList<String> keyFields, ArrayList<String> keyValues) {
-		Map<String, String> keyFieldValues = new HashMap<String, String>();
+	private Map<String, Object> toKeyFieldValuesMap(ArrayList<String> keyFields, ArrayList<String> keyValues) {
+		Map<String, Object> keyFieldValues = new HashMap<String, Object>();
 		int keyIndex = 0;
 		for (String keyField : keyFields) {
 			keyFieldValues.put(keyField, keyValues.get(keyIndex));
@@ -137,11 +137,18 @@ public class Importer {
 		return keyFieldValues;
 	}
 	
-	private Object getEntityByKey(Class<?> type, Map<String, String> keyFieldValues) {
+	private Object getEntityByKey(Class<?> type, Map<String, Object> keyFieldValues, Map<String, ClassInfo> classInfos) throws NoSuchFieldException, SecurityException {
 		Criteria criteria = session.createCriteria(type);
 		for (String key: keyFieldValues.keySet()) {
-			criteria.add(Restrictions.eq(key,
-					convert(String.class, keyFieldValues.get(key))));
+			Field field = type.getDeclaredField(key);
+			if (field.getType().isAnnotationPresent(Entity.class)) {
+				ArrayList<String> keyFields = classInfos.get(type.getName()).getFieldInfos().get(field.getName()).getKeys();
+				ArrayList<String> keyValues = new ArrayList<String>();
+				keyValues.addAll(Arrays.asList(((String)keyFieldValues.get(key)).split(",")));
+				Object value = getEntityByKey(field.getType(), toKeyFieldValuesMap(keyFields, keyValues), classInfos);
+				keyFieldValues.put(key, value);
+			}
+			criteria.add(Restrictions.eq(key, keyFieldValues.get(key)));
 		}
 		return criteria.uniqueResult();
 	}

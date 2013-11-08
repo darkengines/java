@@ -3,15 +3,23 @@
   <display-name>darkengines</display-name>
   <servlet>
     <servlet-name>index</servlet-name>
-    <servlet-class>darkengines.client.Index</servlet-class>
+    <servlet-class>application.Index</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>create_account</servlet-name>
-    <servlet-class>darkengines.client.CreateAccount</servlet-class>
+    <servlet-class>application.CreateAccount</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>edit_dev_identity</servlet-name>
-    <servlet-class>darkengines.client.EditDevIdentity</servlet-class>
+    <servlet-class>application.EditDevIdentity</servlet-class>
+  </servlet>
+   <servlet>
+    <servlet-name>create_account_test</servlet-name>
+    <servlet-class>server.CreateAccount</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>email_exists</servlet-name>
+    <servlet-class>server.EmailExists</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>index</servlet-name>
@@ -24,5 +32,13 @@
   <servlet-mapping>
     <servlet-name>edit_dev_identity</servlet-name>
     <url-pattern>/edit_dev_identity</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>create_account_test</servlet-name>
+    <url-pattern>/create_account_test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>email_exists</servlet-name>
+    <url-pattern>/email_exists</url-pattern>
   </servlet-mapping>
 </web-app>
