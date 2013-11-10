@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -34,7 +35,11 @@ public class CreateAccount extends JSonService {
 		if (result.isEmpty()) {
 			User user = new User();
 			user.setEmail(params.get("email")[0]);
-			user.setPassword(params.get("password")[0]);
+			try {
+				user.setPassword(User.hashPassword(params.get("password")[0]));
+			} catch (NoSuchAlgorithmException e) {
+				((HttpServletResponse)response).setStatus(500);
+			}
 			user.setType(UserType.valueOf(params.get("type")[0]));
 			Session session = DBSessionFactory.GetSession();
 			Transaction transaction = session.beginTransaction();

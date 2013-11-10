@@ -1,6 +1,11 @@
 package server;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
 
 import darkengines.database.IdentifiedEntity;
 
@@ -13,7 +18,7 @@ public class User extends IdentifiedEntity {
 	
 	public String getEmail() {
 		return email;
-	}
+	}	
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -29,5 +34,9 @@ public class User extends IdentifiedEntity {
 	public void setType(UserType type) {
 		this.type = type;
 	}
-	
+	public static String hashPassword(String password) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("SHA-1");
+		md.update(password.getBytes());
+		return new BigInteger( 1, md.digest() ).toString(16);
+	}
 }
