@@ -5,22 +5,14 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 
+import server.model.ModelFactory;
+import server.model.TestClass;
 import darkengines.importer.Importer;
 
 public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException, IOException {
-		//Importer importer = new Importer();
-		//importer.Import("J:/java/darkengines/data/data.xlsx");
-		String s = "caca";
-		String s2 = "caca";
-		try {
-			String test = User.hashPassword(s);
-			String test2 = User.hashPassword(s2);
-			boolean ok = test.equals(test2);
-			System.out.println(ok);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String test = "{email: rivarol89@hotmail.com, date: date}";
+		TestClass c = new ModelFactory<TestClass>(TestClass.class).buildModel(test);
+		System.out.println(c);
 	}
 }
