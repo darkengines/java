@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 
+import com.google.gson.JsonParseException;
+
 import server.model.ModelFactory;
 import server.model.TestClass;
 import darkengines.importer.Importer;
@@ -12,7 +14,11 @@ import darkengines.importer.Importer;
 public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException, IOException {
 		String test = "{email: rivarol89@hotmail.com, date: date}";
-		TestClass c = new ModelFactory<TestClass>(TestClass.class).buildModel(test);
-		System.out.println(c);
+		try {
+			TestClass c = new ModelFactory<TestClass>(TestClass.class).buildModel(test);
+		} catch (JsonParseException e) {
+			Object o = e;
+		}
+		//System.out.println(c);
 	}
 }

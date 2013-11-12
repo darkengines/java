@@ -14,10 +14,14 @@ public class DateDeserializer implements JsonDeserializer<Date> {
 	@Override
 	public Date deserialize(JsonElement json, Type typeOfT,
 			JsonDeserializationContext context) throws JsonParseException {
-		long time = json.getAsJsonPrimitive().getAsLong();
-		Date date = new Date();
-		date.setTime(time);
-		return date;
+		try {
+			long time = json.getAsJsonPrimitive().getAsLong();
+			Date date = new Date();
+			date.setTime(time);
+			return date;
+		} catch (NumberFormatException e) {
+			throw new JsonParseException("Invalid timestamp", e);
+		}
 	}
 
 }
