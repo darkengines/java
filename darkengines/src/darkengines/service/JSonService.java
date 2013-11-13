@@ -8,10 +8,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
 
+import darkengines.model.ModelValidator;
 import darkengines.serialization.SerializerFactory;
 
+@SuppressWarnings("serial")
 public abstract class JSonService<IT, OT> extends Service {
 
 	@Override
@@ -25,18 +26,23 @@ public abstract class JSonService<IT, OT> extends Service {
 		String data = request.getParameter("data");
 		Gson gson = SerializerFactory.getSerializer();
 		try {
-			IT input = (IT)gson.fromJson(data, getInputType());
+			IT input = null;
+			if (data != null) {
+				input = (IT)gson.fromJson(data, getInputType());
+				ModelValidator<IT> modelValidator = new ModelValidator<IT>(getInputType());
+				modelValidator.validate(input);
+			}
 			OT output = processJsonRequest(input);
 			response.getWriter().write(gson.toJson(output));
-		} catch (JsonParseException e) {
-			((HttpServletResponse)response).setStatus(500);
-			response.getWriter().write(e.getLocalizedMessage());
 		} catch (Exception e) {
-			((HttpServletResponse)response).setStatus(500);
-			response.getWriter().write(e.getLocalizedMessage());
+			error(e.getLocalizedMessage(), response);
 		}
 	}
-	public abstract Class<?> getInputType();
-	public abstract Class<?> getOutputType();
-	public abstract OT processJsonRequest(IT data);
+	protected void error(String message, ServletResponse response) throws IOException {
+		((HttpServletResponse)response).setStatus(500);
+		response.getWriter().write(message);
+	}
+	public abstract Class<IT> getInputType();
+	public abstract Class<OT> getOutputType();
+	public abstract OT processJsonRequest(IT data) throws Exception;
 }

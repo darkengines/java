@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.reflections.Reflections;
 
 import server.User;
@@ -30,7 +31,8 @@ public class DBSessionFactory {
 	    for (Class<?> c: entities) {
 	    	configuration.addAnnotatedClass(c);
 	    }
-	    ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();  
+	    ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+	    new SchemaUpdate(configuration).execute(true, true);
 	    SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	    return sessionFactory;
 	}

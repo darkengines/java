@@ -1,5 +1,6 @@
 (function($) {
 	$(document).ready(function() {
+		$.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 		$('form .Field label').each(function() {
 			var $label = $(this);
 			var $field = $label.parent();
@@ -48,9 +49,9 @@
 					$emailResult.text('Ce courriel n\'est pas valide');
 				} else {
 					$.ajax({
-						url: 'email_exists',
+						url: 'email_exists_test',
 						data: {
-							email: $email.val(),
+							data: $email.val(),
 						},
 						success: function(result) {
 							if (result) {
@@ -80,8 +81,70 @@
 			$form.submit(function(e) {
 				$.ajax({
 					url: $form.attr('action'),
-					data: $form.serialize(),
-					success: function() {
+					data: {
+						data: JSON.stringify($form.serializeObject())
+					},
+					success: function(token) {
+						$.cookie('token', token);
+						window.location.href = 'edit_dev_identity';
+					},
+					error: function() {
+						
+					}
+				});
+				e.preventDefault();
+			});
+		});
+		$('form.UpdateIdentity').each(function() {
+			var $form = $(this);
+			var $city_ui = $('input[name=city_ui]');
+			var $birthDate = $('input[name=birthDate]');
+			var $city = $('input[name=cityId]');
+			var $birthDate_ui = $('input[name=birthDate_ui]');
+			$birthDate_ui.each(function() {
+				var $this = $(this);
+				$this.datepicker({
+					dateFormat: "dd/mm/yy",
+					onSelect: function() {
+						$birthDate.val($(this).datepicker('getDate').getTime());
+					}
+				});
+			});
+			$city_ui.each(function() {
+				var $this = $(this);
+				$this.autocomplete({
+					source: function (request, response) {
+				         $.ajax({
+				             url: "cities_test",
+				             data: { data: request.term },
+				             dataType: "json",
+				             success: function(data) {
+				            	 response($.map(data, function(value, key) {
+				            		 return {label:value, id:key};
+				            	 }));
+				             },
+				             error: function () {
+				                 response([]);
+				             }
+				         });
+				     },
+				     change: function(event, $ui) {
+		            	 $city.val($ui.item.id);
+		             },
+				});
+			});
+			$form.submit(function(e) {
+				var data = $form.serializeObject();
+				delete data['birthDate_ui'];
+				delete data['city_ui'];
+				data.token = $.cookie('token');
+				$.ajax({
+					url: $form.attr('action'),
+					data: {
+						data: JSON.stringify(data)
+					},
+					success: function(token) {
+						$.cookie('token', token);
 						window.location.href = 'edit_dev_identity';
 					},
 					error: function() {
@@ -94,5 +157,21 @@
 		function isEmail(raw) {
 			return raw.match("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$");
 		}
+		$.fn.serializeObject = function()
+		{
+		    var o = {};
+		    var a = this.serializeArray();
+		    $.each(a, function() {
+		        if (o[this.name] !== undefined) {
+		            if (!o[this.name].push) {
+		                o[this.name] = [o[this.name]];
+		            }
+		            o[this.name].push(this.value || '');
+		        } else {
+		            o[this.name] = this.value || '';
+		        }
+		    });
+		    return o;
+		};
 	});
 })(jQuery);

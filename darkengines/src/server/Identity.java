@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import darkengines.database.IdentifiedEntity;
 
@@ -15,6 +16,8 @@ public class Identity extends IdentifiedEntity {
 	@ManyToOne
 	private City city;
 	private String address;
+	@OneToOne
+	private User user;
 	public String getLastName() {
 		return lastName;
 	}
@@ -44,5 +47,11 @@ public class Identity extends IdentifiedEntity {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

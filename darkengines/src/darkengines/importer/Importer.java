@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -89,7 +90,7 @@ public class Importer {
 								.getStringCellValue();
 						FieldInfo fieldInfo = classInfo.getFieldInfos().get(
 								fieldName);
-						Field field = c.getDeclaredField(fieldName);
+						Field field = getField(fieldName, c);
 						boolean isComplex = field.getType()
 								.isAnnotationPresent(Entity.class);
 						Object value = null;
@@ -112,7 +113,7 @@ public class Importer {
 						x = c.getConstructor().newInstance();
 					}
 					for (String fieldName: xFieldValues.keySet()) {
-						Field field = c.getDeclaredField(fieldName);
+						Field field = getField(fieldName, c);
 						field.setAccessible(true);
 						field.set(x, xFieldValues.get(fieldName));
 					}
@@ -124,6 +125,28 @@ public class Importer {
 			i++;
 		}
 		session.close();
+		return null;
+	}
+	
+	public static List<Field> getAllFields(List<Field> fields, Class<?> type) {
+	    for (Field field: type.getDeclaredFields()) {
+	        fields.add(field);
+	    }
+
+	    if (type.getSuperclass() != null) {
+	        fields = getAllFields(fields, type.getSuperclass());
+	    }
+
+	    return fields;
+	}
+	
+	public static Field getField(String name, Class<?> type) {
+		List<Field> fields = getAllFields(new ArrayList<Field>(), type);
+		for (Field field: fields) {
+			if (field.getName().equals(name)) {
+				return field;
+			}
+		}
 		return null;
 	}
 	
@@ -140,7 +163,7 @@ public class Importer {
 	private Object getEntityByKey(Class<?> type, Map<String, Object> keyFieldValues, Map<String, ClassInfo> classInfos) throws NoSuchFieldException, SecurityException {
 		Criteria criteria = session.createCriteria(type);
 		for (String key: keyFieldValues.keySet()) {
-			Field field = type.getDeclaredField(key);
+			Field field = getField(key, type);
 			if (field.getType().isAnnotationPresent(Entity.class)) {
 				ArrayList<String> keyFields = classInfos.get(type.getName()).getFieldInfos().get(field.getName()).getKeys();
 				ArrayList<String> keyValues = new ArrayList<String>();
