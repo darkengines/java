@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import server.Diploma;
 import server.PostalCode;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
-public class Diplomas extends JSonService<Object, Map> {
+public class Diplomas extends JSonService<String, Map> {
 
 	@Override
-	public Class<Object> getInputType() {
-		return null;
+	public Class<String> getInputType() {
+		return String.class;
 	}
 
 	@Override
@@ -24,9 +25,9 @@ public class Diplomas extends JSonService<Object, Map> {
 	}
 
 	@Override
-	public Map<Long, String> processJsonRequest(Object data) throws Exception {
+	public Map<Long, String> processJsonRequest(String data) throws Exception {
 		Session session = DBSessionFactory.GetSession();
-		List<Diploma> diplomas = session.createCriteria(Diploma.class).list();
+		List<Diploma> diplomas = session.createCriteria(Diploma.class).add(Restrictions.like("name", String.format("%%%s%%", data))).list();
 		Map<Long, String> result = new HashMap<Long, String>();
 		for (Diploma diploma: diplomas) {
 			result.put(diploma.getId(), diploma.getName());

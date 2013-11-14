@@ -9,10 +9,11 @@ import org.hibernate.criterion.Restrictions;
 import server.User;
 import server.UserSession;
 import server.model.CreateAccountInput;
+import server.model.LoginOutput;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
-public class CreateAccount extends JSonService<CreateAccountInput, String> {
+public class CreateAccount extends JSonService<CreateAccountInput, LoginOutput> {
 
 	@Override
 	public Class getInputType() {
@@ -25,7 +26,7 @@ public class CreateAccount extends JSonService<CreateAccountInput, String> {
 	}
 
 	@Override
-	public String processJsonRequest(CreateAccountInput data)
+	public LoginOutput processJsonRequest(CreateAccountInput data)
 			throws Exception {
 		User user = new User();
 		user.setEmail(data.getEmail());
@@ -46,7 +47,10 @@ public class CreateAccount extends JSonService<CreateAccountInput, String> {
 		session.flush();
 		transaction.commit();
 		session.close();
-		return Long.toString(userSession.getId());
+		LoginOutput out = new LoginOutput();
+		out.setSessionId(userSession.getId());
+		out.setUserId(user.getId());
+		return out;
 	}
 
 }

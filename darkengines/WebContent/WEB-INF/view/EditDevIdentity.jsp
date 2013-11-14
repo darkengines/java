@@ -2,11 +2,11 @@
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
-	<form method="post" action="update_identity_test" class="UpdateIdentity">
+	<form method="post" action="update_identity_test" class="UpdateIdentity LabelInline">
 		<input type="hidden" name="birthDate"/>
 		<input type="hidden" name="cityId"/>
 		<div class="Title">
-			<h3>Informations personnelles</h3>
+			<h3>Informations personnelles <span class="Notification"></span></h3>
 		</div>
 		<div class="Field">
 			<label for="lastName">Nom</label> <input type="text" id="lastName"

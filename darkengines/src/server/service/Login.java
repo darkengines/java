@@ -1,14 +1,6 @@
 package server.service;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,15 +8,9 @@ import org.hibernate.criterion.Restrictions;
 
 import server.User;
 import server.UserSession;
-import server.model.CreateAccountInput;
-import server.model.CreateAccountOutput;
 import server.model.LoginInput;
 import server.model.LoginOutput;
-
-import com.google.gson.Gson;
-
 import darkengines.database.DBSessionFactory;
-import darkengines.serialization.SerializerFactory;
 import darkengines.service.JSonService;
 
 public class Login extends JSonService<LoginInput, LoginOutput> {
@@ -65,6 +51,7 @@ public class Login extends JSonService<LoginInput, LoginOutput> {
 		
 		LoginOutput output = new LoginOutput();
 		output.setSessionId(userSession.getId());
+		output.setUserId(user.getId());
 		
 		return output;
 	}

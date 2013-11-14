@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
-	<form method="post" class="Login" action="login_test">
+	<form method="post" class="Login LabelInline" action="login_test">
 		<div class="Title">
 			<h3>Connexion</h3>
 		</div>

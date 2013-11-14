@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
-	<form method="post" class="CreateAccount" action="create_account_test">
+	<form method="post" class="CreateAccount LabelInline" action="create_account_test">
 		<div class="Title">
 			<h3>Création de compte</h3>
 		</div>
