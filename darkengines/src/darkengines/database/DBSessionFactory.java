@@ -32,7 +32,6 @@ public class DBSessionFactory {
 	    	configuration.addAnnotatedClass(c);
 	    }
 	    ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-	    new SchemaUpdate(configuration).execute(true, true);
 	    SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	    return sessionFactory;
 	}

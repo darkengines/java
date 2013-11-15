@@ -26,7 +26,7 @@ PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
 		</property>
 
 		<!-- Echo all executed SQL to stdout -->
-		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.show_sql">false</property>
 		
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hibernate.hbm2ddl.auto">update</property>

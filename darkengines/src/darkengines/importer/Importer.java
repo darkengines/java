@@ -103,10 +103,12 @@ public class Importer {
 						} else {
 							value = CellToObject(row.getCell(columnIndex));
 						}
-						if (fieldInfo.isKey()) {
-							xKeyFieldValues.put(fieldName, value.toString());
+						if (value != null) {
+							if (fieldInfo.isKey()) {
+								xKeyFieldValues.put(fieldName, value.toString());
+							}
+							xFieldValues.put(fieldName, value);
 						}
-						xFieldValues.put(fieldName, value);
 					}
 					Object x = getEntityByKey(c, xKeyFieldValues, infos);
 					if (x == null) {
