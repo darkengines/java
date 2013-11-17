@@ -36,17 +36,21 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 		if (user == null) {
 			throw new Exception("user.notFound");
 		}
-		ProfileOutput model = new ProfileOutput();
 		Profile profile = user.getProfile();
 		session.close();
 		if (profile != null) {
-			model.setDiploma(new ListValueModel(profile.getDiploma()));
+			ProfileOutput model = new ProfileOutput();
+			if (profile.getDiploma() != null) {
+				model.setDiploma(new ListValueModel(profile.getDiploma()));
+			}
 			model.setSeniority(profile.getSeniority());
 			model.setProgrammingLanguage(new ListValuesModel(profile.getProgrammingLanguages()).getItems());
 			model.setFrameworks(new ListValuesModel(profile.getFrameworks()).getItems());
 			model.setLanguages(new ListValuesModel(profile.getLanguages()).getItems());
+			return model;
+		} else {
+			return null;
 		}
-		return model;
 	}
 	
 }

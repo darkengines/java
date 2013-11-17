@@ -70,9 +70,16 @@ form h3 .Notification.Loading {
 }
 form .Field {
 	position: relative;
-	margin: 4px 0 0 0;
+	margin: 0;
 	width: 100%;
-	min-height: 32px;
+	height: auto;
+	padding: 8px;
+}
+form .Field:nth-child(2n) {
+	background-color: rgba(64,64,64,1);
+}
+form .Field:nth-child(2n+1) {
+	background-color: rgba(42,42,42,1);
 }
 form .Field input[type=text], form .Field input[type=password], form .Field input[type=file] {
 	border: solid 2px rgba(150, 100, 0, 1);
@@ -192,6 +199,9 @@ form.UpdateProfile label {
 	width: 280px;
 	display: inline-block;
 }
+form.UpdateProfile {
+
+}
 form.UpdateProfile input[name=seniority] {
 	width: 32px;
 }
@@ -199,4 +209,7 @@ form.UpdateProfile .SeniorityUi {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
+}
+form.UpdateIdentity {
+
 }

@@ -37,28 +37,36 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 		if (user == null) {
 			throw new Exception("token.invalid");
 		}
-		Session session = DBSessionFactory.GetSession();
-		List<ProgrammingLanguage> programmingLanguages = session.createCriteria(ProgrammingLanguage.class)
-				.add(Restrictions.in("id", data.getProgrammingLanguageIds()))
-				.list();
-		List<Framework> frameworks = session.createCriteria(Framework.class)
-				.add(Restrictions.in("id", data.getFrameworkIds()))
-				.list();
-		List<Language> languages = session.createCriteria(Language.class)
-				.add(Restrictions.in("id", data.getLanguageIds()))
-				.list();
-		Diploma diploma = (Diploma)session.createCriteria(Diploma.class).add(Restrictions.eq("id", data.getDiplomaId())).uniqueResult();
 		Profile profile = user.getProfile();
 		if (profile == null) {
 			profile = new Profile();
 		}
-		profile.getProgrammingLanguages().clear();
-		profile.getProgrammingLanguages().addAll(programmingLanguages);
-		profile.getFrameworks().clear();
-		profile.getFrameworks().addAll(frameworks);
-		profile.getLanguages().clear();
-		profile.getLanguages().addAll(languages);
-		profile.setDiploma(diploma);
+		Session session = DBSessionFactory.GetSession();
+		if (data.getProgrammingLanguageIds() != null) {
+			List<ProgrammingLanguage> programmingLanguages = session.createCriteria(ProgrammingLanguage.class)
+					.add(Restrictions.in("id", data.getProgrammingLanguageIds()))
+					.list();
+			profile.getProgrammingLanguages().clear();
+			profile.getProgrammingLanguages().addAll(programmingLanguages);
+		}
+		if (data.getFrameworkIds() != null) {
+			List<Framework> frameworks = session.createCriteria(Framework.class)
+					.add(Restrictions.in("id", data.getFrameworkIds()))
+					.list();
+			profile.getFrameworks().clear();
+			profile.getFrameworks().addAll(frameworks);
+		}
+		if (data.getLanguageIds() != null) {
+			List<Language> languages = session.createCriteria(Language.class)
+					.add(Restrictions.in("id", data.getLanguageIds()))
+					.list();
+			profile.getLanguages().clear();
+			profile.getLanguages().addAll(languages);
+		}
+		if (data.getDiplomaId() != null) {
+			Diploma diploma = (Diploma)session.createCriteria(Diploma.class).add(Restrictions.eq("id", data.getDiplomaId())).uniqueResult();
+			profile.setDiploma(diploma);
+		}
 		profile.setSeniority(data.getSeniority());
 		profile.setUser(user);
 		

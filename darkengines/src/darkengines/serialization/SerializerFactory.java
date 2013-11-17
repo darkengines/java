@@ -17,6 +17,7 @@ public class SerializerFactory {
 
 	private static Gson createGson() {
 		Gson gson = new GsonBuilder()
+			.serializeNulls()
 			.registerTypeAdapter(Date.class, new DateSerializer())
 			.registerTypeAdapter(Date.class, new DateDeserializer())
 			.create();

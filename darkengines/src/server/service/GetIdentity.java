@@ -34,7 +34,9 @@ public class GetIdentity extends JSonService<Long, UserIdentityOutput> {
 		session.close();
 		if (identity != null) {
 			model.setAddress(identity.getAddress());
-			model.setBirthDate(identity.getBirthDate().getTime());
+			if (identity.getBirthDate() != null) {
+				model.setBirthDate(identity.getBirthDate().getTime());
+			}
 			if (identity.getCity() != null) {
 				model.setCity(new CityModel(identity.getCity()));
 			}

@@ -17,7 +17,7 @@
 			});
 		};
 		application.processLabels = function($form) {
-			$('form.LabelInline .Field label', $form).each(function() {
+			$('.Field label', $form).each(function() {
 				var $label = $(this);
 				var $field = $label.parent();
 				var id = $label.attr('for');
@@ -193,14 +193,20 @@
 					data: application.user.userId
 				},
 				success: function(data) {
-					$lastName.val(data.lastName);
-					$firstName.val(data.firstName);
-					$address.val(data.address);
-					$city.val(data.city.id);
-					$city_ui.val(data.city.name);
-					$birthDate_ui.datepicker('setDate', (new Date(data.birthDate)));
-					$birthDate.val(data.birthDate);
-					application.processLabels($form);
+					if (data != null) {
+						$lastName.val(data.lastName);
+						$firstName.val(data.firstName);
+						$address.val(data.address);
+						if (data.city != null) {
+							$city.val(data.city.id);
+							$city_ui.val(data.city.name);
+						}
+						if (data.birthDate != null) {
+							$birthDate_ui.datepicker('setDate', (new Date(data.birthDate)));
+							$birthDate.val(data.birthDate);
+						}
+						application.processLabels($form);
+					}
 				},
 				beforeSend: function() {
 					application.disableForm($form, true);
@@ -348,13 +354,17 @@
 					application.disableForm($form, false);
 				},
 				success: function(data) {
-					$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
-					$frameworks.magicSuggest().addToSelection(data.frameworks);
-					$languages.magicSuggest().addToSelection(data.languages);
-					$diploma_ui.val(data.diploma.name);
-					$diploma.val(data.diploma.id);
-					$seniority.val(data.seniority);
-					$seniority_ui.slider('value', data.seniority);
+					if (data != null) {
+						$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
+						$frameworks.magicSuggest().addToSelection(data.frameworks);
+						$languages.magicSuggest().addToSelection(data.languages);
+						if (data.diploma != null) {
+							$diploma_ui.val(data.diploma.name);
+							$diploma.val(data.diploma.id);
+						}
+						$seniority.val(data.seniority);
+						$seniority_ui.slider('value', data.seniority);
+					}
 				}
 			});
 			$form.submit(function(e) {

@@ -160,21 +160,23 @@
 }
 .ms-sel-ctn{
     overflow: auto;
-    line-height: 22px;
-    padding-right:27px;
-	margin: 6px 0 16px 0;
+	line-height: 22px;
+	padding-right: 27px;
+	margin: 8px 0 0 0;
 	display: block;
 	vertical-align: top;
 }
 .ms-sel-ctn .ms-sel-item{
-    background: #555;
-    color: #EEE;
-    float: left;
-    font-size: 12px;
-    padding: 0 5px;
-    border-radius: 3px;
-    margin-left: 5px;
-    margin-top: 4px;
+    background: rgba(228, 182, 62, 1);
+	font-weight: bold;
+	color: #202020;
+	display: inline-block;
+	font-size: 12px;
+	padding: 0 5px;
+	border-radius: 3px;
+	margin-left: 5px;
+	margin-top: 4px;
+	cursor: default;
 }
 .ms-sel-ctn .ms-sel-text{
     background: #FFF;

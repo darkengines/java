@@ -5,6 +5,7 @@ import java.beans.PropertyEditorManager;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -184,14 +185,14 @@ public class Importer {
 		return editor.getValue();
 	}
 
-	private Object CellToObject(Cell cell) {
+	private Object CellToObject(Cell cell) throws UnsupportedEncodingException {
 		switch (cell.getCellType()) {
 		case (HSSFCell.CELL_TYPE_NUMERIC): {
 			return cell.getNumericCellValue();
 		}
 
 		case (HSSFCell.CELL_TYPE_STRING): {
-			return cell.getStringCellValue();
+			return new String(cell.getStringCellValue().getBytes(),"ISO-8859-1");
 		}
 
 		default:
