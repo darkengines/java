@@ -82,22 +82,28 @@ form .Field:nth-child(2n+1) {
 	background-color: rgba(42,42,42,1);
 }
 form .Field input[type=text], form .Field input[type=password], form .Field input[type=file] {
-	border: solid 2px rgba(150, 100, 0, 1);
+	border: solid 1px rgba(255, 255, 255, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
 	margin: 0;
-	padding: 0 0 0 4px;
-	height: 28px;
-	line-height: 28px;
-	font-size: 18px;
+	padding: 2px;
+	outline: none;
+	font-size: 16px;
 	color: rgba(224,224,224,1);
 	box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 	width: 256px;
+	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 form .Field input:focus {
 	border-color: rgba(240, 173, 0, 1);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
 }
 form .Field textarea {
 	border: solid 2px rgba(150, 100, 0, 1);
@@ -113,17 +119,6 @@ form .Field textarea {
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 	width: 100%;
-}
-form.LabelInline .Field label {
-	position: absolute;
-	top: 3px;
-	left: 4px;
-	cursor: text;
-	font-size: 18px;
-	color: rgba(100,100,100,1);
-}
-form .Field label {
-	vertical-align: top;
 }
 form .Field input[type=submit], form .Field button {
 	background-image: -webkit-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
@@ -194,6 +189,10 @@ form .Field .Result.Ok {
 }
 form .Field .Result.Error {
 	background-image: url(../image/error.png);
+}
+form.UpdateIdentity label {
+	width: 140px;
+	display: inline-block;
 }
 form.UpdateProfile label {
 	width: 280px;

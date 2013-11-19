@@ -2,22 +2,22 @@
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
-	<form method="post" class="CreateAccount LabelInline" action="create_account_test">
+	<form method="post" class="CreateAccount" action="create_account_test">
 		<div class="Title">
 			<h3>Création de compte</h3>
 		</div>
 		<div class="Field">
-			<label for="email">Courriel</label> <input type="text" id="email"
+			<input placeholder="Courriel" type="text" id="email"
 				name="email" />
 				<div class="Result"></div>
 		</div>
 		<div class="Field">
-			<label for="password">Mot de passe</label> <input type="password"
+			<input placeholder="Mot de passe" type="password"
 				id="password" name="password" />
 				<div class="Result"></div>
 		</div>
 		<div class="Field">
-			<label for="password_confirmation">Retapez votre mot de passe</label> <input
+			<input placeholder="Retapez votre mot de passe"
 				type="password" id="password_confirmation"
 				name="password_confirmation" />
 				<div class="Result"></div>

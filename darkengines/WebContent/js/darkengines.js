@@ -16,32 +16,7 @@
 				}
 			});
 		};
-		application.processLabels = function($form) {
-			$('.Field label', $form).each(function() {
-				var $label = $(this);
-				var $field = $label.parent();
-				var id = $label.attr('for');
-				var $input = $('#'+id, $field);
-				if ($input.val() != '') {
-					$label.hide();
-				}	
-			});
-		};
 		$.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
-		$('form.LabelInline .Field label').each(function() {
-			var $label = $(this);
-			var $field = $label.parent();
-			var id = $label.attr('for');
-			var $input = $('#'+id, $field);
-			$input.focus(function() {
-				$label.hide();
-			});
-			$input.blur(function() {
-				if ($input.val() == '') {
-					$label.show();
-				}
-			});		
-		});
 		$('form .Field .File').each(function() {
 			var $container = $(this);
 			var $browse = $('.Browse', $container);
@@ -106,7 +81,7 @@
 						success: function(result) {
 							if (result) {
 								$emailResult.removeClass('Ok').addClass('Error');
-								$emailResult.text('Ce courriel est déjà utilisé');
+								$emailResult.text('Ce courriel est dï¿½jï¿½ utilisï¿½');
 							} else {
 								$emailResult.removeClass('Error').addClass('Ok');
 								$emailResult.text('Ok');
@@ -205,7 +180,6 @@
 							$birthDate_ui.datepicker('setDate', (new Date(data.birthDate)));
 							$birthDate.val(data.birthDate);
 						}
-						application.processLabels($form);
 					}
 				},
 				beforeSend: function() {

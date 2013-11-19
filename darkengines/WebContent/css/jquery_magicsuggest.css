@@ -31,11 +31,10 @@
 }
 .ms-ctn-bootstrap-focus,
 .ms-ctn-bootstrap-focus .ms-res-ctn{
-    border-color: rgba(82, 168, 236, 0.8) !important;
-    /* IE6-9 */
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6) !important;
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6) !important;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6) !important;
+    border-color: rgba(240, 173, 0, 1);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
