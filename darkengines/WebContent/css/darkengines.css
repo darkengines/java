@@ -120,23 +120,6 @@ form .Field textarea {
     -moz-box-sizing: border-box;
 	width: 100%;
 }
-form .Field input[type=submit], form .Field button {
-	background-image: -webkit-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
-	background-image: -moz-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
-	background-image: -ms-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
-	background-image: -o-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
-	background-image: linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
-	border: solid 2px rgba(150, 100, 0, 1);
-	border-radius: 4px;
-	margin: 0;
-	padding: 0 0 0 2px;
-	height: 30px;
-	line-height: 30px;
-	color: rgba(224,224,224,1);
-	font-size: 18px;
-	cursor: pointer;
-	display: inline-block;
-}
 form .Field .File {
 	position: relative;
 	height: 30px;
@@ -211,4 +194,49 @@ form.UpdateProfile .SeniorityUi {
 }
 form.UpdateIdentity {
 
+}
+button, input[type=button], input[type=submit] {
+	-moz-box-shadow:inset 0px 1px 8px 0px #fed897;
+	-webkit-box-shadow:inset 0px 1px 8px 0px #fed897;
+	box-shadow:inset 0px 1px 8px 0px #fed897;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f6b33d), color-stop(1, #d29105) );
+	background:-moz-linear-gradient( center top, #f6b33d 5%, #d29105 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6b33d', endColorstr='#d29105');
+	background-color:#f6b33d;
+	-webkit-border-top-left-radius:4px;
+	-moz-border-radius-topleft:4px;
+	border-top-left-radius:4px;
+	-webkit-border-top-right-radius:4px;
+	-moz-border-radius-topright:4px;
+	border-top-right-radius:4px;
+	-webkit-border-bottom-right-radius:4px;
+	-moz-border-radius-bottomright:4px;
+	border-bottom-right-radius:4px;
+	-webkit-border-bottom-left-radius:4px;
+	-moz-border-radius-bottomleft:4px;
+	border-bottom-left-radius:4px;
+	text-indent:0px;
+	border:1px solid #eda933;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:28px;
+	line-height:28px;
+	width:auto;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:0px 2px 2px #cd8a15;
+}
+button:hover, input[type=button]:hover, input[type=submit]:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d29105), color-stop(1, #f6b33d) );
+	background:-moz-linear-gradient( center top, #d29105 5%, #f6b33d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d29105', endColorstr='#f6b33d');
+	background-color:#d29105;
+}
+button:active, input[type=button]:active, input[type=submit]:active {
+	position:relative;
+	top:1px;
 }

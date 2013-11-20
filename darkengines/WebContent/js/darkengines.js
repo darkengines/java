@@ -164,6 +164,7 @@
 			});
 			$.ajax({
 				url: 'get_identity_test',
+				cache: false,
 				data: {
 					data: application.user.userId
 				},
@@ -316,6 +317,7 @@
 			});
 			$.ajax({
 				url: 'get_profile_test',
+				cache: false,
 				data: {
 					data: application.user.userId
 				},

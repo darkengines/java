@@ -13,8 +13,9 @@
   <script type="text/javascript" src="js/jquery_ui_datepicker_fr.js"></script>
   <script type="text/javascript" src="js/jquery_purl.js"></script>
   <script type="text/javascript" src="js/jquery_magicsuggest.js"></script>
-  <script type="text/javascript" src="js/darkengines.js"></script>
   <script type="text/javascript" src="js/modernizr.js"></script>
+  <script type="text/javascript" src="js/modernize.js"></script>
+  <script type="text/javascript" src="js/darkengines.js"></script>
 </head>
 <body>
 <div class="Container">

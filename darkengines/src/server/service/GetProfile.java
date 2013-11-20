@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import server.Identity;
 import server.Profile;
 import server.User;
+import server.UserType;
 import server.model.CityModel;
 import server.model.ListValueModel;
 import server.model.ListValuesModel;
@@ -34,7 +35,10 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 		Session session = DBSessionFactory.GetSession();
 		User user = (User)session.createCriteria(User.class).add(Restrictions.eq("id", data)).uniqueResult();
 		if (user == null) {
-			throw new Exception("user.notFound");
+			throw new Exception("user.id.invalid");
+		}
+		if (user.getType() != UserType.Dev) {
+			throw new Exception("user.type.invalid");
 		}
 		Profile profile = user.getProfile();
 		session.close();

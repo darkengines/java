@@ -12,6 +12,7 @@ import server.Language;
 import server.Profile;
 import server.ProgrammingLanguage;
 import server.User;
+import server.UserType;
 import server.model.ProfileInput;
 import server.model.ProfileOutput;
 import darkengines.database.DBSessionFactory;
@@ -36,6 +37,9 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 		User user = Util.getUserByToken(data.getToken());
 		if (user == null) {
 			throw new Exception("token.invalid");
+		}
+		if (user.getType() != UserType.Dev) {
+			throw new Exception("user.type.invalid");
 		}
 		Profile profile = user.getProfile();
 		if (profile == null) {
