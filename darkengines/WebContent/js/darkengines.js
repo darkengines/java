@@ -222,6 +222,8 @@
 			var $diploma = $('input[name=diplomaId]');
 			var $seniority = $('input[name=seniority]');
 			var $seniority_ui = $('.SeniorityUi');
+			var $photo = $('input[name=photo]');
+			var $photoDisplay = $('.Photo');
 			$programmingLanguages.each(function() {
 				$this = $(this);
 				$this.magicSuggest({
@@ -338,11 +340,185 @@
 							$diploma_ui.val(data.diploma.name);
 							$diploma.val(data.diploma.id);
 						}
+						if (data.photo != null && data.photo.length > 0) {
+							$photoDisplay.attr('src', data.photo);
+						}
 						$seniority.val(data.seniority);
 						$seniority_ui.slider('value', data.seniority);
 					}
 				}
 			});
+			$photo.change(function() {
+				var $this = $(this);
+				var reader= new FileReader();
+				reader.onerror = function(e) {
+					alert(e);
+				};
+				reader.onload = function(e) {
+					$photoDisplay.attr('src', e.target.result);
+		        };
+		        reader.readAsDataURL($this.get(0).files[0]);
+			});
+			$form.submit(function(e) {
+				var data = $form.serializeObject();
+				delete data['diploma_ui'];
+				var reader= new FileReader();
+				reader.onerror = function(e) {
+					alert(e);
+				};
+				reader.onload = function(e) {
+		             data.photo = e.target.result;
+		             data.token = application.user.sessionId;
+						$.ajax({
+							url: $form.attr('action'),
+							method: 'POST',
+							data: {
+								data: JSON.stringify(data)
+							},
+							success: function(token) {
+
+							},
+							error: function() {
+								
+							}
+						});
+		        };
+				reader.readAsDataURL($photo.get(0).files[0]);
+				e.preventDefault();
+			});
+		});
+		$('form.SearchDev').each(function() {
+			var $form = $(this);
+			var $programmingLanguages = $('input[name=programmingLanguageIds]');
+			var $frameworks = $('input[name=frameworkIds]');
+			var $languages = $('input[name=languageIds]');
+			var $notifier = $('.Notification');
+			var $diploma_ui = $('input[name=diploma_ui]');
+			var $diploma = $('input[name=diplomaId]');
+			var $seniority = $('input[name=seniority]');
+			var $seniority_ui = $('.SeniorityUi');
+			var $result = $('.SearchResult .Collection');
+			$programmingLanguages.each(function() {
+				$this = $(this);
+				$this.magicSuggest({
+					data: function(query, reponse) {
+						$.ajax({
+							url: 'programming_languages_test',
+							data: {
+								data: JSON.stringify(query)
+							},
+							success: function(data) {
+								reponse($.map(data, function(value, key) {
+					            	 return {name:value, id:key};
+					            }));
+							},
+						});
+					},
+					selectionPosition: 'bottom',
+				});
+			});
+			$frameworks.each(function() {
+				$this = $(this);
+				$this.magicSuggest({
+					data: function(query, reponse) {
+						$.ajax({
+							url: 'frameworks_test',
+							data: {
+								data: JSON.stringify(query)
+							},
+							success: function(data) {
+								reponse($.map(data, function(value, key) {
+					            	 return {name:value, id:key};
+					            }));
+							},
+						});
+					},
+					selectionPosition: 'right',
+				});
+			});
+			$languages.each(function() {
+				$this = $(this);
+				$this.magicSuggest({
+					data: function(query, reponse) {
+						$.ajax({
+							url: 'languages_test',
+							data: {
+								data: JSON.stringify(query)
+							},
+							success: function(data) {
+								reponse($.map(data, function(value, key) {
+					            	 return {name:value, id:key};
+					            }));
+							},
+						});
+					},
+					selectionPosition: 'right',
+				});
+			});
+			$diploma_ui.each(function() {
+				var $this = $(this);
+				$this.autocomplete({
+					source: function (request, response) {
+				         $.ajax({
+				             url: "diplomas_test",
+				             data: { data: request.term },
+				             dataType: "json",
+				             success: function(data) {
+				            	 response($.map(data, function(value, key) {
+				            		 return {label:value, id:key};
+				            	 }));
+				             },
+				             error: function () {
+				                 response([]);
+				             }
+				         });
+				     },
+				     change: function(event, $ui) {
+		            	 $diploma.val($ui.item.id);
+		             },
+				});
+			});
+			$seniority.each(function() {
+				$this = $(this);
+				$seniorityDisplay = $('.SeniorityUi', $this.parent());
+				$seniorityDisplay.slider({
+					range: "min",
+					value: 0,
+					min: 0,
+					max: 40,
+					slide: function( event, ui ) {
+						$this.val(ui.value);
+					}
+				});
+			});
+			/*$.ajax({
+				url: 'get_profile_test',
+				cache: false,
+				data: {
+					data: application.user.userId
+				},
+				beforeSend: function() {
+					application.disableForm($form, true);
+	            	$notifier.addClass('Loading');
+	            },
+				complete: function() {
+					$notifier.removeClass('Loading');
+					application.disableForm($form, false);
+				},
+				success: function(data) {
+					if (data != null) {
+						$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
+						$frameworks.magicSuggest().addToSelection(data.frameworks);
+						$languages.magicSuggest().addToSelection(data.languages);
+						if (data.diploma != null) {
+							$diploma_ui.val(data.diploma.name);
+							$diploma.val(data.diploma.id);
+						}
+						$seniority.val(data.seniority);
+						$seniority_ui.slider('value', data.seniority);
+					}
+				}
+			});*/
 			$form.submit(function(e) {
 				var data = $form.serializeObject();
 				delete data['diploma_ui'];
@@ -352,8 +528,12 @@
 					data: {
 						data: JSON.stringify(data)
 					},
-					success: function(token) {
-
+					success: function(data) {
+						$result.empty();
+						$.each(data, function(index, profile) {
+							var $container = $('<a href="#" style="background-image: url('+profile.photo+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary">'+profile.seniority+'</a>');
+							$result.append($container); 
+						});
 					},
 					error: function() {
 						

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -22,6 +23,8 @@ public class Profile extends IdentifiedEntity {
 	@ManyToOne
 	private Diploma diploma;
 	private Integer seniority;
+	@Lob
+	private byte[] photo;
 	public Profile() {
 		programmingLanguages = new HashSet<ProgrammingLanguage>();
 		frameworks = new HashSet<Framework>();
@@ -57,5 +60,11 @@ public class Profile extends IdentifiedEntity {
 	}
 	public void setSeniority(Integer seniority) {
 		this.seniority = seniority;
+	}
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 }

@@ -35,5 +35,9 @@
 			<button name="submit">Rechercher</button>
 		</div>
 	</form>
+	<div class="SearchResult">
+		<h3>Resultats</h3>
+		<div class="Collection"></div>
+	</div>
 </div>
 <jsp:include page="Footer.jsp"></jsp:include>

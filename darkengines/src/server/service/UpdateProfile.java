@@ -1,7 +1,17 @@
 package server.service;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.codec.binary.Base64;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -72,7 +82,44 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 			profile.setDiploma(diploma);
 		}
 		profile.setSeniority(data.getSeniority());
-		
+		if (data.getPhoto() != null && !data.getPhoto().isEmpty()) {
+			Base64 codec = new Base64();
+			byte[] bytes = codec.decodeBase64(data.getPhoto().split(",")[1]);
+			
+			InputStream in = new ByteArrayInputStream(bytes);
+			BufferedImage image = ImageIO.read(in);
+			int height = image.getHeight();
+			int width = image.getWidth();
+			int x = 0;
+			int y = 0;
+			int side = 0;
+			float ratio = (float)width/(float)height;
+			if (height >= width) {
+				y = (height - width)/2;
+				side = width;
+			}
+			if (height <= width) {
+				x = (width - height)/2;
+				side = height;
+			}
+			BufferedImage resizedImage = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
+			
+			Graphics2D g = resizedImage.createGraphics();
+			g.drawImage(image, 0, 0, 128, 128, x, y, x+side, y+side, null);
+			g.dispose();
+			g.setComposite(AlphaComposite.Src);
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(resizedImage, "png", baos);
+			baos.flush();
+			bytes = baos.toByteArray();
+			baos.close();
+			
+			profile.setPhoto(bytes);
+		}
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(profile);
 		user.setProfile(profile);

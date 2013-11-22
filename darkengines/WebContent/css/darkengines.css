@@ -177,17 +177,17 @@ form.UpdateIdentity label {
 	width: 140px;
 	display: inline-block;
 }
-form.UpdateProfile label {
+form.UpdateProfile label, form.SearchDev label {
 	width: 280px;
 	display: inline-block;
 }
 form.UpdateProfile {
 
 }
-form.UpdateProfile input[name=seniority] {
+form.UpdateProfile input[name=seniority], form.SearchDev input[name=seniority] {
 	width: 32px;
 }
-form.UpdateProfile .SeniorityUi {
+form.UpdateProfile .SeniorityUi, form.SearchDev .SeniorityUi {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
@@ -239,4 +239,20 @@ button:hover, input[type=button]:hover, input[type=submit]:hover {
 button:active, input[type=button]:active, input[type=submit]:active {
 	position:relative;
 	top:1px;
+}
+.SearchResult {
+	margin-top: 16px;
+	border-top: dotted rgba(240, 173, 0, 1) 3px;
+}
+.SearchResult .ProfileSummary {
+	width: 128px;
+	height: 128px;
+	display: inline-block;
+	border: 1px solid #ffffff;
+	border-radius: 4px;
+}
+.Photo {
+	display: block;
+	max-width: 128px;
+	max-height: 128px;
 }

@@ -24,6 +24,7 @@
 		<div class="Left">
 			<a href="edit_dev_identity">Mon identité</a>
 			<a href="edit_dev_profile">Mon profil</a>
+			<a href="search_dev">Recherche</a>
 		</div>
 		<div class="Right">
 			<a href="login">Connexion</a>

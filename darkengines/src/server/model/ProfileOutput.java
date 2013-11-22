@@ -8,6 +8,7 @@ public class ProfileOutput {
 	private Set<ListValueModel> languages;
 	private ListValueModel diploma;
 	private Integer seniority;
+	private String photo;
 	public Set<ListValueModel> getProgrammingLanguageIds() {
 		return programmingLanguages;
 	}
@@ -38,4 +39,11 @@ public class ProfileOutput {
 	public void setSeniority(Integer seniority) {
 		this.seniority = seniority;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 }

@@ -10,6 +10,11 @@
 			</h3>
 		</div>
 		<div class="Field">
+			<label for="photo">Photo</label> <input type="file"
+				id="photo" name="photo" />
+			<img class="Photo" alt="Photo" />
+		</div>
+		<div class="Field">
 			<label for="programmingLanguageIds">Languages de
 				programmation maîtrisés</label> <input type="text"
 				id="programmingLanguageIds" name="programmingLanguageIds" />

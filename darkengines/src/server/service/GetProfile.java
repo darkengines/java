@@ -2,6 +2,7 @@ package server.service;
 
 import java.util.Set;
 
+import org.apache.commons.codec.binary.Base64;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -37,7 +38,7 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 		if (user == null) {
 			throw new Exception("user.id.invalid");
 		}
-		if (user.getType() != UserType.Offerer) {
+		if (user.getType() != UserType.Dev) {
 			throw new Exception("user.type.invalid");
 		}
 		Profile profile = user.getProfile();
@@ -51,6 +52,10 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 			model.setProgrammingLanguage(new ListValuesModel(profile.getProgrammingLanguages()).getItems());
 			model.setFrameworks(new ListValuesModel(profile.getFrameworks()).getItems());
 			model.setLanguages(new ListValuesModel(profile.getLanguages()).getItems());
+			if (profile.getPhoto() != null && profile.getPhoto().length > 0) {
+				Base64 codec = new Base64();
+				model.setPhoto(String.format("data:image/png;base64,%s",codec.encodeBase64String(profile.getPhoto())));
+			}
 			return model;
 		} else {
 			return null;

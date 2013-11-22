@@ -17,6 +17,7 @@ public class ProfileInput {
 	private List<Long> languageIds;
 	private Long diplomaId;
 	private Integer seniority;
+	private String photo;
 	public Long getToken() {
 		return token;
 	}
@@ -52,5 +53,11 @@ public class ProfileInput {
 	}
 	public void setSeniority(Integer seniority) {
 		this.seniority = seniority;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 }
