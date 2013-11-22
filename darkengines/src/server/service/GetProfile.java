@@ -37,7 +37,7 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 		if (user == null) {
 			throw new Exception("user.id.invalid");
 		}
-		if (user.getType() != UserType.Dev) {
+		if (user.getType() != UserType.Offerer) {
 			throw new Exception("user.type.invalid");
 		}
 		Profile profile = user.getProfile();
