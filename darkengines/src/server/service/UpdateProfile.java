@@ -72,7 +72,6 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 			profile.setDiploma(diploma);
 		}
 		profile.setSeniority(data.getSeniority());
-		profile.setUser(user);
 		
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(profile);

@@ -22,8 +22,6 @@ public class Profile extends IdentifiedEntity {
 	@ManyToOne
 	private Diploma diploma;
 	private Integer seniority;
-	@OneToOne
-	private User user;
 	public Profile() {
 		programmingLanguages = new HashSet<ProgrammingLanguage>();
 		frameworks = new HashSet<Framework>();
@@ -59,11 +57,5 @@ public class Profile extends IdentifiedEntity {
 	}
 	public void setSeniority(Integer seniority) {
 		this.seniority = seniority;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
 	}
 }

@@ -75,6 +75,10 @@
     <servlet-name>diplomas_test</servlet-name>
     <servlet-class>server.service.Diplomas</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>search_dev_test</servlet-name>
+    <servlet-class>server.service.SearchDev</servlet-class>
+  </servlet>
   <!--
   <servlet-mapping>
     <servlet-name>create_account_test</servlet-name>
@@ -152,5 +156,9 @@
   <servlet-mapping>
     <servlet-name>diplomas_test</servlet-name>
     <url-pattern>/diplomas_test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>search_dev_test</servlet-name>
+    <url-pattern>/search_dev_test</url-pattern>
   </servlet-mapping>
 </web-app>

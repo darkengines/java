@@ -18,7 +18,9 @@ public class ListValueModel {
 		this.name = name;
 	}
 	public ListValueModel(ListItem item) {
-		id = item.getId();
-		name = item.getName();
+		if (item != null) {
+			id = item.getId();
+			name = item.getName();
+		}
 	}
 }
