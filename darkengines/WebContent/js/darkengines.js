@@ -362,12 +362,33 @@
 			$form.submit(function(e) {
 				var data = $form.serializeObject();
 				delete data['diploma_ui'];
-				var reader= new FileReader();
-				reader.onerror = function(e) {
-					alert(e);
-				};
-				reader.onload = function(e) {
-		             data.photo = e.target.result;
+				
+		        var photo = $photo.get(0).files[0];
+		        if (photo != null && typeof(photo)!='undefined' && photo) {
+		        	var reader= new FileReader();
+					reader.onerror = function(e) {
+						alert(e);
+					};
+					reader.onload = function(e) {
+			             data.photo = e.target.result;
+			             data.token = application.user.sessionId;
+							$.ajax({
+								url: $form.attr('action'),
+								method: 'POST',
+								data: {
+									data: JSON.stringify(data)
+								},
+								success: function(token) {
+
+								},
+								error: function() {
+									
+								}
+							});
+			        };
+			        reader.readAsDataURL($photo.get(0).files[0]);
+		        } else {
+		        	data.photo = null;
 		             data.token = application.user.sessionId;
 						$.ajax({
 							url: $form.attr('action'),
@@ -382,8 +403,7 @@
 								
 							}
 						});
-		        };
-				reader.readAsDataURL($photo.get(0).files[0]);
+		        }
 				e.preventDefault();
 			});
 		});
@@ -531,7 +551,7 @@
 					success: function(data) {
 						$result.empty();
 						$.each(data, function(index, profile) {
-							var $container = $('<a href="#" style="background-image: url('+profile.photo+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary">'+profile.seniority+'</a>');
+							var $container = $('<a href="get_profile?id='+profile.userId+'" style="background-image: url('+profile.photo+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
 							$result.append($container); 
 						});
 					},
@@ -540,6 +560,47 @@
 					}
 				});
 				e.preventDefault();
+			});
+		});
+		$('div.Profile').each(function() {
+			var $container = $(this);
+			var $photo = $('.Photo', $container);
+			var $email = $('.Email', $container);
+			var $programmingLanguages = $('.ProgrammingLanguages');
+			var $frameworks = $('.Frameworks');
+			var $languages = $('.Languages');
+			var $diploma = $('.Diploma');
+			var $seniority = $('.Seniority');
+			
+			$.ajax({
+				url: 'get_profile_test',
+				cache: false,
+				data: {
+					data: $.url().param('id')
+				},
+				success: function(data) {
+					$email.text(data.userEmail);
+					$.each(data.programmingLanguages, function(index, item) {
+						$programmingLanguages.append(
+							$('<div class="ms-sel-item">'+item.name+'</div>')
+						);
+					});
+					$.each(data.frameworks, function(index, item) {
+						$frameworks.append(
+							$('<div class="ms-sel-item">'+item.name+'</div>')
+						);
+					});
+					$.each(data.languages, function(index, item) {
+						$languages.append(
+							$('<div class="ms-sel-item">'+item.name+'</div>')
+						);
+					});
+					$diploma.text(data.diploma.name);
+					$seniority.text(data.seniority);
+					if (data.photo != null && data.photo.length > 0) {
+						$photo.attr('src', data.photo);
+					}
+				}
 			});
 		});
 		function isEmail(raw) {

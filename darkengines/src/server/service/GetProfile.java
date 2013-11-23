@@ -13,13 +13,14 @@ import server.UserType;
 import server.model.CityModel;
 import server.model.ListValueModel;
 import server.model.ListValuesModel;
+import server.model.ProfileModel;
 import server.model.ProfileOutput;
 import server.model.UserIdentityOutput;
 import darkengines.database.DBSessionFactory;
 import darkengines.database.ListItem;
 import darkengines.service.JSonService;
 
-public class GetProfile extends JSonService<Long, ProfileOutput> {
+public class GetProfile extends JSonService<Long, ProfileModel> {
 
 	@Override
 	public Class<Long> getInputType() {
@@ -27,12 +28,12 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 	}
 
 	@Override
-	public Class<ProfileOutput> getOutputType() {
-		return ProfileOutput.class;
+	public Class<ProfileModel> getOutputType() {
+		return ProfileModel.class;
 	}
 
 	@Override
-	public ProfileOutput processJsonRequest(Long data) throws Exception {
+	public ProfileModel processJsonRequest(Long data) throws Exception {
 		Session session = DBSessionFactory.GetSession();
 		User user = (User)session.createCriteria(User.class).add(Restrictions.eq("id", data)).uniqueResult();
 		if (user == null) {
@@ -41,25 +42,9 @@ public class GetProfile extends JSonService<Long, ProfileOutput> {
 		if (user.getType() != UserType.Dev) {
 			throw new Exception("user.type.invalid");
 		}
-		Profile profile = user.getProfile();
 		session.close();
-		if (profile != null) {
-			ProfileOutput model = new ProfileOutput();
-			if (profile.getDiploma() != null) {
-				model.setDiploma(new ListValueModel(profile.getDiploma()));
-			}
-			model.setSeniority(profile.getSeniority());
-			model.setProgrammingLanguage(new ListValuesModel(profile.getProgrammingLanguages()).getItems());
-			model.setFrameworks(new ListValuesModel(profile.getFrameworks()).getItems());
-			model.setLanguages(new ListValuesModel(profile.getLanguages()).getItems());
-			if (profile.getPhoto() != null && profile.getPhoto().length > 0) {
-				Base64 codec = new Base64();
-				model.setPhoto(String.format("data:image/png;base64,%s",codec.encodeBase64String(profile.getPhoto())));
-			}
-			return model;
-		} else {
-			return null;
-		}
+		ProfileModel model = new ProfileModel(user);
+		return model;
 	}
 	
 }

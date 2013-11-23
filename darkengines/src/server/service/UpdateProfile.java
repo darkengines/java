@@ -56,23 +56,26 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 			profile = new Profile();
 		}
 		Session session = DBSessionFactory.GetSession();
-		if (data.getProgrammingLanguageIds() != null) {
+		List<Long> programmingLanguageIds = data.getProgrammingLanguageIds();
+		List<Long> frameworkIds = data.getFrameworkIds();
+		List<Long> languageIds = data.getLanguageIds();
+		if (programmingLanguageIds != null && programmingLanguageIds.size()>0) {
 			List<ProgrammingLanguage> programmingLanguages = session.createCriteria(ProgrammingLanguage.class)
-					.add(Restrictions.in("id", data.getProgrammingLanguageIds()))
+					.add(Restrictions.in("id", programmingLanguageIds))
 					.list();
 			profile.getProgrammingLanguages().clear();
 			profile.getProgrammingLanguages().addAll(programmingLanguages);
 		}
-		if (data.getFrameworkIds() != null) {
+		if (frameworkIds != null && frameworkIds.size()>0) {
 			List<Framework> frameworks = session.createCriteria(Framework.class)
-					.add(Restrictions.in("id", data.getFrameworkIds()))
+					.add(Restrictions.in("id", frameworkIds))
 					.list();
 			profile.getFrameworks().clear();
 			profile.getFrameworks().addAll(frameworks);
 		}
-		if (data.getLanguageIds() != null) {
+		if (languageIds != null && languageIds.size()>0) {
 			List<Language> languages = session.createCriteria(Language.class)
-					.add(Restrictions.in("id", data.getLanguageIds()))
+					.add(Restrictions.in("id", languageIds))
 					.list();
 			profile.getLanguages().clear();
 			profile.getLanguages().addAll(languages);

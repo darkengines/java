@@ -30,6 +30,7 @@ import server.UserType;
 import server.model.ListValueModel;
 import server.model.ListValuesModel;
 import server.model.ProfileInput;
+import server.model.ProfileModel;
 import server.model.ProfileOutput;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
@@ -51,7 +52,7 @@ public class SearchDev extends JSonService<ProfileInput, Set> {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<ProfileOutput> processJsonRequest(ProfileInput data) throws Exception {
+	public Set<ProfileModel> processJsonRequest(ProfileInput data) throws Exception {
 		User user = Util.getUserByToken(data.getToken());
 		if (user == null) {
 			throw new Exception("token.invalid");
@@ -129,20 +130,9 @@ public class SearchDev extends JSonService<ProfileInput, Set> {
 		criteria.add(Subqueries.exists(subQuery));
 		
 		ArrayList<User> users = (ArrayList<User>)criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
-		Set<ProfileOutput> model = new HashSet<ProfileOutput>();
+		Set<ProfileModel> model = new HashSet<ProfileModel>();
 		for (User u: users) {
-			Profile profile = u.getProfile();
-			ProfileOutput profileModel = new ProfileOutput();
-			profileModel.setProgrammingLanguage(new ListValuesModel(profile.getProgrammingLanguages()).getItems());
-			profileModel.setFrameworks(new ListValuesModel(profile.getFrameworks()).getItems());
-			profileModel.setLanguages(new ListValuesModel(profile.getLanguages()).getItems());
-			if (profile.getDiploma() != null) {
-				profileModel.setDiploma(new ListValueModel(profile.getDiploma()));
-			}
-			profileModel.setSeniority(profile.getSeniority());
-			Base64 codec = new Base64();
-			profileModel.setPhoto(String.format("data:image/png;base64,%s",codec.encodeBase64String(profile.getPhoto())));
-			model.add(profileModel);
+			model.add(new ProfileModel(user));
 		}
 		session.close();
 		

@@ -83,6 +83,10 @@
     <servlet-name>search_dev</servlet-name>
     <servlet-class>application.SearchDev</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>get_profile</servlet-name>
+    <servlet-class>application.GetDevProfile</servlet-class>
+  </servlet>
   <!--
   <servlet-mapping>
     <servlet-name>create_account_test</servlet-name>
@@ -168,5 +172,9 @@
   <servlet-mapping>
     <servlet-name>search_dev</servlet-name>
     <url-pattern>/search_dev</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>get_profile</servlet-name>
+    <url-pattern>/get_profile</url-pattern>
   </servlet-mapping>
 </web-app>
