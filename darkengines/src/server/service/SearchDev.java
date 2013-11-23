@@ -1,37 +1,24 @@
 package server.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.codec.binary.Base64;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.PropertiesSubqueryExpression;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 
-import server.Diploma;
-import server.Framework;
-import server.Language;
 import server.Profile;
-import server.ProgrammingLanguage;
 import server.User;
 import server.UserType;
-import server.model.ListValueModel;
-import server.model.ListValuesModel;
 import server.model.ProfileInput;
 import server.model.ProfileModel;
-import server.model.ProfileOutput;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
@@ -132,7 +119,7 @@ public class SearchDev extends JSonService<ProfileInput, Set> {
 		ArrayList<User> users = (ArrayList<User>)criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		Set<ProfileModel> model = new HashSet<ProfileModel>();
 		for (User u: users) {
-			model.add(new ProfileModel(user));
+			model.add(new ProfileModel(u));
 		}
 		session.close();
 		

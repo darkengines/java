@@ -1,15 +1,15 @@
 package server.model;
 
 public class LoginOutput {
-	private long sessionId;
+	private String sessionToken;
 	private long userId;
 
-	public long getSessionId() {
-		return sessionId;
+	public String getSessionToken() {
+		return sessionToken;
 	}
 
-	public void setSessionId(long sessionId) {
-		this.sessionId = sessionId;
+	public void setSessionToken(String sessionToken) {
+		this.sessionToken = sessionToken;
 	}
 
 	public long getUserId() {

@@ -39,16 +39,13 @@ public class CreateAccount extends JSonService<CreateAccountInput, LoginOutput> 
 		}
 		Transaction transaction = session.beginTransaction();
 		session.save(user);
-		UserSession userSession = new UserSession();
-		userSession.setUser(user);
-		userSession.setOpenedOn(new Date());
-		userSession.setLength(0);
+		UserSession userSession = new UserSession(user, 0);
 		session.save(userSession);
 		session.flush();
 		transaction.commit();
 		session.close();
 		LoginOutput out = new LoginOutput();
-		out.setSessionId(userSession.getId());
+		out.setSessionToken(userSession.getToken());
 		out.setUserId(user.getId());
 		return out;
 	}

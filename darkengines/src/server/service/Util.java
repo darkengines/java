@@ -8,9 +8,9 @@ import server.UserSession;
 import darkengines.database.DBSessionFactory;
 
 public class Util {
-	public static User getUserByToken(Long token) {
+	public static User getUserByToken(String token) {
 		Session session = DBSessionFactory.GetSession();
-		UserSession userSession = (UserSession)session.createCriteria(UserSession.class).add(Restrictions.eq("id", token)).uniqueResult();
+		UserSession userSession = (UserSession)session.createCriteria(UserSession.class).add(Restrictions.eq("token", token)).uniqueResult();
 		session.close();
 		return userSession.getUser();
 	}

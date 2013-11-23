@@ -38,10 +38,7 @@ public class Login extends JSonService<LoginInput, LoginOutput> {
 			throw new Exception("credential.bad");
 		}
 		
-		UserSession userSession = new UserSession();
-		userSession.setUser(user);
-		userSession.setLength(0);
-		userSession.setOpenedOn(new Date());
+		UserSession userSession = new UserSession(user, 0);
 		
 		Transaction transaction = session.beginTransaction();
 		session.save(userSession);
@@ -50,7 +47,7 @@ public class Login extends JSonService<LoginInput, LoginOutput> {
 		session.close();
 		
 		LoginOutput output = new LoginOutput();
-		output.setSessionId(userSession.getId());
+		output.setSessionToken(userSession.getToken());
 		output.setUserId(user.getId());
 		
 		return output;

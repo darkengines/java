@@ -10,16 +10,16 @@ public class UserIdentityInput {
 	@Validators({
 		@Validator(rule=NotNull.class, errorText="token.null")
 	})
-	private long token;
+	private String token;
 	private String address;
 	private Date birthDate;
 	private String firstName;
 	private String lastName;
 	private Long cityId;
-	public long getToken() {
+	public String getToken() {
 		return token;
 	}
-	public void setToken(long token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
 	public String getAddress() {

@@ -196,7 +196,7 @@
 				var data = $form.serializeObject();
 				delete data['birthDate_ui'];
 				delete data['city_ui'];
-				data.token = application.user.sessionId;
+				data.token = application.user.sessionToken;
 				$.ajax({
 					url: $form.attr('action'),
 					data: {
@@ -371,7 +371,7 @@
 					};
 					reader.onload = function(e) {
 			             data.photo = e.target.result;
-			             data.token = application.user.sessionId;
+			             data.token = application.user.sessionToken;
 							$.ajax({
 								url: $form.attr('action'),
 								method: 'POST',
@@ -389,7 +389,7 @@
 			        reader.readAsDataURL($photo.get(0).files[0]);
 		        } else {
 		        	data.photo = null;
-		             data.token = application.user.sessionId;
+		             data.token = application.user.sessionToken;
 						$.ajax({
 							url: $form.attr('action'),
 							method: 'POST',
@@ -542,7 +542,7 @@
 			$form.submit(function(e) {
 				var data = $form.serializeObject();
 				delete data['diploma_ui'];
-				data.token = application.user.sessionId;
+				data.token = application.user.sessionToken;
 				$.ajax({
 					url: $form.attr('action'),
 					data: {

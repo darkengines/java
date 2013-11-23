@@ -1,5 +1,6 @@
 package server;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,8 +12,20 @@ import darkengines.database.IdentifiedEntity;
 public class UserSession extends IdentifiedEntity {
 	@ManyToOne
 	private User user;
+	private String token;
 	private Date openedOn;
 	private long length;
+	public UserSession() {
+		
+	}
+	public UserSession(User user, long length) throws NoSuchAlgorithmException {
+		this.user = user;
+		openedOn = new Date();
+		Long timestamp = openedOn.getTime();
+		Double rnd = Math.random();
+		token = User.hashPassword(user.getPassword()+timestamp.toString()+rnd.toString());
+		this.length = length; 
+	}
 	public User getUser() {
 		return user;
 	}
@@ -22,13 +35,10 @@ public class UserSession extends IdentifiedEntity {
 	public Date getOpenedOn() {
 		return openedOn;
 	}
-	public void setOpenedOn(Date openedOn) {
-		this.openedOn = openedOn;
-	}
 	public long getLength() {
 		return length;
 	}
-	public void setLength(long length) {
-		this.length = length;
+	public String getToken() {
+		return token;
 	}
 }

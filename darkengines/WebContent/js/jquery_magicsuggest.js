@@ -449,25 +449,27 @@
          */
         this.addToSelection = function(items, isSilent)
         {
-            if (!cfg.maxSelection || _selection.length < cfg.maxSelection) {
-                if (!$.isArray(items)) {
-                    items = [items];
-                }
-                var valuechanged = false;
-                $.each(items, function(index, json) {
-                    if ($.inArray(json[cfg.valueField], ms.getValue()) === -1) {
-                        _selection.push(json);
-                        valuechanged = true;
-                    }
-                });
-                if(valuechanged === true) {
-                    self._renderSelection();
-                    this.empty();
-                    if (isSilent !== true) {
-                        $(this).trigger('selectionchange', [this, this.getSelectedItems()]);
-                    }
-                }
-            }
+        	if (items != null) {
+	            if (!cfg.maxSelection || _selection.length < cfg.maxSelection) {
+	                if (!$.isArray(items)) {
+	                    items = [items];
+	                }
+	                var valuechanged = false;
+	                $.each(items, function(index, json) {
+	                    if ($.inArray(json[cfg.valueField], ms.getValue()) === -1) {
+	                        _selection.push(json);
+	                        valuechanged = true;
+	                    }
+	                });
+	                if(valuechanged === true) {
+	                    self._renderSelection();
+	                    this.empty();
+	                    if (isSilent !== true) {
+	                        $(this).trigger('selectionchange', [this, this.getSelectedItems()]);
+	                    }
+	                }
+	            }
+        	}
         };
 
         /**

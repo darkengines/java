@@ -11,17 +11,17 @@ public class ProfileInput {
 	@Validators({
 		@Validator(rule=NotNull.class, errorText="token.null")
 	})
-	private Long token;
+	private String token;
 	private List<Long> programmingLanguageIds;
 	private List<Long> frameworkIds;
 	private List<Long> languageIds;
 	private Long diplomaId;
 	private Integer seniority;
 	private String photo;
-	public Long getToken() {
+	public String getToken() {
 		return token;
 	}
-	public void setToken(Long token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
 	public List<Long> getProgrammingLanguageIds() {
