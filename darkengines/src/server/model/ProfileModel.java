@@ -16,7 +16,7 @@ public class ProfileModel {
 	private Set<ListValueModel> programmingLanguages;
 	private Set<ListValueModel> frameworks;
 	private Set<ListValueModel> languages;
-	private ListValueModel diploma;
+	private Integer diploma;
 	private Integer seniority;
 	private String photo;
 	
@@ -38,7 +38,7 @@ public class ProfileModel {
 			programmingLanguages = toListValueModel(profile.getProgrammingLanguages());
 			frameworks = toListValueModel(profile.getFrameworks());
 			languages = toListValueModel(profile.getLanguages());
-			diploma = new ListValueModel(profile.getDiploma());
+			diploma = profile.getDiploma();
 			seniority = profile.getSeniority();
 			byte[] photoBytes = profile.getPhoto();
 			if (photoBytes != null && photoBytes.length > 0) {
@@ -66,10 +66,10 @@ public class ProfileModel {
 	public void setLanguages(Set<ListValueModel> languageIds) {
 		this.languages = languageIds;
 	}
-	public ListValueModel getDiploma() {
+	public Integer getDiploma() {
 		return diploma;
 	}
-	public void setDiploma(ListValueModel diploma) {
+	public void setDiploma(Integer diploma) {
 		this.diploma = diploma;
 	}
 	public Integer getSeniority() {

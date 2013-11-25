@@ -3,7 +3,6 @@
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
 	<form method="post" action="update_profile_test" class="UpdateProfile">
-		<input name="diplomaId" type="hidden" />
 		<div class="Title">
 			<h3>
 				Profil <span class="Notification"></span>
@@ -28,12 +27,15 @@
 			<input type="text" id="languageIds" name="languageIds" />
 		</div>
 		<div class="Field">
-			<label for="diploma_ui">Niveau d'études</label> <input type="text"
-				id="diploma_ui" name="diploma_ui" />
+			<label for="diploma">Niveau d'études</label> <input type="hidden"
+				id="diploma" name="diploma" />
+				<div class="DiplomaDisplay">Aucun</div>
+			<div class="DiplomaUi"></div>
 		</div>
 		<div class="Field">
-			<label for="seniority">Années d'expérience</label> <input type="text"
+			<label for="seniority">Années d'expérience</label> <input type="hidden"
 				id="seniority" name="seniority" />
+			<div class="SeniorityDisplay">Aucune</div>
 			<div class="SeniorityUi"></div>
 		</div>
 		<div class="Field">

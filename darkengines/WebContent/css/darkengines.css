@@ -187,7 +187,23 @@ form.UpdateProfile {
 form.UpdateProfile input[name=seniority], form.SearchDev input[name=seniority] {
 	width: 32px;
 }
+form.UpdateProfile .SeniorityDisplay, form.SearchDev .SeniorityDisplay {
+	width: 52px;
+	display: inline-block;
+}
 form.UpdateProfile .SeniorityUi, form.SearchDev .SeniorityUi {
+	width: 256px;
+	margin-left: 16px;
+	display: inline-block;
+}
+form.UpdateProfile input[name=diploma], form.SearchDev input[name=diploma] {
+	width: 32px;
+}
+form.UpdateProfile .DiplomaDisplay, form.SearchDev .DiplomaDisplay {
+	width: 52px;
+	display: inline-block;
+}
+form.UpdateProfile .DiplomaUi, form.SearchDev .DiplomaUi {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;

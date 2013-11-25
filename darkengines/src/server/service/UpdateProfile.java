@@ -80,10 +80,7 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 			profile.getLanguages().clear();
 			profile.getLanguages().addAll(languages);
 		}
-		if (data.getDiplomaId() != null) {
-			Diploma diploma = (Diploma)session.createCriteria(Diploma.class).add(Restrictions.eq("id", data.getDiplomaId())).uniqueResult();
-			profile.setDiploma(diploma);
-		}
+		profile.setDiploma(data.getDiploma());
 		profile.setSeniority(data.getSeniority());
 		if (data.getPhoto() != null && !data.getPhoto().isEmpty()) {
 			Base64 codec = new Base64();

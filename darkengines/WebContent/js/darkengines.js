@@ -218,10 +218,12 @@
 			var $frameworks = $('input[name=frameworkIds]');
 			var $languages = $('input[name=languageIds]');
 			var $notifier = $('.Notification');
-			var $diploma_ui = $('input[name=diploma_ui]');
-			var $diploma = $('input[name=diplomaId]');
+			var $diplomaEditor = $('.DiplomaUi');
+			var $diplomaDisplay = $('.DiplomaDisplay');
+			var $diploma = $('input[name=diploma]');
+			var $seniorityEditor = $('.SeniorityUi');
+			var $seniorityDisplay = $('.SeniorityDisplay');
 			var $seniority = $('input[name=seniority]');
-			var $seniority_ui = $('.SeniorityUi');
 			var $photo = $('input[name=photo]');
 			var $photoDisplay = $('.Photo');
 			$programmingLanguages.each(function() {
@@ -244,7 +246,7 @@
 				});
 			});
 			$frameworks.each(function() {
-				$this = $(this);
+				var $this = $(this);
 				$this.magicSuggest({
 					data: function(query, reponse) {
 						$.ajax({
@@ -263,7 +265,7 @@
 				});
 			});
 			$languages.each(function() {
-				$this = $(this);
+				var $this = $(this);
 				$this.magicSuggest({
 					data: function(query, reponse) {
 						$.ajax({
@@ -281,39 +283,29 @@
 					selectionPosition: 'right',
 				});
 			});
-			$diploma_ui.each(function() {
+			$diploma.each(function() {
 				var $this = $(this);
-				$this.autocomplete({
-					source: function (request, response) {
-				         $.ajax({
-				             url: "diplomas_test",
-				             data: { data: request.term },
-				             dataType: "json",
-				             success: function(data) {
-				            	 response($.map(data, function(value, key) {
-				            		 return {label:value, id:key};
-				            	 }));
-				             },
-				             error: function () {
-				                 response([]);
-				             }
-				         });
-				     },
-				     change: function(event, $ui) {
-		            	 $diploma.val($ui.item.id);
-		             },
-				});
-			});
-			$seniority.each(function() {
-				$this = $(this);
-				$seniorityDisplay = $('.SeniorityUi', $this.parent());
-				$seniorityDisplay.slider({
+				$diplomaEditor.slider({
 					range: "min",
 					value: 0,
 					min: 0,
-					max: 40,
+					max: 8,
 					slide: function( event, ui ) {
 						$this.val(ui.value);
+						$diplomaDisplay.text('BAC+'+ui.value);
+					}
+				});
+			});
+			$seniority.each(function() {
+				var $this = $(this);
+				$seniorityEditor.slider({
+					range: "min",
+					value: 0,
+					min: 0,
+					max: 10,
+					slide: function( event, ui ) {
+						$this.val(ui.value);
+						$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
 					}
 				});
 			});
@@ -336,15 +328,15 @@
 						$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
 						$frameworks.magicSuggest().addToSelection(data.frameworks);
 						$languages.magicSuggest().addToSelection(data.languages);
-						if (data.diploma != null) {
-							$diploma_ui.val(data.diploma.name);
-							$diploma.val(data.diploma.id);
-						}
+						$diploma.val(data.diploma);
+						$diplomaEditor.slider('value', data.diploma);
+						$diplomaDisplay.text('BAC+'+data.diploma);
 						if (data.photo != null && data.photo.length > 0) {
 							$photoDisplay.attr('src', data.photo);
 						}
 						$seniority.val(data.seniority);
-						$seniority_ui.slider('value', data.seniority);
+						$seniorityEditor.slider('value', data.seniority);
+						$seniorityDisplay.text(data.seniority+(data.seniority>0?' ans':' an'));
 					}
 				}
 			});
@@ -413,10 +405,12 @@
 			var $frameworks = $('input[name=frameworkIds]');
 			var $languages = $('input[name=languageIds]');
 			var $notifier = $('.Notification');
-			var $diploma_ui = $('input[name=diploma_ui]');
-			var $diploma = $('input[name=diplomaId]');
+			var $diplomaEditor = $('.DiplomaUi');
+			var $diplomaDisplay = $('.DiplomaDisplay');
+			var $diploma = $('input[name=diploma]');
+			var $seniorityEditor = $('.SeniorityUi');
+			var $seniorityDisplay = $('.SeniorityDisplay');
 			var $seniority = $('input[name=seniority]');
-			var $seniority_ui = $('.SeniorityUi');
 			var $result = $('.SearchResult .Collection');
 			$programmingLanguages.each(function() {
 				$this = $(this);
@@ -475,39 +469,29 @@
 					selectionPosition: 'right',
 				});
 			});
-			$diploma_ui.each(function() {
+			$diploma.each(function() {
 				var $this = $(this);
-				$this.autocomplete({
-					source: function (request, response) {
-				         $.ajax({
-				             url: "diplomas_test",
-				             data: { data: request.term },
-				             dataType: "json",
-				             success: function(data) {
-				            	 response($.map(data, function(value, key) {
-				            		 return {label:value, id:key};
-				            	 }));
-				             },
-				             error: function () {
-				                 response([]);
-				             }
-				         });
-				     },
-				     change: function(event, $ui) {
-		            	 $diploma.val($ui.item.id);
-		             },
-				});
-			});
-			$seniority.each(function() {
-				$this = $(this);
-				$seniorityDisplay = $('.SeniorityUi', $this.parent());
-				$seniorityDisplay.slider({
+				$diplomaEditor.slider({
 					range: "min",
 					value: 0,
 					min: 0,
-					max: 40,
+					max: 8,
 					slide: function( event, ui ) {
 						$this.val(ui.value);
+						$diplomaDisplay.text('BAC+'+ui.value);
+					}
+				});
+			});
+			$seniority.each(function() {
+				var $this = $(this);
+				$seniorityEditor.slider({
+					range: "min",
+					value: 0,
+					min: 0,
+					max: 10,
+					slide: function( event, ui ) {
+						$this.val(ui.value);
+						$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
 					}
 				});
 			});

@@ -15,7 +15,7 @@ public class ProfileInput {
 	private List<Long> programmingLanguageIds;
 	private List<Long> frameworkIds;
 	private List<Long> languageIds;
-	private Long diplomaId;
+	private Integer diploma;
 	private Integer seniority;
 	private String photo;
 	public String getToken() {
@@ -42,11 +42,11 @@ public class ProfileInput {
 	public void setLanguageIds(List<Long> languageIds) {
 		this.languageIds = languageIds;
 	}
-	public Long getDiplomaId() {
-		return diplomaId;
+	public Integer getDiploma() {
+		return diploma;
 	}
-	public void setDiplomaId(Long diplomaId) {
-		this.diplomaId = diplomaId;
+	public void setDiploma(Integer diplomaId) {
+		this.diploma = diplomaId;
 	}
 	public Integer getSeniority() {
 		return seniority;

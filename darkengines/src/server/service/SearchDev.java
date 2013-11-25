@@ -96,8 +96,8 @@ public class SearchDev extends JSonService<ProfileInput, Set> {
 //			profile.getLanguages().clear();
 //			profile.getLanguages().addAll(languages);
 		}
-		if (data.getDiplomaId() != null) {
-			subQuery.add(Restrictions.ge("profile.diploma.id", data.getDiplomaId()));
+		if (data.getDiploma() != null) {
+			subQuery.add(Restrictions.ge("diploma", data.getDiploma()));
 //			Diploma diploma = (Diploma)session.createCriteria(Diploma.class).add(Restrictions.eq("id", data.getDiplomaId())).uniqueResult();
 //			profile.setDiploma(diploma);
 		}

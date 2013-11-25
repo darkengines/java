@@ -20,8 +20,7 @@ public class Profile extends IdentifiedEntity {
 	private Set<Framework> frameworks;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Language> languages;
-	@ManyToOne
-	private Diploma diploma;
+	private Integer diploma;
 	private Integer seniority;
 	@Lob
 	private byte[] photo;
@@ -49,10 +48,10 @@ public class Profile extends IdentifiedEntity {
 	public void setLanguages(Set<Language> languages) {
 		this.languages = languages;
 	}
-	public Diploma getDiploma() {
+	public Integer getDiploma() {
 		return diploma;
 	}
-	public void setDiploma(Diploma diploma) {
+	public void setDiploma(Integer diploma) {
 		this.diploma = diploma;
 	}
 	public Integer getSeniority() {
