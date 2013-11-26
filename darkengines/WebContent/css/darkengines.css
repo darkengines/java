@@ -78,6 +78,12 @@ form .Field {
 form .Field:nth-child(2n) {
 	background-color: rgba(64,64,64,1);
 }
+form .Field:first-child {
+	border-radius: 4px 4px 0 0;
+}
+form .Field:last-child {
+	border-radius: 0 0 4px 4px;
+}
 form .Field:nth-child(2n+1) {
 	background-color: rgba(42,42,42,1);
 }
@@ -257,6 +263,7 @@ button:active, input[type=button]:active, input[type=submit]:active {
 	top:1px;
 }
 .SearchResult {
+	display: none;
 	margin-top: 16px;
 	border-top: dotted rgba(240, 173, 0, 1) 3px;
 }
@@ -271,4 +278,19 @@ button:active, input[type=button]:active, input[type=submit]:active {
 	display: block;
 	max-width: 128px;
 	max-height: 128px;
+}
+.MainNotifier {
+	width: 157px;
+	height: 96px;
+	border-radius: 4px;
+	border: solid 4px rgba(228, 182, 62, 1);
+	line-height: 90px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	background-color: rgba(64,64,64,1);
+	display: none;
+	position: fixed;
+	bottom: 8px;
+	left: 8px;
 }

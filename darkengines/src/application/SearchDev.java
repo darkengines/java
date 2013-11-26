@@ -15,9 +15,6 @@ public class SearchDev extends Service {
 	@Override
 	public void processRequest(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
-		if (!Util.hasTokenCookie(((HttpServletRequest)request).getCookies())) {
-			((HttpServletResponse)response).sendRedirect("login?url=search_dev");
-		}
 		getServletContext().getRequestDispatcher("/WEB-INF/view/SearchDev.jsp").forward(request,response);
 	}
 

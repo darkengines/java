@@ -16,6 +16,15 @@
 				}
 			});
 		};
+		application.$notifier = $('.MainNotifier');
+		application.$notifier.notify = function(msg) {
+			application.$notifier.text(msg);
+			$(application.$notifier).show( 'slide', {}, 500, function() {
+				setTimeout(function() {
+					$(application.$notifier).removeAttr( "style" ).fadeOut();
+			    }, 1000 );
+			});
+		};
 		$.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 		$('form .Field .File').each(function() {
 			var $container = $(this);
@@ -47,8 +56,10 @@
 						var url = '..';
 						if ($.url().param('url') != null) {
 							url = $.url().param('url');
+							window.location.href = url;
+						} else {
+							window.location.href = 'edit_dev_profile';
 						}
-						window.location.href = url;
 					},
 					error: function() {
 						
@@ -81,7 +92,7 @@
 						success: function(result) {
 							if (result) {
 								$emailResult.removeClass('Ok').addClass('Error');
-								$emailResult.text('Ce courriel est d�j� utilis�');
+								$emailResult.text('Ce courriel est déjà utilisé');
 							} else {
 								$emailResult.removeClass('Error').addClass('Ok');
 								$emailResult.text('Ok');
@@ -203,10 +214,18 @@
 						data: JSON.stringify(data)
 					},
 					success: function(token) {
-
+						application.$notifier.notify('Identité sauvegardée');
 					},
 					error: function() {
 						
+					},
+					beforeSend: function() {
+						application.disableForm($form, true);
+		            	$notifier.addClass('Loading');
+		            },
+					complete: function() {
+						$notifier.removeClass('Loading');
+						application.disableForm($form, false);
 					}
 				});
 				e.preventDefault();
@@ -371,10 +390,18 @@
 									data: JSON.stringify(data)
 								},
 								success: function(token) {
-
+									application.$notifier.notify('Profil sauvegardé');
 								},
 								error: function() {
 									
+								},
+								beforeSend: function() {
+									application.disableForm($form, true);
+					            	$notifier.addClass('Loading');
+					            },
+								complete: function() {
+									$notifier.removeClass('Loading');
+									application.disableForm($form, false);
 								}
 							});
 			        };
@@ -389,10 +416,18 @@
 								data: JSON.stringify(data)
 							},
 							success: function(token) {
-
+								application.$notifier.notify('Profil sauvegardé');
 							},
 							error: function() {
 								
+							},
+							beforeSend: function() {
+								application.disableForm($form, true);
+				            	$notifier.addClass('Loading');
+				            },
+							complete: function() {
+								$notifier.removeClass('Loading');
+								application.disableForm($form, false);
 							}
 						});
 		        }
@@ -411,6 +446,7 @@
 			var $seniorityEditor = $('.SeniorityUi');
 			var $seniorityDisplay = $('.SeniorityDisplay');
 			var $seniority = $('input[name=seniority]');
+			var $resultContainer = $('.SearchResult');
 			var $result = $('.SearchResult .Collection');
 			$programmingLanguages.each(function() {
 				$this = $(this);
@@ -526,21 +562,36 @@
 			$form.submit(function(e) {
 				var data = $form.serializeObject();
 				delete data['diploma_ui'];
-				data.token = application.user.sessionToken;
+				if (application.user != null) {
+					data.token = application.user.sessionToken;
+				}
 				$.ajax({
 					url: $form.attr('action'),
 					data: {
 						data: JSON.stringify(data)
 					},
 					success: function(data) {
+						$resultContainer.show();
 						$result.empty();
-						$.each(data, function(index, profile) {
-							var $container = $('<a href="get_profile?id='+profile.userId+'" style="background-image: url('+profile.photo+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
-							$result.append($container); 
-						});
+						if (data.length > 0) {
+							$.each(data, function(index, profile) {
+								var $container = $('<a href="get_profile?id='+profile.userId+'" style="background-image: url('+profile.photo+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
+								$result.append($container); 
+							});
+						} else {
+							$result.text('Aucun résultat');
+						}
 					},
 					error: function() {
 						
+					},
+					beforeSend: function() {
+						application.disableForm($form, true);
+		            	$notifier.addClass('Loading');
+		            },
+					complete: function() {
+						$notifier.removeClass('Loading');
+						application.disableForm($form, false);
 					}
 				});
 				e.preventDefault();

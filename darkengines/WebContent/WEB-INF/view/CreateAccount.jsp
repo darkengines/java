@@ -6,6 +6,7 @@
 		<div class="Title">
 			<h3>Création de compte</h3>
 		</div>
+		<div>
 		<div class="Field">
 			<input placeholder="Courriel" type="text" id="email"
 				name="email" />
@@ -25,6 +26,7 @@
 		<div class="Field">
 			<button type="submit" class="Button" value="Dev">Je suis développeur</button>
 			<button type="submit" value="Offerer">Je cherche un dev</button>
+		</div>
 		</div>
 	</form>
 </div>

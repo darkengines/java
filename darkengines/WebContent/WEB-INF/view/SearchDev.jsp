@@ -9,8 +9,9 @@
 				Rechercher un dev <span class="Notification"></span>
 			</h3>
 		</div>
+		<div>
 		<div class="Field">
-			<label for="programmingLanguageIds">Languages de
+			<label for="programmingLanguageIds">Langages de
 				programmation maîtrisés</label> <input type="text"
 				id="programmingLanguageIds" name="programmingLanguageIds" />
 		</div>
@@ -36,6 +37,7 @@
 		</div>
 		<div class="Field">
 			<button name="submit">Rechercher</button>
+		</div>
 		</div>
 	</form>
 	<div class="SearchResult">

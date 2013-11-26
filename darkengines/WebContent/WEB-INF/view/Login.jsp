@@ -6,6 +6,7 @@
 		<div class="Title">
 			<h3>Connexion</h3>
 		</div>
+		<div>
 		<div class="Field">
 			<input placeholder="Courriel" type="text" id="email"
 				name="email" />
@@ -18,6 +19,7 @@
 		</div>
 		<div class="Field">
 			<button type="submit" value="Dev">Ok</button>
+		</div>
 		</div>
 	</form>
 </div>

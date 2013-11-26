@@ -19,15 +19,16 @@ import server.User;
 import server.UserType;
 import server.model.ProfileInput;
 import server.model.ProfileModel;
+import server.model.SearchInput;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
 @SuppressWarnings("serial")
-public class SearchDev extends JSonService<ProfileInput, Set> {
+public class SearchDev extends JSonService<SearchInput, Set> {
 
 	@Override
-	public Class<ProfileInput> getInputType() {
-		return ProfileInput.class;
+	public Class<SearchInput> getInputType() {
+		return SearchInput.class;
 	}
 
 	@Override
@@ -39,13 +40,15 @@ public class SearchDev extends JSonService<ProfileInput, Set> {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<ProfileModel> processJsonRequest(ProfileInput data) throws Exception {
-		User user = Util.getUserByToken(data.getToken());
-		if (user == null) {
-			throw new Exception("token.invalid");
-		}
-		if (user.getType() != UserType.Dev) {
-			throw new Exception("user.type.invalid");
+	public Set<ProfileModel> processJsonRequest(SearchInput data) throws Exception {
+		if (data != null && data.getToken() != null) {
+			User user = Util.getUserByToken(data.getToken());
+			if (user == null) {
+				throw new Exception("token.invalid");
+			}
+			if (user.getType() != UserType.Dev) {
+				throw new Exception("user.type.invalid");
+			}
 		}
 //		Profile profile = user.getProfile();
 //		if (profile == null) {

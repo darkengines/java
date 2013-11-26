@@ -8,6 +8,7 @@
 		<div class="Title">
 			<h3>Informations personnelles <span class="Notification"></span></h3>
 		</div>
+		<div>
 		<div class="Field">
 			<label for="lastName">Nom</label> <input type="text" id="lastName"
 				name="lastName" />
@@ -35,6 +36,7 @@
 		</div>
 		<div class="Field">
 			<button name="submit">Enregistrer</button>
+		</div>
 		</div>
 	</form>
 </div>

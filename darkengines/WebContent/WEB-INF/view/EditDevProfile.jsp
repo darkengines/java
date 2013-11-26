@@ -8,13 +8,14 @@
 				Profil <span class="Notification"></span>
 			</h3>
 		</div>
+		<div>
 		<div class="Field">
 			<label for="photo">Photo</label> <input type="file"
 				id="photo" name="photo" />
 			<img class="Photo" alt="Photo" />
 		</div>
 		<div class="Field">
-			<label for="programmingLanguageIds">Languages de
+			<label for="programmingLanguageIds">Langages de
 				programmation maîtrisés</label> <input type="text"
 				id="programmingLanguageIds" name="programmingLanguageIds" />
 		</div>
@@ -40,6 +41,7 @@
 		</div>
 		<div class="Field">
 			<button name="submit">Enregistrer</button>
+		</div>
 		</div>
 	</form>
 </div>

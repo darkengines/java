@@ -15,9 +15,6 @@ public class GetDevProfile extends Service {
 	@Override
 	public void processRequest(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
-		if (!Util.hasTokenCookie(((HttpServletRequest)request).getCookies())) {
-			((HttpServletResponse)response).sendRedirect("login?url=edit_dev_identity");
-		}
 		getServletContext().getRequestDispatcher("/WEB-INF/view/GetDevProfile.jsp").forward(request,response);
 		
 	}
