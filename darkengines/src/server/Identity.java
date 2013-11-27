@@ -18,6 +18,7 @@ public class Identity extends IdentifiedEntity {
 	private String address;
 	@OneToOne
 	private User user;
+	private String phone;
 	public String getLastName() {
 		return lastName;
 	}
@@ -53,5 +54,11 @@ public class Identity extends IdentifiedEntity {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

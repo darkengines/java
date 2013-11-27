@@ -136,6 +136,7 @@
 			var $lastName = $('input[name=lastName]');
 			var $firstName = $('input[name=firstName]');
 			var $address = $('input[name=address]');
+			var $phone = $('input[name=phone]');
 			var $city_ui = $('input[name=city_ui]');
 			var $birthDate = $('input[name=birthDate]');
 			var $city = $('input[name=cityId]');
@@ -184,6 +185,7 @@
 						$lastName.val(data.lastName);
 						$firstName.val(data.firstName);
 						$address.val(data.address);
+						$phone.val(data.phone)
 						if (data.city != null) {
 							$city.val(data.city.id);
 							$city_ui.val(data.city.name);

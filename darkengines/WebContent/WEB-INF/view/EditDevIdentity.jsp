@@ -35,6 +35,11 @@
 				<div class="Result"></div>
 		</div>
 		<div class="Field">
+			<label for="phone">Téléphone</label> <input type="text" id="phone"
+				name="phone" />
+				<div class="Result"></div>
+		</div>
+		<div class="Field">
 			<button name="submit">Enregistrer</button>
 		</div>
 		</div>

@@ -16,6 +16,7 @@ public class UserIdentityInput {
 	private String firstName;
 	private String lastName;
 	private Long cityId;
+	private String phone;
 	public String getToken() {
 		return token;
 	}
@@ -52,4 +53,11 @@ public class UserIdentityInput {
 	public void setCityId(Long cityId) {
 		this.cityId = cityId;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 }

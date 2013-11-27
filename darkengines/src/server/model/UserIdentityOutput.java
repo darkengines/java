@@ -8,6 +8,7 @@ public class UserIdentityOutput {
 	private String firstName;
 	private String lastName;
 	private CityModel city;
+	private String phone;
 	public String getAddress() {
 		return address;
 	}
@@ -38,4 +39,11 @@ public class UserIdentityOutput {
 	public void setCity(CityModel city) {
 		this.city = city;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 }

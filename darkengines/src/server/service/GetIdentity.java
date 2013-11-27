@@ -42,6 +42,7 @@ public class GetIdentity extends JSonService<Long, UserIdentityOutput> {
 			}
 			model.setFirstName(identity.getFirstName());
 			model.setLastName(identity.getLastName());
+			model.setPhone(identity.getPhone());
 		}
 		return model;
 	}
