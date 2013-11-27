@@ -52,7 +52,6 @@ public class UpdateIdentity extends JSonService<UserIdentityInput, UserIdentityO
 		userIdentity.setFirstName(data.getFirstName());
 		userIdentity.setLastName(data.getLastName());
 		userIdentity.setPhone(data.getPhone());
-		userIdentity.setUser(user);
 		user.setIdentity(userIdentity);
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(userIdentity);

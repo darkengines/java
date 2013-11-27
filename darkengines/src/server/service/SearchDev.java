@@ -118,7 +118,6 @@ public class SearchDev extends JSonService<SearchInput, Set> {
 //		transaction.commit();
 		
 		criteria.add(Subqueries.exists(subQuery));
-		
 		ArrayList<User> users = (ArrayList<User>)criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		Set<ProfileModel> model = new HashSet<ProfileModel>();
 		for (User u: users) {

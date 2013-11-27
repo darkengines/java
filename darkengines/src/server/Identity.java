@@ -16,8 +16,6 @@ public class Identity extends IdentifiedEntity {
 	@ManyToOne
 	private City city;
 	private String address;
-	@OneToOne
-	private User user;
 	private String phone;
 	public String getLastName() {
 		return lastName;
@@ -48,12 +46,6 @@ public class Identity extends IdentifiedEntity {
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
 	}
 	public String getPhone() {
 		return phone;

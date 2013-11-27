@@ -294,3 +294,8 @@ button:active, input[type=button]:active, input[type=submit]:active {
 	bottom: 8px;
 	left: 8px;
 }
+.Profile .Identity .Box {
+	display: inline-block;
+	padding: 4px;
+	vertical-align: top;
+}

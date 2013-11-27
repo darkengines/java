@@ -603,11 +603,15 @@
 			var $container = $(this);
 			var $photo = $('.Photo', $container);
 			var $email = $('.Email', $container);
-			var $programmingLanguages = $('.ProgrammingLanguages');
-			var $frameworks = $('.Frameworks');
-			var $languages = $('.Languages');
-			var $diploma = $('.Diploma');
-			var $seniority = $('.Seniority');
+			var $programmingLanguages = $('.ProgrammingLanguages', $container);
+			var $frameworks = $('.Frameworks', $container);
+			var $languages = $('.Languages', $container);
+			var $diploma = $('.Diploma', $container);
+			var $seniority = $('.Seniority', $container);
+			var $name = $('.Name', $container);
+			var $birthDate = $('.BirthDate', $container);
+			var $city = $('.City', $container);
+			var $phone = $('.Phone', $container);
 			
 			$.ajax({
 				url: 'get_profile_test',
@@ -637,6 +641,12 @@
 					if (data.photo != null && data.photo.length > 0) {
 						$photo.attr('src', data.photo);
 					}
+					$name.text(data.firstName+' '+data.lastName);
+					var birthDate = new Date(data.birthDate);
+					$birthDate.text(birthDate.toString());
+					$city.text(data.city);
+					$phone.text(data.phone);
+					
 				}
 			});
 		});

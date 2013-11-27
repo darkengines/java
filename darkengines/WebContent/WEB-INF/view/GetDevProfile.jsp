@@ -8,51 +8,37 @@
 				Profil <span class="Notification"></span>
 			</h3>
 		</div>
-		<div class="Field Identity">
-			<img class="Photo" alt="Photo" />
-			<div>
-				<dl>
-					<dt>Nom</dt>
-					<dd class="Lastname">Tollin de Rivarol</dd>
-					<dt>Prénom</dt>
-					<dd class="Firstname">Florent</dd>
-					<dt>Florent</dt>
-					<dt>Date de naissance</dt>
-					<dd class="BirthDate">13/11/1989</dd>
-				</dl>
+		<div class="Box Identity">
+			<div class="Box Photo">
+				<img class="Photo" alt="Photo" />	
 			</div>
-			<div>
-				<dl>
-					<dt>Courriel</dt>
-					<dd class="Email"></dd>
-					<dt>Téléphone</dt>
-					<dd class="Phone">06 69 78 83 11</dd>
-				</dl>
+			<div class="Box Personnal">
+				<div class="Field Name">
+					Tollin de Rivarol
+				</div>
+				<div class="Field BirthDate">
+					24 ans
+				</div>
+				<div class="Field Address">
+					Courbevoie
+				</div>
 			</div>
-			<div>
-				<dl>
-					<dt>Code Postal</dt>
-					<dd class="PostalCode">92400</dd>
-					<dt>Ville</dt>
-					<dd class="City">Courbevoie</dd>
-					<dt>Adresse</dt>
-					<dd class="Address">40 rue Baudin</dd>
-				</dl>
+			<div class="Box Contact">
+				<div class="Field Email">
+					rivarol89@hotmail.com
+				</div>
+				<div class="Field Phone">
+					0669788311
+				</div>
 			</div>
 		</div>
+		<div class="Box">
+			<div class="Field ms-sel-ctn ProgrammingLanguages"></div>
+			<div class="Field ms-sel-ctn Frameworks"></div>
+			<div class="Field ms-sel-ctn Languages"></div>
+			<div class="Diploma"></div>
+			<div class="Seniority"></div>
 		</div>
-		<dl>
-			<dt>Langages maîtrisés</dt>
-			<dd class="Field ms-sel-ctn ProgrammingLanguages"></dd>
-			<dt>Frameworks maîtrisés</dt>
-			<dd class="Field ms-sel-ctn Frameworks"></dd>
-			<dt>Langages parlés</dt>
-			<dd class="Field ms-sel-ctn Languages"></dd>
-			<dt>Niveau d'étude</dt>
-			<dd class="Field Diploma"></dd>
-			<dt>Années d'expérience</dt>
-			<dd class="Field Seniority"></dd>
-		</dl>
 	</div>
 </div>
 <jsp:include page="Footer.jsp"></jsp:include>

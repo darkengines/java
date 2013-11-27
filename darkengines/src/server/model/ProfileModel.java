@@ -1,12 +1,13 @@
 package server.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.codec.binary.Base64;
 
 import darkengines.database.ListItem;
-
+import server.Identity;
 import server.Profile;
 import server.User;
 
@@ -19,7 +20,76 @@ public class ProfileModel {
 	private Integer diploma;
 	private Integer seniority;
 	private String photo;
+	private String firstName;
+	private String lastName;
+	private String city;
+	private Date birthDate;
+	private String phone;
 	
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Set<ListValueModel> getProgrammingLanguages() {
+		return programmingLanguages;
+	}
+
+	public void setProgrammingLanguages(Set<ListValueModel> programmingLanguages) {
+		this.programmingLanguages = programmingLanguages;
+	}
+
+	public String getFirstname() {
+		return firstName;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstName = firstname;
+	}
+
+	public String getLastname() {
+		return lastName;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastName = lastname;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	private Set<ListValueModel> toListValueModel(Set<? extends ListItem> items) {
 		Set<ListValueModel> result = new HashSet<ListValueModel>();
 		if (items != null) {
@@ -34,6 +104,16 @@ public class ProfileModel {
 		userEmail = user.getEmail();
 		userId = user.getId();
 		Profile profile = user.getProfile();
+		Identity identity = user.getIdentity();
+		if (identity != null) {
+			if (identity.getCity() != null) {
+				city = identity.getCity().getName();
+			}
+			firstName = identity.getFirstName();
+			lastName = identity.getLastName();
+			birthDate = identity.getBirthDate();
+			phone = identity.getPhone();			
+		}
 		if (profile != null) {
 			programmingLanguages = toListValueModel(profile.getProgrammingLanguages());
 			frameworks = toListValueModel(profile.getFrameworks());
