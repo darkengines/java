@@ -44,18 +44,20 @@ public class UpdateProfile extends JSonService<ProfileInput, ProfileOutput> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ProfileOutput processJsonRequest(ProfileInput data) throws Exception {
-		User user = Util.getUserByToken(data.getToken());
+		Session session = DBSessionFactory.GetSession();
+		User user = Util.getUserByToken(data.getToken(), session);
 		if (user == null) {
+			session.close();
 			throw new Exception("token.invalid");
 		}
 		if (user.getType() != UserType.Dev) {
+			session.close();
 			throw new Exception("user.type.invalid");
 		}
 		Profile profile = user.getProfile();
 		if (profile == null) {
 			profile = new Profile();
 		}
-		Session session = DBSessionFactory.GetSession();
 		List<Long> programmingLanguageIds = data.getProgrammingLanguageIds();
 		List<Long> frameworkIds = data.getFrameworkIds();
 		List<Long> languageIds = data.getLanguageIds();

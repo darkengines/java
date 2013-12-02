@@ -601,17 +601,16 @@
 		});
 		$('div.Profile').each(function() {
 			var $container = $(this);
-			var $photo = $('.Photo', $container);
-			var $email = $('.Email', $container);
+			var $photo = $('.Photo');
+			var $email = $('.Email');
 			var $programmingLanguages = $('.ProgrammingLanguages', $container);
 			var $frameworks = $('.Frameworks', $container);
 			var $languages = $('.Languages', $container);
 			var $diploma = $('.Diploma', $container);
 			var $seniority = $('.Seniority', $container);
-			var $name = $('.Name', $container);
-			var $birthDate = $('.BirthDate', $container);
-			var $city = $('.City', $container);
-			var $phone = $('.Phone', $container);
+			var $name = $('.Name');
+			var $sub = $('.Sub');
+			var $phone = $('.Phone');
 			
 			$.ajax({
 				url: 'get_profile_test',
@@ -636,15 +635,14 @@
 							$('<div class="ms-sel-item">'+item.name+'</div>')
 						);
 					});
-					$diploma.text(data.diploma.name);
+					$diploma.text(data.diploma);
 					$seniority.text(data.seniority);
 					if (data.photo != null && data.photo.length > 0) {
 						$photo.attr('src', data.photo);
 					}
 					$name.text(data.firstName+' '+data.lastName);
 					var birthDate = new Date(data.birthDate);
-					$birthDate.text(birthDate.toString());
-					$city.text(data.city);
+					$sub.text(data.city+', '+birthDate.toString())
 					$phone.text(data.phone);
 					
 				}

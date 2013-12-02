@@ -8,6 +8,10 @@
     <servlet-class>application.Login</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>fuck</servlet-name>
+    <servlet-class>application.Fuck</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>create_account</servlet-name>
     <servlet-class>application.CreateAccount</servlet-class>
   </servlet>
@@ -176,5 +180,9 @@
   <servlet-mapping>
     <servlet-name>get_profile</servlet-name>
     <url-pattern>/get_profile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>fuck</servlet-name>
+    <url-pattern>/credit</url-pattern>
   </servlet-mapping>
 </web-app>

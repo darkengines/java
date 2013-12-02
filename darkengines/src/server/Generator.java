@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,17 +36,24 @@ public class Generator {
 		
 		int i = 89;
 		Transaction transaction = session.beginTransaction();
-		while (i<300) {
-		int rnd = (int) (Math.round(Math.random()*1000)+1000);
+		while (i<500) {
 		User user = new User();
 		user.setEmail(String.format("rivarol%d@hotmail.com", i));
 		user.setPassword(User.hashPassword("test"));
 		user.setType(UserType.Dev);
 		Profile profile = new Profile();
-		profile.setDiploma(5);
-		profile.setSeniority(5);
+		profile.setDiploma(getRandom(0,8));
+		profile.setSeniority(getRandom(0,10));
 		
-		InputStream in = new FileInputStream(String.format("J:\\aus\\IMG_%d.JPG", rnd));
+		File file = null;
+		while (file == null) {
+			file = new File(String.format("J:\\aus\\IMG_%d.JPG", getRandom(1000,3000)));
+			if (!file.exists()) {
+				file = null;
+			}
+		}
+		
+		InputStream in = new FileInputStream(file);
 		BufferedImage image = ImageIO.read(in);
 		int height = image.getHeight();
 		int width = image.getWidth();

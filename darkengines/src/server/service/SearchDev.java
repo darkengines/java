@@ -41,12 +41,15 @@ public class SearchDev extends JSonService<SearchInput, Set> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Set<ProfileModel> processJsonRequest(SearchInput data) throws Exception {
+		Session session = DBSessionFactory.GetSession();
 		if (data != null && data.getToken() != null) {
-			User user = Util.getUserByToken(data.getToken());
+			User user = Util.getUserByToken(data.getToken(), session);
 			if (user == null) {
+				session.close();
 				throw new Exception("token.invalid");
 			}
 			if (user.getType() != UserType.Dev) {
+				session.close();
 				throw new Exception("user.type.invalid");
 			}
 		}
@@ -54,7 +57,6 @@ public class SearchDev extends JSonService<SearchInput, Set> {
 //		if (profile == null) {
 //			profile = new Profile();
 //		}
-		Session session = DBSessionFactory.GetSession();
 		Criteria criteria = session.createCriteria(User.class, "user");
 		DetachedCriteria subQuery = DetachedCriteria.forClass(Profile.class, "profile")
 			.add(Property.forName("profile.id").eqProperty("user.profile.id"))

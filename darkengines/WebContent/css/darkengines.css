@@ -56,7 +56,7 @@ body {
 	color: rgba(240, 173, 0, 1);
 }
 .Content {
-	margin: auto;
+	margin: 8px auto auto auto;
 	width: 100%;
 	height: 1024px;
 }
@@ -68,26 +68,26 @@ form h3 .Notification.Loading {
 	display: inline-block;
 	vertical-align: middle;
 }
-form .Field {
+.Field {
 	position: relative;
 	margin: 0;
 	width: 100%;
 	height: auto;
 	padding: 8px;
 }
-form .Field:nth-child(2n) {
+.Field:nth-child(2n) {
 	background-color: rgba(64,64,64,1);
 }
-form .Field:first-child {
+.Field:first-child {
 	border-radius: 4px 4px 0 0;
 }
-form .Field:last-child {
+.Field:last-child {
 	border-radius: 0 0 4px 4px;
 }
-form .Field:nth-child(2n+1) {
+.Field:nth-child(2n+1) {
 	background-color: rgba(42,42,42,1);
 }
-form .Field input[type=text], form .Field input[type=password], form .Field input[type=file] {
+.Field input[type=text], form .Field input[type=password], form .Field input[type=file] {
 	border: solid 1px rgba(255, 255, 255, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
@@ -105,13 +105,13 @@ form .Field input[type=text], form .Field input[type=password], form .Field inpu
     -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
 }
-form .Field input:focus {
+.Field input:focus {
 	border-color: rgba(240, 173, 0, 1);
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(240, 173, 0, 0.75);
 }
-form .Field textarea {
+.Field textarea {
 	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
@@ -126,11 +126,11 @@ form .Field textarea {
     -moz-box-sizing: border-box;
 	width: 100%;
 }
-form .Field .File {
+.Field .File {
 	position: relative;
 	height: 30px;
 }
-form .Field .File .Browse {
+.Field .File .Browse {
 	background-image: -webkit-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
 	background-image: -moz-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
 	background-image: -ms-linear-gradient(bottom,rgba(150, 100, 0, 1),rgba(150,40,40,1));
@@ -149,7 +149,7 @@ form .Field .File .Browse {
 	left: 0;
 	top: 0;
 }
-form .Field .File .Filename {
+.Field .File .Filename {
 	border: solid 2px rgba(150, 100, 0, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
@@ -164,7 +164,7 @@ form .Field .File .Filename {
 	right: 0;
 	top: 0;
 }
-form .Field .Result {
+.Field .Result {
 	display: inline-block;
 	background-repeat: no-repeat;
 	padding-left: 30px;
@@ -173,10 +173,10 @@ form .Field .Result {
 	text-align: left;
 	margin: 0 0 0 4px;
 }
-form .Field .Result.Ok {
+.Field .Result.Ok {
 	background-image: url(../image/ok.png);
 }
-form .Field .Result.Error {
+.Field .Result.Error {
 	background-image: url(../image/error.png);
 }
 form.UpdateIdentity label {
@@ -294,8 +294,48 @@ button:active, input[type=button]:active, input[type=submit]:active {
 	bottom: 8px;
 	left: 8px;
 }
-.Profile .Identity .Box {
-	display: inline-block;
+.Identity {
+	background-color: rgba(64,64,64,1);
+}
+.Box {
 	padding: 4px;
+	background-color: rgba(64,64,64,1);
+}
+.Identity {
 	vertical-align: top;
+	margin: 0 0 8px 0;
+	border: dotted 2px;
+	position: relative;
+}
+.Box.Identity .Personnal{
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+}
+.Box.Identity .Personnal .Sub{
+	text-align: right;
+}
+.Box.Identity h3{
+	padding: 4px;
+	margin: 0;
+}
+.Box.Identity .Contact{
+	display: inline-block;
+	text-align: right;
+	position: absolute;
+	right: 4px;
+	top: 4px;
+}
+.Content .Left {
+	display: inline-block;
+	vertical-align: top;
+}
+.Content .Right {
+	display: inline-block;
+	vertical-align: top;
+	width: 884px;
+}
+.Profile .Field h5 {
+	padding: 0;
+	margin: 0;
 }

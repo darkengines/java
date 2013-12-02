@@ -42,8 +42,8 @@ public class GetProfile extends JSonService<Long, ProfileModel> {
 		if (user.getType() != UserType.Dev) {
 			throw new Exception("user.type.invalid");
 		}
-		session.close();
 		ProfileModel model = new ProfileModel(user);
+		session.close();
 		return model;
 	}
 	

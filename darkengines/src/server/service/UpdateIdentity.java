@@ -31,14 +31,16 @@ public class UpdateIdentity extends JSonService<UserIdentityInput, UserIdentityO
 	public UserIdentityOutput processJsonRequest(UserIdentityInput data)
 			throws Exception {
 		Session session = DBSessionFactory.GetSession();
-		User user = Util.getUserByToken(data.getToken());
+		User user = Util.getUserByToken(data.getToken(), session);
 		if (user == null) {
+			session.close();
 			throw new Exception("token.invalid");
 		}
 		City city = null;
 		if (data.getCityId() != null) {
 			city = (City)session.createCriteria(City.class).add(Restrictions.eq("id", data.getCityId())).uniqueResult();
 			if (city == null) {
+				session.close();
 				throw new Exception("cityId.invalid");
 			}
 		}

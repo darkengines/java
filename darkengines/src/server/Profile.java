@@ -14,11 +14,11 @@ import darkengines.database.IdentifiedEntity;
 
 @Entity
 public class Profile extends IdentifiedEntity {
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany()
 	private Set<ProgrammingLanguage> programmingLanguages;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany()
 	private Set<Framework> frameworks;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany()
 	private Set<Language> languages;
 	private Integer diploma;
 	private Integer seniority;
