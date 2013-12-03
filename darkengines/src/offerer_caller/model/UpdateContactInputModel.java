@@ -1,15 +1,8 @@
 package offerer_caller.model;
 
-import darkengines.model.NotNull;
-import darkengines.model.Validator;
-import darkengines.model.Validators;
 import offerer_caller.Contact;
 
-public class UpdateContactInputModel {
-	@Validators({
-		@Validator(rule=NotNull.class, errorText="token.null"),
-	})
-	private String token;
+public class UpdateContactInputModel extends TokenizenModel {
 	private String phone;
 	private String email;
 	public String getPhone() {
@@ -26,11 +19,5 @@ public class UpdateContactInputModel {
 	}
 	public Contact toContact() {
 		return new Contact(email, phone);
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
 	}
 }

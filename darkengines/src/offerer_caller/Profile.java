@@ -20,6 +20,7 @@ public class Profile extends IdentifiedEntity {
 	private Integer seniority;
 	private Image image;
 	public Profile() {
+		image = new Image();
 		programmingLanguages = new HashSet<ProgrammingLanguage>();
 		frameworks = new HashSet<Framework>();
 		languages = new HashSet<Language>();

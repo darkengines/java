@@ -23,27 +23,14 @@ import org.hibernate.criterion.Restrictions;
 
 import darkengines.database.DBSessionFactory;
 import darkengines.image.ImageHelper;
-import darkengines.model.NotNull;
-import darkengines.model.Validator;
-import darkengines.model.Validators;
 
-public class UpdateProfileInputModel {
-	@Validators({
-		@Validator(rule=NotNull.class, errorText="token.null")
-	})
-	private String token;
+public class UpdateProfileInputModel extends TokenizenModel {
 	private Set<Long> programmingLanguageIds;
 	private Set<Long> frameworkIds;
 	private Set<Long> languageIds;
 	private Integer diploma;
 	private Integer seniority;
 	private String photo;
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
 	public Set<Long> getProgrammingLanguageIds() {
 		return programmingLanguageIds;
 	}
