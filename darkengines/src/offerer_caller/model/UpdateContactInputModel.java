@@ -20,4 +20,9 @@ public class UpdateContactInputModel extends TokenizenModel {
 	public Contact toContact() {
 		return new Contact(email, phone);
 	}
+	public Contact mergeContact(Contact contact) {
+		contact.setEmail(email);
+		contact.setPhone(phone);
+		return contact;
+	}
 }

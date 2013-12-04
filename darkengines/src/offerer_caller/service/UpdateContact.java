@@ -30,8 +30,7 @@ public class UpdateContact extends JSonService<UpdateContactInputModel, Object> 
 		if (user == null) {
 			throw new Exception("token.inavlid");
 		}
-		user.getContact().setEmail(data.getEmail());
-		user.getContact().setPhone(data.getPhone());
+		user.setContact(data.mergeContact(user.getContact()));
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(user);
 		session.flush();
