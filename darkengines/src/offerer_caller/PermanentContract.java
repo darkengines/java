@@ -3,6 +3,6 @@ package offerer_caller;
 import javax.persistence.Entity;
 
 @Entity
-public class PermanentContract {
+public class PermanentContract extends Contract{
 	
 }
