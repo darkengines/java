@@ -28,13 +28,17 @@ public class UpdateCall extends JSonService<UpdateCallInputModel, Object> {
 	@Override
 	public Object processJsonRequest(UpdateCallInputModel data)
 			throws Exception {
+		Boolean isNew = true;
 		Session session = DBSessionFactory.GetSession();
 		Caller user = (Caller)User.getUserByToken(data.getToken(), session);
 		if (user == null) {
 			throw new Exception("token.inavlid");
 		}
-		Call call = getUserCallById(user, data.getCallId());
-		Boolean isNew = call == null;
+		Call call = null;
+		if (data.getCallId() != null) {
+			call = getUserCallById(user, data.getCallId());
+			isNew = call == null;
+		}
 		call = data.mergeCall(call);
 		if (isNew) {
 			user.getCalls().add(call);

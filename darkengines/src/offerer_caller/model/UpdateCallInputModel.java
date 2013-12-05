@@ -1,8 +1,5 @@
 package offerer_caller.model;
 
-import darkengines.model.NotNull;
-import darkengines.model.Validators;
-import darkengines.model.Validator;
 import offerer_caller.Call;
 import offerer_caller.CallType;
 import offerer_caller.Contract;
@@ -11,19 +8,16 @@ import offerer_caller.Freelance;
 import offerer_caller.PermanentContract;
 
 public class UpdateCallInputModel extends TokenizenModel {
-	@Validators(
-		@Validator(rule=NotNull.class, errorText="callId.null")
-	)
-	private long callId;
+	private Long callId;
 	private CallType type;
 	private float salary;
 	private float budget;
 	private int length;
 	
-	public long getCallId() {
+	public Long getCallId() {
 		return callId;
 	}
-	public void setCallId(long callId) {
+	public void setCallId(Long callId) {
 		this.callId = callId;
 	}
 	public float getSalary() {
