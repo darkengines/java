@@ -69,67 +69,76 @@
 			});
 		});
 		$('form.CreateAccount').each(function() {
-			var $form = $(this);
-			var $button = $('button', $form);
-			var $email = $('input[name=email]', $form);
-			var $emailResult = $('.Result', $email.parent());
-			var $password = $('input[name=password]', $form);
-			var $passwordConfirmation = $('input[name=password_confirmation]', $form);
-			var $passwordResult = $('.Result', $passwordConfirmation.parent());
-			$button.click(function() {
-				$form.append($('<input type="hidden" name="type" value="'+$(this).val()+'"/>'));
-			});
-			$email.bind('keyup change', function() {
-				if (!isEmail($email.val())) {
-					$emailResult.removeClass('Ok').addClass('Error');
-					$emailResult.text('Ce courriel n\'est pas valide');
-				} else {
-					$.ajax({
-						url: 'email_exists_test',
-						data: {
-							data: $email.val(),
-						},
-						success: function(result) {
-							if (result) {
-								$emailResult.removeClass('Ok').addClass('Error');
-								$emailResult.text('Ce courriel est déjà utilisé');
-							} else {
-								$emailResult.removeClass('Error').addClass('Ok');
-								$emailResult.text('Ok');
-							}
-						},
-						error: function(result) {
-							$emailResult.removeClass('Ok').addClass('Error');
-							$emailResult.text(result.email);
-						}
-					});
+			$(this).form({
+				validators: {
+					email: [
+					    function(field, fields) {
+					    	return field.match('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$') ? {isValid:true, text:'Ok'}:{isValid:false, text:'Error'};
+					    }
+					]
 				}
 			});
-			$passwordConfirmation.bind('keyup change', function() {
-				if ($passwordConfirmation.val() != $password.val()) {
-					$passwordResult.removeClass('Ok').addClass('Error');
-					$passwordResult.text('Les mots de passe de correspondent pas');
-				} else {
-					$passwordResult.removeClass('Error').addClass('Ok');
-					$passwordResult.text('Ok');
-				}
-			});
-			$form.submit(function(e) {
-				$.ajax({
-					url: $form.attr('action'),
-					data: {
-						data: JSON.stringify($form.serializeObject())
-					},
-					success: function(token) {
-						$.cookie('token', JSON.stringify(token));
-						window.location.href = 'edit_dev_identity';
-					},
-					error: function() {
-						
-					}
-				});
-				e.preventDefault();
-			});
+//			var $form = $(this);
+//			var $button = $('button', $form);
+//			var $email = $('input[name=email]', $form);
+//			var $emailResult = $('.Result', $email.parent());
+//			var $password = $('input[name=password]', $form);
+//			var $passwordConfirmation = $('input[name=password_confirmation]', $form);
+//			var $passwordResult = $('.Result', $passwordConfirmation.parent());
+//			$button.click(function() {
+//				$form.append($('<input type="hidden" name="type" value="'+$(this).val()+'"/>'));
+//			});
+//			$email.bind('keyup change', function() {
+//				if (!isEmail($email.val())) {
+//					$emailResult.removeClass('Ok').addClass('Error');
+//					$emailResult.text('Ce courriel n\'est pas valide');
+//				} else {
+//					$.ajax({
+//						url: 'email_exists_test',
+//						data: {
+//							data: $email.val(),
+//						},
+//						success: function(result) {
+//							if (result) {
+//								$emailResult.removeClass('Ok').addClass('Error');
+//								$emailResult.text('Ce courriel est déjà utilisé');
+//							} else {
+//								$emailResult.removeClass('Error').addClass('Ok');
+//								$emailResult.text('Ok');
+//							}
+//						},
+//						error: function(result) {
+//							$emailResult.removeClass('Ok').addClass('Error');
+//							$emailResult.text(result.email);
+//						}
+//					});
+//				}
+//			});
+//			$passwordConfirmation.bind('keyup change', function() {
+//				if ($passwordConfirmation.val() != $password.val()) {
+//					$passwordResult.removeClass('Ok').addClass('Error');
+//					$passwordResult.text('Les mots de passe de correspondent pas');
+//				} else {
+//					$passwordResult.removeClass('Error').addClass('Ok');
+//					$passwordResult.text('Ok');
+//				}
+//			});
+//			$form.submit(function(e) {
+//				$.ajax({
+//					url: $form.attr('action'),
+//					data: {
+//						data: JSON.stringify($form.serializeObject())
+//					},
+//					success: function(token) {
+//						$.cookie('token', JSON.stringify(token));
+//						window.location.href = 'edit_dev_identity';
+//					},
+//					error: function() {
+//						
+//					}
+//				});
+//				e.preventDefault();
+//			});
 		});
 		$('form.UpdateIdentity').each(function() {
 			var $form = $(this);

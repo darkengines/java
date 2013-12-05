@@ -8,6 +8,7 @@ import javax.servlet.ServletResponse;
 
 import darkengines.service.Service;
 
+@SuppressWarnings("serial")
 public class CreateAccount extends Service {
 
 	@Override

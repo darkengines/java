@@ -24,8 +24,8 @@
 				<div class="Result"></div>
 		</div>
 		<div class="Field">
-			<button type="submit" class="Button" value="Dev">Je suis développeur</button>
-			<button type="submit" value="Offerer">Je cherche un dev</button>
+			<button type="submit" class="Button" value="Dev" name="type">Je suis développeur</button>
+			<button type="submit" value="Offerer" name="type">Je cherche un dev</button>
 		</div>
 		</div>
 	</form>

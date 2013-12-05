@@ -8,16 +8,12 @@
     <servlet-class>application.Login</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>fuck</servlet-name>
-    <servlet-class>application.Fuck</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>create_account</servlet-name>
     <servlet-class>application.CreateAccount</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>email_exists_test</servlet-name>
-    <servlet-class>server.service.EmailExists</servlet-class>
+    <servlet-class>caller_offerrer.service.EmailExists</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>edit_dev_identity</servlet-name>
@@ -33,56 +29,56 @@
   </servlet>
   <servlet>
     <servlet-name>create_account_test</servlet-name>
-    <servlet-class>server.service.CreateAccount</servlet-class>
+    <servlet-class>caller_offerrer.service.CreateAccount</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>login_test</servlet-name>
-    <servlet-class>server.service.Login</servlet-class>
+    <servlet-class>caller_offerrer.service.Login</servlet-class>
   </servlet>
-  <servlet>
+  <!-- <servlet>
     <servlet-name>get_identity_test</servlet-name>
-    <servlet-class>server.service.GetIdentity</servlet-class>
-  </servlet>
+    <servlet-class>caller_offerrer.service.GetIdentity</servlet-class>
+  </servlet> -->
   <servlet>
     <servlet-name>get_profile_test</servlet-name>
-    <servlet-class>server.service.GetProfile</servlet-class>
+    <servlet-class>caller_offerrer.service.GetProfile</servlet-class>
   </servlet>
-  <servlet>
+  <!-- <servlet>
     <servlet-name>update_identity_test</servlet-name>
-    <servlet-class>server.service.UpdateIdentity</servlet-class>
-  </servlet>
+    <servlet-class>caller_offerrer.service.UpdateIdentity</servlet-class>
+  </servlet> -->
   <servlet>
     <servlet-name>update_profile_test</servlet-name>
-    <servlet-class>server.service.UpdateProfile</servlet-class>
+    <servlet-class>caller_offerrer.service.UpdateProfile</servlet-class>
   </servlet>
-  <servlet>
+  <!-- <servlet>
     <servlet-name>postal_code_test</servlet-name>
-    <servlet-class>server.service.PostalCodes</servlet-class>
-  </servlet>
-  <servlet>
+    <servlet-class>caller_offerrer.service.PostalCodes</servlet-class>
+  </servlet> -->
+  <!-- <servlet>
     <servlet-name>cities_test</servlet-name>
-    <servlet-class>server.service.Cities</servlet-class>
-  </servlet>
+    <servlet-class>caller_offerrer.service.Cities</servlet-class>
+  </servlet> -->
   <servlet>
     <servlet-name>programming_languages_test</servlet-name>
-    <servlet-class>server.service.ProgrammingLanguages</servlet-class>
+    <servlet-class>caller_offerrer.service.ProgrammingLanguages</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>frameworks_test</servlet-name>
-    <servlet-class>server.service.Frameworks</servlet-class>
+    <servlet-class>caller_offerrer.service.Frameworks</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>languages_test</servlet-name>
-    <servlet-class>server.service.Languages</servlet-class>
+    <servlet-class>caller_offerrer.service.Languages</servlet-class>
   </servlet>
-  <servlet>
+  <!-- <servlet>
     <servlet-name>diplomas_test</servlet-name>
-    <servlet-class>server.service.Diplomas</servlet-class>
-  </servlet>
-  <servlet>
+    <servlet-class>caller_offerrer.service.Diplomas</servlet-class>
+  </servlet> -->
+  <!-- <servlet>
     <servlet-name>search_dev_test</servlet-name>
-    <servlet-class>server.service.SearchDev</servlet-class>
-  </servlet>
+    <servlet-class>caller_offerrer.service.SearchDev</servlet-class>
+  </servlet> -->
   <servlet>
     <servlet-name>search_dev</servlet-name>
     <servlet-class>application.SearchDev</servlet-class>
@@ -129,14 +125,14 @@
     <servlet-name>login_test</servlet-name>
     <url-pattern>/login_test</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+  <!-- <servlet-mapping>
     <servlet-name>update_identity_test</servlet-name>
     <url-pattern>/update_identity_test</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
+  </servlet-mapping> -->
+  <!-- <servlet-mapping>
     <servlet-name>get_identity_test</servlet-name>
     <url-pattern>/get_identity_test</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <servlet-mapping>
     <servlet-name>get_profile_test</servlet-name>
     <url-pattern>/get_profile_test</url-pattern>
@@ -145,14 +141,14 @@
     <servlet-name>update_profile_test</servlet-name>
     <url-pattern>/update_profile_test</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+ <!--  <servlet-mapping>
     <servlet-name>postal_code_test</servlet-name>
     <url-pattern>/postal_code_test</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>cities_test</servlet-name>
     <url-pattern>/cities_test</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <servlet-mapping>
     <servlet-name>programming_languages_test</servlet-name>
     <url-pattern>/programming_languages_test</url-pattern>
@@ -165,14 +161,14 @@
     <servlet-name>languages_test</servlet-name>
     <url-pattern>/languages_test</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+ <!--  <servlet-mapping>
     <servlet-name>diplomas_test</servlet-name>
     <url-pattern>/diplomas_test</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
+  </servlet-mapping> -->
+  <!-- <servlet-mapping>
     <servlet-name>search_dev_test</servlet-name>
     <url-pattern>/search_dev_test</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <servlet-mapping>
     <servlet-name>search_dev</servlet-name>
     <url-pattern>/search_dev</url-pattern>
@@ -180,9 +176,5 @@
   <servlet-mapping>
     <servlet-name>get_profile</servlet-name>
     <url-pattern>/get_profile</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>fuck</servlet-name>
-    <url-pattern>/credit</url-pattern>
   </servlet-mapping>
 </web-app>

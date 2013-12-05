@@ -9,10 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.reflections.Reflections;
 
-import server.User;
 import darkengines.reflexion.ReflectionsFactory;
 
 public class DBSessionFactory {
