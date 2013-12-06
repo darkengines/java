@@ -5,7 +5,7 @@
 		
 		var $form = this;
 		var $fields = $('input, select, textarea', this);
-		$fields.filter('input[type=text]').keyup(function() {
+		$fields.filter('input[type=text], input[type=password]').keyup(function() {
 			var $this = $(this);
 			var fieldName = $this.attr('name');
 			var fields = formToJson();
@@ -17,9 +17,9 @@
 			var $result = $('.Validator', $field.parent());
 			$result.text(result.text);
 			if (result.isValid) {
-				$field.removeClass('Invalid').addClass('Valid');
+				$result.removeClass('Invalid').addClass('Valid');
 			} else {
-				$field.removeClass('Valid').addClass('Invalid');
+				$result.removeClass('Valid').addClass('Invalid');
 			}
 		};
 		var $buttons = $('button[type=submit]', this);
@@ -88,6 +88,9 @@
 					if (options.beforeSend != null) {
 						if (options.beforeSend($form, settings.data, xhr)) {
 							option.sending($form);
+							$.each(options.discar, function(key, value) {
+								delete json[value];
+							});
 							return true;
 						} else {
 							return false;
