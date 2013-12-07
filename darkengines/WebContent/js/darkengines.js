@@ -79,19 +79,20 @@
 			});
 		});
 		$('form.UpdateProfile').each(function() {
+			var $form = $(this);
+			var $programmingLanguages = $('input[name=programmingLanguageIds]');
+			var $frameworks = $('input[name=frameworkIds]');
+			var $languages = $('input[name=languageIds]');
+			var $notifier = $('.Notification');
+			var $diplomaEditor = $('.DiplomaUi');
+			var $diplomaDisplay = $('.DiplomaDisplay');
+			var $diploma = $('input[name=diploma]');
+			var $seniorityEditor = $('.SeniorityUi');
+			var $seniorityDisplay = $('.SeniorityDisplay');
+			var $seniority = $('input[name=seniority]');
+			var $photo = $('input[name=photo]');
+			var $photoDisplay = $('.Photo');
 			$(this).form();
-//			var $programmingLanguages = $('input[name=programmingLanguageIds]');
-//			var $frameworks = $('input[name=frameworkIds]');
-//			var $languages = $('input[name=languageIds]');
-//			var $notifier = $('.Notification');
-//			var $diplomaEditor = $('.DiplomaUi');
-//			var $diplomaDisplay = $('.DiplomaDisplay');
-//			var $diploma = $('input[name=diploma]');
-//			var $seniorityEditor = $('.SeniorityUi');
-//			var $seniorityDisplay = $('.SeniorityDisplay');
-//			var $seniority = $('input[name=seniority]');
-//			var $photo = $('input[name=photo]');
-//			var $photoDisplay = $('.Photo');
 //			$programmingLanguages.each(function() {
 //				$this = $(this);
 //				$this.magicSuggest({

@@ -30,13 +30,13 @@
 				<label for="diploma">Niveau d'études</label> <input type="hidden"
 					id="diploma" name="diploma" />
 				<div class="DiplomaDisplay">Aucun</div>
-				<div class="DiplomaUi"></div>
+				<div class="DiplomaEditor"></div>
 			</div>
 			<div class="Field">
 				<label for="seniority">Années d'expérience</label> <input
 					type="hidden" id="seniority" name="seniority" />
 				<div class="SeniorityDisplay">Aucune</div>
-				<div class="SeniorityUi"></div>
+				<div class="SeniorityEditor"></div>
 			</div>
 			<div class="Field">
 				<button name="submit">Enregistrer</button>
