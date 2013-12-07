@@ -46,7 +46,7 @@ public class Login extends JSonService<LoginInputModel, LoginOutputModel> {
 		session.close();
 		
 		LoginOutputModel output = new LoginOutputModel();
-		output.setSessionToken(userSession.getToken());
+		output.setToken(userSession.getToken());
 		output.setUserId(user.getId());
 		output.setType(user.getType());
 		

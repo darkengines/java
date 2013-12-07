@@ -4,8 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import caller_offerrer.Caller;
+import caller_offerrer.Offerrer;
 import caller_offerrer.User;
 import caller_offerrer.UserSession;
+import caller_offerrer.UserType;
 import caller_offerrer.model.CreateAccountInputModel;
 import caller_offerrer.model.CreateAccountOutputModel;
 import darkengines.database.DBSessionFactory;
@@ -34,6 +37,16 @@ public class CreateAccount extends JSonService<CreateAccountInputModel, CreateAc
 			throw new Exception("email.exists");
 		}
 		Transaction transaction = session.beginTransaction();
+		session.save(user.getContact());
+		if (data.getType() == UserType.Offerrer) {
+			Offerrer offerrer = (Offerrer)user;
+			session.save(offerrer.getOffer().getProfile().getImage());
+			session.save(offerrer.getOffer().getProfile());
+			session.save(offerrer.getOffer());
+		}
+		if (data.getType() == UserType.Caller) {
+			Caller caller = (Caller)user;
+		}
 		session.save(user);
 		UserSession userSession = new UserSession(user, 0);
 		session.save(userSession);
@@ -41,7 +54,7 @@ public class CreateAccount extends JSonService<CreateAccountInputModel, CreateAc
 		transaction.commit();
 		session.close();
 		CreateAccountOutputModel out = new CreateAccountOutputModel();
-		out.setSessionToken(userSession.getToken());
+		out.setToken(userSession.getToken());
 		out.setUserId(user.getId());
 		out.setType(user.getType());
 		return out;

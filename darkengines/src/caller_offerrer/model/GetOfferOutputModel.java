@@ -5,14 +5,14 @@ import java.util.Map;
 import caller_offerrer.Offerrer;
 
 public class GetOfferOutputModel {
-	private long offerrerId;
-	private long photoId;
+	private Long offerrerId;
+	private Long photoId;
 	private Map<Long, String> programmingLanguages;
 	private Map<Long, String> frameworks;
 	private Map<Long, String> languages;
 	private String description;
-	private int seniority;
-	private int diploma;
+	private Integer seniority;
+	private Integer diploma;
 	private String email;
 	private String phone;
 	

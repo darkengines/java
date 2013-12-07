@@ -3,7 +3,7 @@ package caller_offerrer.model;
 import caller_offerrer.UserType;
 
 public class LoginOutputModel {
-	private String sessionToken;
+	private String token;
 	private long userId;
 	private UserType type;
 
@@ -15,12 +15,12 @@ public class LoginOutputModel {
 		this.type = type;
 	}
 
-	public String getSessionToken() {
-		return sessionToken;
+	public String getToken() {
+		return token;
 	}
 
-	public void setSessionToken(String sessionToken) {
-		this.sessionToken = sessionToken;
+	public void setToken(String sessionToken) {
+		this.token = sessionToken;
 	}
 
 	public long getUserId() {

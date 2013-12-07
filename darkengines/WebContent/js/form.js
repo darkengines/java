@@ -2,7 +2,7 @@
 	$.fn.form = function(options) {
 		
 		options = $.extend({}, $.fn.form.defaults, options);
-		
+		var allValid = false;
 		var $form = this;
 		var $fields = $('input, select, textarea', this);
 		$fields.filter('input[type=text], input[type=password]').keyup(function() {
@@ -10,6 +10,7 @@
 			var fieldName = $this.attr('name');
 			var fields = formToJson();
 			var result = validate(fieldName, fields);
+			checkForm(fields);
 			displayValidator(fieldName, result);
 		});
 		var displayValidator = function(fieldName, result) {
@@ -27,6 +28,7 @@
 			var $this = $(this);
 			$this.click(function() {
 				var $this = $(this);
+				$buttons.removeAttr('clicked');
 				$this.attr('clicked', 'true');
 			});
 		});
@@ -60,7 +62,9 @@
 			if ((options.validators[fieldName]) != 'undefined') {
 				var validators = options.validators[fieldName]; 
 				$.each(validators, function(key, validator) {
-					result = validator(fields[fieldName], fields);
+					var $field = $fields.filter('[name='+fieldName+']');
+					var $validator = $('.Validator', $field.parent());
+					result = validator(fields[fieldName], fields, $validator);
 					return result.isValid;
 				});
 				return result;
@@ -74,10 +78,26 @@
 			});
 			return result;
 		};
+		var checkForm = function(fields) {
+			allValid = true;
+			var results = validateAll(fields);
+			$.each(results, function(key, result) {
+				allValid &= result.isValid;
+			});
+			$submitters = $buttons.add($fields.filter('[type=submit]'));
+			if (allValid) {
+				$submitters.removeAttr('disabled');
+			} else {
+				$submitters.attr('disabled', 'true');
+			}
+		};
 		$form.submit(function(e) {
 			var url = $form.attr('action');
 			var method = $form.attr('method');
 			var json = formToJson();
+			$.each(options.discar, function(key, value) {
+				delete json[value];
+			});
 			$.ajax({
 				url: url,
 				method: method,
@@ -85,12 +105,9 @@
 					data: JSON.stringify(json)
 				},
 				beforeSend: function(xhr, settings) {
-					if (options.beforeSend != null) {
+					if (options.beforeSubmit != null) {
 						if (options.beforeSend($form, settings.data, xhr)) {
 							option.sending($form);
-							$.each(options.discar, function(key, value) {
-								delete json[value];
-							});
 							return true;
 						} else {
 							return false;
@@ -112,6 +129,26 @@
 			e.preventDefault();
 			return false;
 		});
+		var load = function() {
+			var url = $form.attr('data-load-url');
+			$.ajax({
+				url: url,
+				method: 'get',
+				success: function(data) {
+					$fields.each(function() {
+						var $this = $(this);
+						var fieldName = $this.attr('name');
+						if (typeof(options.load[fieldName]) != 'undefined' && options.load[fieldName] != null) {
+							options.load[fieldName]($this, data);
+						} else {
+							$this.val(data[fieldName]);
+						}
+					});
+				}
+			});
+		};
+		load();
+		checkForm(formToJson());
 	};
 	$.fn.form.defaults = {
 		beforeSubmit: null,
@@ -125,6 +162,7 @@
 		success: function($form, data) {
 			
 		},
-		validators: {}
+		validators: {},
+		load: {}
 	};
 })(jQuery);
