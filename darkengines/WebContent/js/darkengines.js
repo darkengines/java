@@ -45,27 +45,10 @@
 		});
 		$('form.Login').each(function() {
 			$form = $(this);
-			$form.submit(function(e) {
-				$.ajax({
-					url: $form.attr('action'),
-					data: {
-						data: JSON.stringify($form.serializeObject())
-					},
-					success: function(token) {
-						$.cookie('userInfo', JSON.stringify(token));
-						var url = '..';
-						if ($.url().param('url') != null) {
-							url = $.url().param('url');
-							window.location.href = url;
-						} else {
-							window.location.href = 'edit_dev_profile';
-						}
-					},
-					error: function() {
-						
-					}
-				});
-				e.preventDefault();
+			$form.form({
+				success: function($form, data) {
+					$.cookie('userInfo', JSON.stringify(data));
+				}
 			});
 		});
 		$('form.CreateAccount').each(function() {

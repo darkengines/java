@@ -7,13 +7,18 @@
 		var getFields = function() {
 			return $('input, select, textarea, hidden', $form);
 		};
+		var isSet = function(x) {
+			return typeof(x) != 'undefined';
+		};
 		getFields().filter('input[type=text], input[type=password]').keyup(function() {
 			var $this = $(this);
 			var fieldName = $this.attr('name');
-			var fields = formToJson();
-			var result = validate(fieldName, fields);
-			checkForm(fields);
-			displayValidator(fieldName, result);
+			if (isSet(options.validators[fieldName])) {
+				var fields = formToJson();
+				var result = validate(fieldName, fields);
+				checkForm(fields);
+				displayValidator(fieldName, result);
+			}
 		});
 		var displayValidator = function(fieldName, result) {
 			var $field = getFields().filter('[name='+fieldName+']');
@@ -67,13 +72,15 @@
 		var validate = function(fieldName, fields) {
 			var result = null;
 			if ((options.validators[fieldName]) != 'undefined') {
-				var validators = options.validators[fieldName]; 
-				$.each(validators, function(key, validator) {
-					var $field = getFields().filter('[name='+fieldName+']');
-					var $validator = $('.Validator', $field.parent());
-					result = validator(fields[fieldName], fields, $validator);
-					return result.isValid;
-				});
+				var validators = options.validators[fieldName];
+				if ((validators) != 'undefined' && validators != null) {
+					$.each(validators, function(key, validator) {
+						var $field = getFields().filter('[name='+fieldName+']');
+						var $validator = $('.Validator', $field.parent());
+						result = validator(fields[fieldName], fields, $validator);
+						return result.isValid;
+					});
+				}
 				return result;
 			}
 			return true;
@@ -138,20 +145,22 @@
 		});
 		var load = function() {
 			var url = $form.attr('data-load-url');
-			$.ajax({
-				url: url,
-				method: 'get',
-				success: function(data) {
-					$.each(data, function(key, value) {
-						var $field = getFields().filter('[name='+key+']');
-						if (typeof(options.load[key]) != 'undefined' && options.load[key] != null) {
-							options.load[key]($field, data);
-						} else {
-							$field.val(value);
-						}
-					});
-				}
-			});
+			if (typeof(url) != 'undefined' && url != null) {
+				$.ajax({
+					url: url,
+					method: 'get',
+					success: function(data) {
+						$.each(data, function(key, value) {
+							var $field = getFields().filter('[name='+key+']');
+							if (typeof(options.load[key]) != 'undefined' && options.load[key] != null) {
+								options.load[key]($field, data);
+							} else {
+								$field.val(value);
+							}
+						});
+					}
+				});
+			}
 		};
 		load();
 		checkForm(formToJson());
@@ -169,6 +178,7 @@
 			
 		},
 		validators: {},
-		load: {}
+		load: {},
+		discar: {}
 	};
 })(jQuery);
