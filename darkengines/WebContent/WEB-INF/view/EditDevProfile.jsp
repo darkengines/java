@@ -3,6 +3,7 @@
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
 	<form method="post" action="update_profile_test" class="UpdateProfile" data-load-url="get_profile_test?data={offerrerId:<%= request.getAttribute("userId") %>}">
+	<input type="hidden" name="token" value="<%= request.getAttribute("token") %>" />
 		<div class="Title">
 			<h3>
 				Profil <span class="Notification"></span>

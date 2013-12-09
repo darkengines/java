@@ -4,8 +4,10 @@
 		options = $.extend({}, $.fn.form.defaults, options);
 		var allValid = false;
 		var $form = this;
-		var $fields = $('input, select, textarea', this);
-		$fields.filter('input[type=text], input[type=password]').keyup(function() {
+		var getFields = function() {
+			return $('input, select, textarea, hidden', $form);
+		};
+		getFields().filter('input[type=text], input[type=password]').keyup(function() {
 			var $this = $(this);
 			var fieldName = $this.attr('name');
 			var fields = formToJson();
@@ -14,7 +16,7 @@
 			displayValidator(fieldName, result);
 		});
 		var displayValidator = function(fieldName, result) {
-			var $field = $fields.filter('[name='+fieldName+']');
+			var $field = getFields().filter('[name='+fieldName+']');
 			var $result = $('.Validator', $field.parent());
 			$result.text(result.text);
 			if (result.isValid) {
@@ -34,12 +36,17 @@
 		});
 		var formToJson = function() {
 			var json = {};
-			$fields.each(function() {
+			getFields().each(function() {
 				var $field = $(this);
 				var name = $field.attr('name');
 				if (name != null && name.length > 0) {
 					var value = $field.val();
-					json[name] = value;
+					if (value.length <= 0) value = null;
+					try {
+						json[name] = eval(value);
+					} catch(exception) {
+						json[name] = value;
+					}
 				}
 			});
 			var $clickedButton = $('button[clicked=true]', $form);
@@ -62,7 +69,7 @@
 			if ((options.validators[fieldName]) != 'undefined') {
 				var validators = options.validators[fieldName]; 
 				$.each(validators, function(key, validator) {
-					var $field = $fields.filter('[name='+fieldName+']');
+					var $field = getFields().filter('[name='+fieldName+']');
 					var $validator = $('.Validator', $field.parent());
 					result = validator(fields[fieldName], fields, $validator);
 					return result.isValid;
@@ -84,7 +91,7 @@
 			$.each(results, function(key, result) {
 				allValid &= result.isValid;
 			});
-			$submitters = $buttons.add($fields.filter('[type=submit]'));
+			$submitters = $buttons.add(getFields().filter('[type=submit]'));
 			if (allValid) {
 				$submitters.removeAttr('disabled');
 			} else {
@@ -135,13 +142,12 @@
 				url: url,
 				method: 'get',
 				success: function(data) {
-					$fields.each(function() {
-						var $this = $(this);
-						var fieldName = $this.attr('name');
-						if (typeof(options.load[fieldName]) != 'undefined' && options.load[fieldName] != null) {
-							options.load[fieldName]($this, data);
+					$.each(data, function(key, value) {
+						var $field = getFields().filter('[name='+key+']');
+						if (typeof(options.load[key]) != 'undefined' && options.load[key] != null) {
+							options.load[key]($field, data);
 						} else {
-							$this.val(data[fieldName]);
+							$field.val(value);
 						}
 					});
 				}

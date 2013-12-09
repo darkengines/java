@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -49,7 +48,8 @@ public abstract class User extends IdentifiedEntity {
 		this.contact = contact;
 	}
 	public abstract UserType getType();
-	public static User getUserByToken(String token, Session session) {
+	public static User getUserByToken(String token, Session session) throws Exception {
+		if (token == null) throw new Exception("token.null");
 		UserSession userSession = (UserSession)session.createCriteria(UserSession.class).add(Restrictions.eq("token", token)).uniqueResult();
 		return userSession.getUser();
 	}
