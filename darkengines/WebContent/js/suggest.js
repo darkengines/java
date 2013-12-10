@@ -15,8 +15,15 @@
 		$container.append($suggestList);
 		$parent.append($suggestSelected);
 		
-		$suggestInput.blur(function() {
-			$(this).removeClass('Show');
+		$('body').click(function() {
+			$suggestList.removeClass('Visible');
+			$container.removeClass('Suggesting');
+		});
+		
+		$suggestList.click(function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
 		});
 		
 		$suggestInput.keyup(function(e) {
@@ -30,7 +37,8 @@
 					var $children = $suggestList.children();
 					var length = $children.length;
 					if (index < 1 && length > 0) {
-						$suggestList.addClass('Show');
+						$suggestList.addClass('Visible');
+						$container.addClass('Suggesting');
 					}
 					break;
 				}
@@ -39,7 +47,8 @@
 					var length = $children.length;
 					var index = getSuggestListFocusIndex();
 					if (index < 0) {
-						$suggestList.addClass('Show');
+						$suggestList.addClass('Visible');
+						$container.addClass('Suggesting');
 					}
 					if (index < length-1) {
 						suggestListSetFocus(index+1);
@@ -47,7 +56,17 @@
 					break;
 				}
 				default: {
-					$suggestButton.click();
+					var data = options.databind($suggestInput.val());
+					if (Object.keys(data).length > 0) {
+						fillSuggestList(data);
+						if (!$suggestList.is('.Visible')) {
+							$suggestList.addClass('Visible');
+							$container.addClass('Suggesting');
+						}
+					} else {
+						$suggestList.removeClass('Visible');
+						$container.removeClass('Suggesting');
+					}
 				}
 			}
 		});
@@ -59,8 +78,8 @@
 				$children.removeClass('Focused');
 				if (index >= 0 && index < length) {
 					$($children[index]).addClass('Focused');
+					}
 				}
-			}
 		};
 		
 		var getSuggestListFocusIndex = function() {
@@ -71,14 +90,20 @@
 			return index;
 		};
 		
-		$suggestButton.click(function() {
+		$suggestButton.click(function(e) {
 			var data = options.databind($suggestInput.val());
-			if (!$suggestList.is(':focus') && Object.keys(data).length > 0) {
+			if (!$suggestList.is('.Visible') && Object.keys(data).length > 0) {
 				fillSuggestList(data);
-				$suggestList.focus();
+				$suggestList.addClass('Visible');
+				$container.addClass('Suggesting');
+				
 			} else {
-				$suggestList.removeClass('Show');
+				$suggestList.removeClass('Visible');
+				$container.removeClass('Suggesting');
 			}
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
 		});
 		
 		var fillSuggestList = function(data) {
@@ -95,7 +120,6 @@
 					}
 				});
 				$suggestList.append($suggestElement);
-				$container.addClass('Suggesting');
 			});
 		};
 		var suggestSelected = function($suggestElement, key) {
