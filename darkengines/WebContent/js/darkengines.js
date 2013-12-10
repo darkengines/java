@@ -100,7 +100,7 @@
 					databind: function(query) {
 						var result = {};
 						$.ajax({
-							url: 'framework_test',
+							url: 'frameworks_test',
 							async: false,
 							data: {
 								data: JSON.stringify(query)
@@ -164,10 +164,10 @@
 					programmingLanguageIds: function($field, data) {
 						//$field.magicSuggest().addToSelection(data.programmingLanguages);
 					},
-					frameworksIds: function($field, data) {
+					frameworkIds: function($field, data) {
 						//$field.magicSuggest().addToSelection(data.programmingLanguages);
 					},
-					LanguageIds: function($field, data) {
+					languageIds: function($field, data) {
 						//$field.magicSuggest().addToSelection(data.programmingLanguages);
 					}
 				}
