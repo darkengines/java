@@ -77,21 +77,21 @@
 			var $photoDisplay = $('.Photo');
 			$programmingLanguages.each(function() {
 				$this = $(this);
-				$this.magicSuggest({
-					data: function(query, reponse) {
+				$this.suggest({
+					databind: function(query) {
+						var result = {};
 						$.ajax({
 							url: 'programming_languages_test',
+							async: false,
 							data: {
 								data: JSON.stringify(query)
 							},
 							success: function(data) {
-								reponse($.map(data, function(value, key) {
-					            	 return {name:value, id:key};
-					            }));
+								result = data;
 							},
 						});
-					},
-					selectionPosition: 'bottom',
+						return result;
+					}
 				});
 			});
 			$frameworks.each(function() {
@@ -159,7 +159,12 @@
 				});
 			});
 			$(this).form({
-				discar: ['']
+				discar: [''],
+				load: {
+					programmingLanguageIds: function($field, data) {
+						//$field.magicSuggest().addToSelection(data.programmingLanguages);
+					}
+				}
 			});
 //			$.ajax({
 //				url: 'get_profile_test',

@@ -7,9 +7,9 @@ import caller_offerrer.Offerrer;
 public class GetOfferOutputModel {
 	private Long offerrerId;
 	private Long photoId;
-	private Map<Long, String> programmingLanguages;
-	private Map<Long, String> frameworks;
-	private Map<Long, String> languages;
+	private Map<Long, String> programmingLanguageIds;
+	private Map<Long, String> frameworkIds;
+	private Map<Long, String> languageIds;
 	private String description;
 	private Integer seniority;
 	private Integer diploma;
@@ -19,9 +19,9 @@ public class GetOfferOutputModel {
 	public GetOfferOutputModel(Offerrer offerrer) {
 		offerrerId = offerrer.getId();
 		photoId = offerrer.getOffer().getProfile().getImage().getId();
-		programmingLanguages = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getProgrammingLanguages());
-		frameworks = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getFrameworks());
-		languages = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getLanguages());
+		programmingLanguageIds = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getProgrammingLanguages());
+		frameworkIds = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getFrameworks());
+		languageIds = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getLanguages());
 		description = offerrer.getOffer().getDescription();
 		seniority = offerrer.getOffer().getProfile().getSeniority();
 		diploma = offerrer.getOffer().getProfile().getDiploma();
@@ -46,27 +46,27 @@ public class GetOfferOutputModel {
 	}
 
 	public Map<Long, String> getProgrammingLanguages() {
-		return programmingLanguages;
+		return programmingLanguageIds;
 	}
 
 	public void setProgrammingLanguages(Map<Long, String> programmingLanguages) {
-		this.programmingLanguages = programmingLanguages;
+		this.programmingLanguageIds = programmingLanguages;
 	}
 
 	public Map<Long, String> getFrameworks() {
-		return frameworks;
+		return frameworkIds;
 	}
 
 	public void setFrameworks(Map<Long, String> frameworks) {
-		this.frameworks = frameworks;
+		this.frameworkIds = frameworks;
 	}
 
 	public Map<Long, String> getLanguages() {
-		return languages;
+		return languageIds;
 	}
 
 	public void setLanguages(Map<Long, String> languages) {
-		this.languages = languages;
+		this.languageIds = languages;
 	}
 
 	public String getDescription() {

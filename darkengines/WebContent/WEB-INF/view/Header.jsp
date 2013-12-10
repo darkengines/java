@@ -8,6 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/darkengines.css">
   <link type="text/css" rel="stylesheet" href="css/jquery_ui.css">
   <link type="text/css" rel="stylesheet" href="css/jquery_magicsuggest.css">
+  <link type="text/css" rel="stylesheet" href="css/suggest.css">
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/jquery_ui.js"></script>
   <script type="text/javascript" src="js/jquery_cookie.js"></script>
@@ -19,6 +20,7 @@
   <script type="text/javascript" src="js/form.js"></script>
   <script type="text/javascript" src="js/validator.js"></script>
   <script type="text/javascript" src="js/darkengines.js"></script>
+  <script type="text/javascript" src="js/suggest.js"></script>
 </head>
 <body>
 <div class="Container">
