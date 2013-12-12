@@ -29,12 +29,23 @@
 .SuggestWrapper .SuggestList .SuggestElement.Focused {
 	background-color: rgba(240, 173, 0, 1);
 }
+
+.SuggestWrapper .SuggestSelected {
+	margin: 4px 4px 0px 0px;
+}
+
 .SuggestSelected .Selected {
 	display: inline-block;
 	border-radius: 4px;
-	background-color: red;
-	padding: 2px 26px 2px 2px;
+	background-color: rgba(240, 173, 0, 1);
+	padding: 2px 26px 2px 4px;
 	position: relative;
+	border: dotted rgba(33,33,33,1.0) 1px;
+	color: rgba(32,32,32,1);
+	margin-bottom: 4px;
+}
+.SuggestSelected > .Selected + .Selected {
+	margin-left: 4px;
 }
 .SuggestSelected .Selected .Close {
 	display: inline-block;
@@ -49,18 +60,32 @@
 	position: absolute;
 }
 .SuggestWrapper .SuggestButton {
+	-moz-box-shadow: inset 0px 1px 8px 0px #fed897;
+	-webkit-box-shadow: inset 0px 1px 8px 0px #fed897;
+	box-shadow: inset 0px 1px 8px 0px #fed897;
+	background: url(../image/down.png), -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f6b33d), color-stop(1, #d29105) );
+	background: url(../image/down.png), -moz-linear-gradient( center top, #f6b33d 5%, #d29105 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6b33d', endColorstr='#d29105');
+	background-color: #f6b33d;
+
 	position: absolute;
-	background-image: url(../image/down.png);
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	cursor: pointer;
 	width: 22px;
 	height: 100%;
-	background-color: #C2BFBF;
 	top: 0px;
 	right: 0px;
 	border-radius: 0 4px 4px 0;
 	border: 1px solid rgba(255, 255, 255, 1);
+}
+.SuggestWrapper .SuggestButton:hover {
+	background: url(../image/down.png), -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d29105), color-stop(1, #f6b33d) );
+	background: url(../image/down.png), -moz-linear-gradient( center top, #d29105 5%, #f6b33d 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d29105', endColorstr='#f6b33d');
+	background-color: #d29105;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
 }
 .SuggestWrapper.Suggesting .SuggestButton {
 	border: solid 1px rgba(255, 255, 255, 1);

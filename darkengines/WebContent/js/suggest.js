@@ -1,5 +1,8 @@
 (function($) {
 	$.fn.suggest = function(options) {
+		this.setSelectedDatasource = function(data) {
+			refreshSuggestSelected(data);
+		};
 		var $suggest = this;
 		var $parent = this.parent();
 		$suggest.attr('type', 'hidden');
@@ -33,6 +36,7 @@
 			$suggestList.removeClass('Visible');
 			$container.removeClass('Suggesting');
 		};
+		$suggest.datasource = null;
 		$suggestInput.keyup(function(e) {
 			var code = e.keyCode || e.which;
 			switch (code) {
@@ -53,7 +57,7 @@
 					break;
 				}
 				default: {
-					var data = options.databind($suggestInput.val());
+					var data = _databind($suggestInput.val());
 					if (Object.keys(data).length > 0) {
 						fillSuggestList(data);
 						if (!$suggestList.is('.Visible')) {
@@ -65,6 +69,10 @@
 				}
 			}
 		});
+		var _databind = function(q) {
+			$suggest.datasource = options.databind(q);
+			return $suggest.datasource;
+		};
 		$suggestInput.keydown(function(e) {
 			var code = e.keyCode || e.which;
 			switch (code) {
@@ -145,7 +153,7 @@
 		};
 		
 		$suggestButton.click(function(e) {
-			var data = options.databind($suggestInput.val());
+			var data = _databind($suggestInput.val());
 			if (!$suggestList.is('.Visible') && Object.keys(data).length > 0) {
 				fillSuggestList(data);
 				showSuggestList();
@@ -170,8 +178,9 @@
 			});
 		};
 		var suggestSelected = function($suggestElement) {
-			var val = ($suggest.val() != null && $suggest.val().length > 0) ? $suggest.val() : '{}';
+			var val = ($suggest.val() != null && $suggest.val().length > 0) ? $suggest.val() : '[]';
 			var input = eval('('+val+')');
+			var texts = {};
 			var selected = $suggestElement.key;
 			var text = $suggestElement.text();
 			var found = false;
@@ -180,10 +189,13 @@
 				return !found;
 			});
 			if (!found) {
-				input[selected] = text;
+				input.push(selected);
 			}
 			$suggest.val(JSON.stringify(input));
-			refreshSuggestSelected(input);
+			$.each(input, function(key, value) {
+				texts[value] = $suggest.datasource[value];
+			});
+			refreshSuggestSelected(texts);
 		};
 		var refreshSuggestSelected = function(input) {
 			$suggestSelected.empty();
@@ -199,21 +211,28 @@
 			});
 		};
 		var suggestUnselected = function(key) {
-			var val = ($suggest.val() != null && $suggest.val().length > 0) ? $suggest.val() : '{}';
+			var val = ($suggest.val() != null && $suggest.val().length > 0) ? $suggest.val() : '[]';
 			var input = eval('('+val+')');
 			var selected = key;
 			var found = false;
+			var refreshed = new Array();
 			$.each(input, function(key, value) {
-				found = key == selected;
-				return !found;
+				found = value == selected;
+				if (!found) {
+					refreshed.push(value);
+				}
 			});
-			if (found) {
-				delete input[key];
-			}
-			$suggest.val(JSON.stringify(input));
+			$suggest.val(JSON.stringify(refreshed));
 		};
+		refreshSuggestSelected(options.datasource);
+		var input = new Array();
+		$.each(options.datasource, function(key, value) {
+			input.push(key);
+		});
+		$suggest.val(JSON.stringify(input));
 	};
 	$.fn.suggest.defaults = {
 		databind: null,
+		datasource: null,
 	};
 })(jQuery);

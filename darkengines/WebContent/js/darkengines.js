@@ -75,63 +75,7 @@
 			var $seniority = $('input[name=seniority]');
 			var $photo = $('input[name=photo]');
 			var $photoDisplay = $('.Photo');
-			$programmingLanguages.each(function() {
-				$this = $(this);
-				$this.suggest({
-					databind: function(query) {
-						var result = {};
-						$.ajax({
-							url: 'programming_languages_test',
-							async: false,
-							data: {
-								data: JSON.stringify(query)
-							},
-							success: function(data) {
-								result = data;
-							},
-						});
-						return result;
-					}
-				});
-			});
-			$frameworks.each(function() {
-				var $this = $(this);
-				$this.suggest({
-					databind: function(query) {
-						var result = {};
-						$.ajax({
-							url: 'frameworks_test',
-							async: false,
-							data: {
-								data: JSON.stringify(query)
-							},
-							success: function(data) {
-								result = data;
-							},
-						});
-						return result;
-					}
-				});
-			});
-			$languages.each(function() {
-				var $this = $(this);
-				$this.suggest({
-					databind: function(query) {
-						var result = {};
-						$.ajax({
-							url: 'languages_test',
-							async: false,
-							data: {
-								data: JSON.stringify(query)
-							},
-							success: function(data) {
-								result = data;
-							},
-						});
-						return result;
-					}
-				});
-			});
+			
 			$diploma.each(function() {
 				var $this = $(this);
 				$diplomaEditor.slider({
@@ -162,13 +106,70 @@
 				discar: [''],
 				load: {
 					programmingLanguageIds: function($field, data) {
-						//$field.magicSuggest().addToSelection(data.programmingLanguages);
+						$programmingLanguages.each(function() {
+							$this = $(this);
+							$this.suggest({
+								datasource: data.programmingLanguageIds,
+								databind: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'programming_languages_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
+						});
 					},
 					frameworkIds: function($field, data) {
-						//$field.magicSuggest().addToSelection(data.programmingLanguages);
+						$frameworks.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								datasource: data.frameworkIds,
+								databind: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'frameworks_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
+						});
 					},
 					languageIds: function($field, data) {
-						//$field.magicSuggest().addToSelection(data.programmingLanguages);
+						$languages.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								datasource: data.languageIds,
+								databind: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'languages_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
+						});
 					}
 				}
 			});

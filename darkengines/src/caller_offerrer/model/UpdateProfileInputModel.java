@@ -71,24 +71,30 @@ public class UpdateProfileInputModel extends TokenizenModel {
 		Session session = DBSessionFactory.GetSession();
 		if (programmingLanguageIds != null) {
 			profile.getProgrammingLanguages().clear();
-			Collection<ProgrammingLanguage> programmingLanguages = session.createCriteria(ProgrammingLanguage.class)
-					.add(Restrictions.in("id", programmingLanguageIds))
-					.list();
-			profile.getProgrammingLanguages().addAll((Collection)programmingLanguages);
+			if (programmingLanguageIds.size() > 0) {
+				Collection<ProgrammingLanguage> programmingLanguages = session.createCriteria(ProgrammingLanguage.class)
+						.add(Restrictions.in("id", programmingLanguageIds))
+						.list();
+				profile.getProgrammingLanguages().addAll((Collection)programmingLanguages);
+			}
 		}
 		if (frameworkIds != null) {
 			profile.getFrameworks().clear();
-			Set<Framework> frameworks = new HashSet<Framework>(session.createCriteria(Framework.class)
-					.add(Restrictions.in("id", frameworkIds))
-					.list());
-			profile.getFrameworks().addAll((Collection)frameworks);
+			if (frameworkIds.size() > 0) {
+				Set<Framework> frameworks = new HashSet<Framework>(session.createCriteria(Framework.class)
+						.add(Restrictions.in("id", frameworkIds))
+						.list());
+				profile.getFrameworks().addAll((Collection)frameworks);
+			}
 		}
 		if (languageIds != null) {
 			profile.getLanguages().clear();
-			Set<Language> languages = new HashSet<Language>(session.createCriteria(Language.class)
-					.add(Restrictions.in("id", languageIds))
-					.list());
-			profile.getLanguages().addAll((Collection)languages);
+			if (languageIds.size() > 0) {
+				Set<Language> languages = new HashSet<Language>(session.createCriteria(Language.class)
+						.add(Restrictions.in("id", languageIds))
+						.list());
+				profile.getLanguages().addAll((Collection)languages);
+			}
 		}
 		profile.setDiploma(diploma);
 		profile.setSeniority(seniority);
