@@ -22,20 +22,20 @@
 		<div class="Box Profile">
 				<div class="Field">
 					<h5>Langages de programmation maîtrisés</h5>
-					<div class="ms-sel-ctn ProgrammingLanguages">
+					<div class="ProgrammingLanguages">
 						
 					</div>
 				</div>
 				
 				<div class="Field">
 					<h5>Frameworks maîtrisés</h5>
-					<div class="ms-sel-ctn Frameworks">
+					<div class="Frameworks">
 						
 					</div>
 				</div>
 				<div class="Field">
 					<h5>Langages parlés</h5>
-					<div class="ms-sel-ctn Languages">
+					<div class="Languages">
 					
 					</div>
 				</div>

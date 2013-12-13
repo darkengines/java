@@ -200,7 +200,7 @@ form.UpdateProfile .SeniorityDisplay, form.SearchDev .SeniorityDisplay {
 	width: 52px;
 	display: inline-block;
 }
-form.UpdateProfile .SeniorityUi, form.SearchDev .SeniorityUi {
+form.UpdateProfile .SeniorityEditor, form.SearchDev .SeniorityEditor {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
@@ -212,7 +212,7 @@ form.UpdateProfile .DiplomaDisplay, form.SearchDev .DiplomaDisplay {
 	width: 52px;
 	display: inline-block;
 }
-form.UpdateProfile .DiplomaUi, form.SearchDev .DiplomaUi {
+form.UpdateProfile .DiplomaEditor, form.SearchDev .DiplomaEditor {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
@@ -277,7 +277,7 @@ button:active, input[type=button]:active, input[type=submit]:active {
 	border: 1px solid #ffffff;
 	border-radius: 4px;
 }
-.Photo {
+.PhotoDisplay {
 	display: block;
 	max-width: 128px;
 	max-height: 128px;

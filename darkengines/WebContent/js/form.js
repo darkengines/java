@@ -5,7 +5,7 @@
 		var allValid = false;
 		var $form = this;
 		var getFields = function() {
-			return $('input, select, textarea, hidden', $form);
+			return $('input, select, textarea, hidden, file', $form);
 		};
 		var isSet = function(x) {
 			return typeof(x) != 'undefined';
@@ -46,7 +46,8 @@
 				var name = $field.attr('name');
 				if (name != null && name.length > 0) {
 					var value = $field.val();
-					if (value.length <= 0) value = null;
+					if (options.transformers.hasOwnProperty(name)) value = options.transformers[name]($field);
+					if (value != null && value.length <= 0) value = null;
 					try {
 						json[name] = eval(value);
 					} catch(exception) {
@@ -150,12 +151,15 @@
 					url: url,
 					method: 'get',
 					success: function(data) {
-						$.each(data, function(key, value) {
-							var $field = getFields().filter('[name='+key+']');
-							if (typeof(options.load[key]) != 'undefined' && options.load[key] != null) {
-								options.load[key]($field, data);
+						$.each(getFields(), function(key, $field) {
+							$field = $($field);
+							var name = $field.attr('name');
+							if (options.load.hasOwnProperty(name)) {
+								options.load[name]($field, data);
 							} else {
-								$field.val(value);
+								if (data.hasOwnProperty(name)) {
+									$field.val(data[name]);
+								}
 							}
 						});
 					}
@@ -179,6 +183,7 @@
 		},
 		validators: {},
 		load: {},
-		discar: {}
+		discar: {},
+		transformers: {}
 	};
 })(jQuery);

@@ -12,7 +12,7 @@
 		<div>
 			<div class="Field">
 				<label for="photo">Photo</label> <input type="file" id="photo"
-					name="photo" /> <img class="Photo" alt="Photo" />
+					name="photo" /> <img class="PhotoDisplay" alt="Photo" />
 			</div>
 			<div class="Field">
 				<label for="programmingLanguageIds">Langages de

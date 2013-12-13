@@ -29,7 +29,7 @@ public class Languages extends JSonService<String, Map> {
 		Session session = DBSessionFactory.GetSession();
 		@SuppressWarnings("unchecked")
 		List<Language> languages = session.createCriteria(Language.class)
-			.add(Restrictions.like("name", String.format("%%%s%%", data)))
+			.add(Restrictions.like("name", String.format("%s%%", data)))
 			.list();
 		Map<Long, String> result = new HashMap<Long, String>();
 		for (Language language: languages) {

@@ -1,8 +1,6 @@
 (function($) {
 	$.fn.suggest = function(options) {
-		this.setSelectedDatasource = function(data) {
-			refreshSuggestSelected(data);
-		};
+		
 		var $suggest = this;
 		var $parent = this.parent();
 		$suggest.attr('type', 'hidden');
@@ -18,6 +16,56 @@
 		$container.append($suggestList);
 		$parent.append($suggestSelected);
 		
+		this.selectionDataSource = options.selectionDataSource;
+		this.suggestionDataSource = options.suggestionDataSource;
+		
+		this.suggestionDataBind = function() {
+			$suggestList.empty();
+			switch (typeof($suggest.suggestionDataSource)) {
+				case 'function': {
+					data = $suggest.suggestionDataSource($suggestInput.val());
+					break;
+				}
+				case 'object': {
+					data = $suggest.suggestionDataSource;
+					break;
+				}
+				default: {
+					
+				}
+			}
+			$.each(data, function(key, value) {
+				var $suggestElement = $('<div class="SuggestElement">'+value+'</div>');
+				$suggestElement.click(function(e) {
+					//suggestSelected($suggestElement, key);
+					if (!$suggest.selectionDataSource.hasOwnProperty(key)) {
+						$suggest.selectionDataSource[key] = value;
+						$suggest.selectedDataBind();
+					}
+				});
+				$suggestElement.mouseover(function() {
+					suggestListSetFocus($suggestElement.index());
+				});
+				$suggestList.append($suggestElement);
+			});
+		};
+		this.selectedDataBind = function() {
+			$suggestSelected.empty();
+			var input = new Array();
+			$.each($suggest.selectionDataSource, function(key, value) {
+				var $selected = $('<div class="Selected">'+value+'</div>');
+				var $close = $('<div class="Close"></div>');
+				$selected.append($close);
+				$close.click(function() {
+					delete $suggest.selectionDataSource[key];
+					$suggest.selectedDataBind();
+				});
+				$suggestSelected.append($selected);
+				input.push(key);
+			});
+			$suggest.val(JSON.stringify(input));
+		};
+
 		$(document).click(function(e) {
 			if (!$.contains($container[0], e.target)) {
 				$suggestList.removeClass('Visible');
@@ -30,13 +78,13 @@
 			$container.addClass('Suggesting');
 			$suggestList.scrollTop(0);
 			suggestListSetFocus(-1);
-			
 		};
+		
 		var hideSuggestList = function() {
 			$suggestList.removeClass('Visible');
 			$container.removeClass('Suggesting');
 		};
-		$suggest.datasource = null;
+		
 		$suggestInput.keyup(function(e) {
 			var code = e.keyCode || e.which;
 			switch (code) {
@@ -57,9 +105,8 @@
 					break;
 				}
 				default: {
-					var data = _databind($suggestInput.val());
-					if (Object.keys(data).length > 0) {
-						fillSuggestList(data);
+					$suggest.suggestionDataBind();
+					if ($suggestList.children().length > 0) {
 						if (!$suggestList.is('.Visible')) {
 							showSuggestList();
 						}
@@ -69,10 +116,7 @@
 				}
 			}
 		});
-		var _databind = function(q) {
-			$suggest.datasource = options.databind(q);
-			return $suggest.datasource;
-		};
+
 		$suggestInput.keydown(function(e) {
 			var code = e.keyCode || e.which;
 			switch (code) {
@@ -153,9 +197,7 @@
 		};
 		
 		$suggestButton.click(function(e) {
-			var data = _databind($suggestInput.val());
-			if (!$suggestList.is('.Visible') && Object.keys(data).length > 0) {
-				fillSuggestList(data);
+			if (!$suggestList.is('.Visible') && $suggestList.children().length > 0) {
 				showSuggestList();
 				
 			} else {
@@ -163,76 +205,10 @@
 			}
 		});
 		
-		var fillSuggestList = function(data) {
-			$suggestList.empty();
-			$.each(data, function(key, value) {
-				var $suggestElement = $('<div class="SuggestElement" tabindex="'+key+'">'+value+'</div>');
-				$suggestElement.key = key;
-				$suggestElement.click(function(e) {
-					suggestSelected($suggestElement, key);
-				});
-				$suggestElement.mouseover(function() {
-					suggestListSetFocus($suggestElement.index());
-				});
-				$suggestList.append($suggestElement);
-			});
-		};
-		var suggestSelected = function($suggestElement) {
-			var val = ($suggest.val() != null && $suggest.val().length > 0) ? $suggest.val() : '[]';
-			var input = eval('('+val+')');
-			var texts = {};
-			var selected = $suggestElement.key;
-			var text = $suggestElement.text();
-			var found = false;
-			$.each(input, function(key, value) {
-				found = key == selected;
-				return !found;
-			});
-			if (!found) {
-				input.push(selected);
-			}
-			$suggest.val(JSON.stringify(input));
-			$.each(input, function(key, value) {
-				texts[value] = $suggest.datasource[value];
-			});
-			refreshSuggestSelected(texts);
-		};
-		var refreshSuggestSelected = function(input) {
-			$suggestSelected.empty();
-			$.each(input, function(key, value) {
-				var $selected = $('<div class="Selected">'+value+'</div>');
-				var $close = $('<div class="Close"></div>');
-				$selected.append($close);
-				$close.click(function() {
-					suggestUnselected(key);
-					$selected.remove();
-				});
-				$suggestSelected.append($selected);
-			});
-		};
-		var suggestUnselected = function(key) {
-			var val = ($suggest.val() != null && $suggest.val().length > 0) ? $suggest.val() : '[]';
-			var input = eval('('+val+')');
-			var selected = key;
-			var found = false;
-			var refreshed = new Array();
-			$.each(input, function(key, value) {
-				found = value == selected;
-				if (!found) {
-					refreshed.push(value);
-				}
-			});
-			$suggest.val(JSON.stringify(refreshed));
-		};
-		refreshSuggestSelected(options.datasource);
-		var input = new Array();
-		$.each(options.datasource, function(key, value) {
-			input.push(key);
-		});
-		$suggest.val(JSON.stringify(input));
+		this.selectedDataBind();
 	};
 	$.fn.suggest.defaults = {
-		databind: null,
-		datasource: null,
+		selectionDataSource: {},
+		suggestionDataSource: {}
 	};
 })(jQuery);

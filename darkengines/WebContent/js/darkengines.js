@@ -61,56 +61,17 @@
 				discar: ['password_confirmation']
 			});
 		});
+		
 		$('form.UpdateProfile').each(function() {
-			var $form = $(this);
-			var $programmingLanguages = $('input[name=programmingLanguageIds]');
-			var $frameworks = $('input[name=frameworkIds]');
-			var $languages = $('input[name=languageIds]');
-			var $notifier = $('.Notification');
-			var $diplomaEditor = $('.DiplomaUi');
-			var $diplomaDisplay = $('.DiplomaDisplay');
-			var $diploma = $('input[name=diploma]');
-			var $seniorityEditor = $('.SeniorityUi');
-			var $seniorityDisplay = $('.SeniorityDisplay');
-			var $seniority = $('input[name=seniority]');
-			var $photo = $('input[name=photo]');
-			var $photoDisplay = $('.Photo');
-			
-			$diploma.each(function() {
-				var $this = $(this);
-				$diplomaEditor.slider({
-					range: "min",
-					value: 0,
-					min: 0,
-					max: 8,
-					slide: function( event, ui ) {
-						$this.val(ui.value);
-						$diplomaDisplay.text('BAC+'+ui.value);
-					}
-				});
-			});
-			$seniority.each(function() {
-				var $this = $(this);
-				$seniorityEditor.slider({
-					range: "min",
-					value: 0,
-					min: 0,
-					max: 10,
-					slide: function( event, ui ) {
-						$this.val(ui.value);
-						$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
-					}
-				});
-			});
 			$(this).form({
 				discar: [''],
 				load: {
 					programmingLanguageIds: function($field, data) {
-						$programmingLanguages.each(function() {
+						$field.each(function() {
 							$this = $(this);
 							$this.suggest({
-								datasource: data.programmingLanguageIds,
-								databind: function(query) {
+								selectionDataSource: data.programmingLanguageIds,
+								suggestionDataSource: function(query) {
 									var result = {};
 									$.ajax({
 										url: 'programming_languages_test',
@@ -128,11 +89,11 @@
 						});
 					},
 					frameworkIds: function($field, data) {
-						$frameworks.each(function() {
+						$field.each(function() {
 							var $this = $(this);
 							$this.suggest({
-								datasource: data.frameworkIds,
-								databind: function(query) {
+								selectionDataSource: data.frameworkIds,
+								suggestionDataSource: function(query) {
 									var result = {};
 									$.ajax({
 										url: 'frameworks_test',
@@ -150,11 +111,11 @@
 						});
 					},
 					languageIds: function($field, data) {
-						$languages.each(function() {
+						$field.each(function() {
 							var $this = $(this);
 							$this.suggest({
-								datasource: data.languageIds,
-								databind: function(query) {
+								selectionDataSource: data.languageIds,
+								suggestionDataSource: function(query) {
 									var result = {};
 									$.ajax({
 										url: 'languages_test',
@@ -170,6 +131,69 @@
 								}
 							});
 						});
+					},
+					diploma: function($field, data) {
+						var $diplomaEditor = $('.DiplomaEditor', $field.parent());
+						var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
+						if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+						$diplomaEditor.slider({
+							range: "min",
+							value: data.diploma,
+							min: 0,
+							max: 10,
+							slide: function(event, ui) {
+								$field.val(ui.value);
+								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+							}
+						});
+					},
+					seniority: function($field, data) {
+						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
+						var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
+						if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+						$seniorityEditor.slider({
+							range: "min",
+							value: data.seniority,
+							min: 0,
+							max: 10,
+							slide: function(event, ui) {
+								$field.val(ui.value);
+								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+							}
+						});
+					},
+					photo: function($field, data) {
+						var $photoDisplay = $('.PhotoDisplay', $field.parent());
+						$photoDisplay.attr('src', data.photoUrl);
+						$field.change(function() {
+							var $this = $(this);
+							var $photoDisplay = $('.PhotoDisplay', $this.parent());
+							var reader= new FileReader();
+							reader.onerror = function(e) {
+								alert(e);
+							};
+							reader.onload = function(e) {
+								$photoDisplay.attr('src', e.target.result);
+					        };
+					        reader.readAsDataURL($this.get(0).files[0]);
+						});
+					}
+				},
+				transformers: {
+					photo: function($field) {
+						var photo = $field.get(0).files[0];
+						var file = null;
+				        if (photo != null && typeof(photo)!='undefined' && photo) {
+				        	var reader= new FileReader();
+							reader.onerror = function(e) {
+								alert(e);
+							};
+							reader.onload = function(e) {
+								file = e.target.result;
+					        };
+					        reader.readAsDataURL(photo);
+				        }
+				        return file;
 					}
 				}
 			});

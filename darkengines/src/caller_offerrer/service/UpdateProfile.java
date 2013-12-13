@@ -26,15 +26,15 @@ public class UpdateProfile extends JSonService<UpdateProfileInputModel, Object> 
 	@Override
 	public Object processJsonRequest(UpdateProfileInputModel data) throws Exception {
 		Session session = DBSessionFactory.GetSession();
-		Transaction transaction = session.beginTransaction(); 
 		Offerrer user = (Offerrer)User.getUserByToken(data.getToken(), session);
 		if (user == null) {
 			session.close();
 			throw new Exception("token.invalid");
 		}
 		Profile profile = user.getOffer().getProfile();
-		profile = data.mergeProfile(profile);
+		profile = data.mergeProfile(profile, session);
 		user.getOffer().setProfile(profile);
+		Transaction transaction = session.beginTransaction(); 
 		session.saveOrUpdate(user);
 		session.flush();
 		transaction.commit();

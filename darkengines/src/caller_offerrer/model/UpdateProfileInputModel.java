@@ -67,8 +67,7 @@ public class UpdateProfileInputModel extends TokenizenModel {
 		this.photo = photo;
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
-	public Profile mergeProfile(Profile profile) throws IOException {
-		Session session = DBSessionFactory.GetSession();
+	public Profile mergeProfile(Profile profile, Session session) throws IOException {
 		if (programmingLanguageIds != null) {
 			profile.getProgrammingLanguages().clear();
 			if (programmingLanguageIds.size() > 0) {
@@ -112,7 +111,6 @@ public class UpdateProfileInputModel extends TokenizenModel {
 			Image image = profile.getImage();
 			image.setData(bytes);
 		}
-		session.close();
 		return profile;
 	}
 }
