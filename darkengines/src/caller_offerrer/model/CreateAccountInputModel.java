@@ -41,8 +41,7 @@ public class CreateAccountInputModel {
 	public void setType(UserType type) {
 		this.type = type;
 	}
-	public User toUser() throws Exception {
-		User user = null;
+	public User toUser() throws Exception {		User user = null;
 		switch (type) {
 			case Offerrer: {
 				user = new Offerrer();

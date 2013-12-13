@@ -180,20 +180,18 @@
 					}
 				},
 				transformers: {
-					photo: function($field) {
+					photo: function($field, callback) {
 						var photo = $field.get(0).files[0];
-						var file = null;
 				        if (photo != null && typeof(photo)!='undefined' && photo) {
 				        	var reader= new FileReader();
 							reader.onerror = function(e) {
 								alert(e);
 							};
 							reader.onload = function(e) {
-								file = e.target.result;
+								callback(e.target.result);
 					        };
 					        reader.readAsDataURL(photo);
 				        }
-				        return file;
 					}
 				}
 			});

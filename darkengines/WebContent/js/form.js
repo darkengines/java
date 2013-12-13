@@ -1,4 +1,17 @@
 (function($) {
+	(function( $ ) {
+    $.fn.pop = function() {
+        var top = this.get(-1);
+        this.splice(this.length-1,1);
+        return top;
+    };
+
+    $.fn.shift = function() {
+        var bottom = this.get(0);
+        this.splice(0,1);
+        return bottom;
+    };
+	})( jQuery );
 	$.fn.form = function(options) {
 		
 		options = $.extend({}, $.fn.form.defaults, options);
@@ -14,10 +27,11 @@
 			var $this = $(this);
 			var fieldName = $this.attr('name');
 			if (isSet(options.validators[fieldName])) {
-				var fields = formToJson();
-				var result = validate(fieldName, fields);
-				checkForm(fields);
-				displayValidator(fieldName, result);
+				formToJson(function(fields) {
+					var result = validate(fieldName, fields);
+					checkForm(fields);
+					displayValidator(fieldName, result);
+				});
 			}
 		});
 		var displayValidator = function(fieldName, result) {
@@ -39,22 +53,30 @@
 				$this.attr('clicked', 'true');
 			});
 		});
-		var formToJson = function() {
-			var json = {};
-			getFields().each(function() {
-				var $field = $(this);
+		var rec = function($fields, json, callback) {
+			if ($fields.length > 0) {
+				var $field = $($fields.pop());
 				var name = $field.attr('name');
-				if (name != null && name.length > 0) {
+				if (options.transformers.hasOwnProperty(name)) {
+						options.transformers[name]($field, function(value) {
+							json[name] = value;
+							rec($fields, json, callback);
+						});
+				} else {
 					var value = $field.val();
-					if (options.transformers.hasOwnProperty(name)) value = options.transformers[name]($field);
-					if (value != null && value.length <= 0) value = null;
 					try {
 						json[name] = eval(value);
 					} catch(exception) {
 						json[name] = value;
 					}
+					rec($fields, json, callback);
 				}
-			});
+			} else {
+				callback(json);
+			}
+		};
+		var formToJson = function(callback) {
+			var json = {};
 			var $clickedButton = $('button[clicked=true]', $form);
 			if ($clickedButton.length > 0) {
 				$clickedButton.each(function() {
@@ -68,7 +90,10 @@
 					}
 				});
 			}
-			return json;
+			var $fields = getFields();
+			rec($fields, {}, function(transformed) {
+				callback(transformed);
+			});
 		};
 		var validate = function(fieldName, fields) {
 			var result = null;
@@ -109,40 +134,41 @@
 		$form.submit(function(e) {
 			var url = $form.attr('action');
 			var method = $form.attr('method');
-			var json = formToJson();
-			$.each(options.discar, function(key, value) {
-				delete json[value];
-			});
-			$.ajax({
-				url: url,
-				method: method,
-				data: {
-					data: JSON.stringify(json)
-				},
-				beforeSend: function(xhr, settings) {
-					if (options.beforeSubmit != null) {
-						if (options.beforeSend($form, settings.data, xhr)) {
-							option.sending($form);
-							return true;
-						} else {
-							return false;
+			formToJson(function(json) {
+				$.each(options.discar, function(key, value) {
+					delete json[value];
+				});
+				$.ajax({
+					url: url,
+					method: method,
+					data: {
+						data: JSON.stringify(json)
+					},
+					beforeSend: function(xhr, settings) {
+						if (options.beforeSubmit != null) {
+							if (options.beforeSend($form, settings.data, xhr)) {
+								option.sending($form);
+								return true;
+							} else {
+								return false;
+							}
+						}
+						return true;
+					},
+					success: function(data) {
+						if (options.success != null) {
+							options.success($form, data);
+						}
+					},
+					complete: function() {
+						if (options.complete != null) {
+							options.complete($form);
 						}
 					}
-					return true;
-				},
-				success: function(data) {
-					if (options.success != null) {
-						options.success($form, data);
-					}
-				},
-				complete: function() {
-					if (options.complete != null) {
-						options.complete($form);
-					}
-				}
+				});
+				e.preventDefault();
+				return false;
 			});
-			e.preventDefault();
-			return false;
 		});
 		var load = function() {
 			var url = $form.attr('data-load-url');
@@ -167,7 +193,9 @@
 			}
 		};
 		load();
-		checkForm(formToJson());
+		formToJson(function(json) {
+			checkForm(json);
+		});
 	};
 	$.fn.form.defaults = {
 		beforeSubmit: null,
