@@ -52,11 +52,8 @@ public class CreateAccount extends JSonService<CreateAccountInputModel, CreateAc
 		session.save(userSession);
 		session.flush();
 		transaction.commit();
+		CreateAccountOutputModel out = new CreateAccountOutputModel(user, userSession.getToken());
 		session.close();
-		CreateAccountOutputModel out = new CreateAccountOutputModel();
-		out.setToken(userSession.getToken());
-		out.setUserId(user.getId());
-		out.setType(user.getType());
 		return out;
 	}
 

@@ -5,14 +5,14 @@ import caller_offerrer.UserType;
 public class LoginOutputModel {
 	private String token;
 	private long userId;
-	private UserType type;
+	private UserType userType;
 
 	public UserType getType() {
-		return type;
+		return userType;
 	}
 
 	public void setType(UserType type) {
-		this.type = type;
+		this.userType = type;
 	}
 
 	public String getToken() {

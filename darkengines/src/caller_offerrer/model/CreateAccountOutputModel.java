@@ -1,12 +1,19 @@
 package caller_offerrer.model;
 
+import caller_offerrer.User;
 import caller_offerrer.UserType;
 
 public class CreateAccountOutputModel {
 	private String token;
 	private long userId;
-	private UserType type;
-
+	private UserType userType;
+	
+	public CreateAccountOutputModel(User user, String token) {
+		userId = user.getId();
+		userType = user.getType();
+		this.token = token;
+	}
+	
 	public String getToken() {
 		return token;
 	}
@@ -24,11 +31,11 @@ public class CreateAccountOutputModel {
 	}
 
 	public UserType getType() {
-		return type;
+		return userType;
 	}
 
 	public void setType(UserType type) {
-		this.type = type;
+		this.userType = type;
 	}
 	
 }

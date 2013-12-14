@@ -26,6 +26,11 @@
 			});
 		};
 		$.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
+		$('.Disconnect').click(function() {
+			$this = $(this);
+			$.removeCookie('userInfo');
+			window.location='/';
+		});
 		$('form .Field .File').each(function() {
 			var $container = $(this);
 			var $browse = $('.Browse', $container);

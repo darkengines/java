@@ -1,4 +1,5 @@
 <%@page import="application.Util"%>
+<%@page import="caller_offerrer.UserType"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="fr">
@@ -29,13 +30,18 @@
 		<div class="Left">
 		<% if (request.getAttribute("userId") != null) {%>
 			<a href="update_contact">Contact</a>
+		<%} %>
+		<% if (request.getAttribute("userType") == UserType.Offerrer) {%>
 			<a href="edit_dev_profile">Mon profil</a>
+		<%} %>
+		<% if (request.getAttribute("userType") == UserType.Caller) {%>
+			<a href="update_calls">Mes offres</a>
 		<%} %>
 			<a href="search_dev">Recherche</a>
 		</div>
 		<div class="Right">
 		<% if (request.getAttribute("userId") != null) {%>
-			<a href="login">Déconnexion</a>
+			<a href="/" class="Disconnect">Déconnexion</a>
 		<%} else { %>
 			<a href="login">Connexion</a>
 			<a href="register">Ouvrir un compte</a>

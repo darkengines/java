@@ -52,11 +52,8 @@ public class UserFilter implements Filter {
 			if (userInfo.getToken() != null) {
 				request.setAttribute("token", userInfo.getToken());
 				request.setAttribute("userId", userInfo.getUserId());
-			} else {
-				((HttpServletResponse)response).sendRedirect(String.format("login?url=%s", ((HttpServletRequest)request).getRequestURI()));
+				request.setAttribute("userType", userInfo.getUserType());
 			}
-		} else {
-			((HttpServletResponse)response).sendRedirect(String.format("login?url=%s", ((HttpServletRequest)request).getRequestURI()));
 		}
 		chain.doFilter(request, response);
 	}
