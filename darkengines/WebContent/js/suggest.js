@@ -53,14 +53,16 @@
 			$suggestSelected.empty();
 			var input = new Array();
 			$.each($suggest.selectionDataSource, function(key, value) {
+				var $wrapper = $('<div class="SelectedWrapper"></div>');
 				var $selected = $('<div class="Selected">'+value+'</div>');
 				var $close = $('<div class="Close"></div>');
 				$selected.append($close);
+				$wrapper.append($selected);
 				$close.click(function() {
 					delete $suggest.selectionDataSource[key];
 					$suggest.selectedDataBind();
 				});
-				$suggestSelected.append($selected);
+				$suggestSelected.append($wrapper);
 				input.push(key);
 			});
 			$suggest.val(JSON.stringify(input));

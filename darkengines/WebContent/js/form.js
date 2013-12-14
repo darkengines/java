@@ -147,12 +147,13 @@
 					beforeSend: function(xhr, settings) {
 						if (options.beforeSubmit != null) {
 							if (options.beforeSend($form, settings.data, xhr)) {
-								option.sending($form);
+								options.sending($form);
 								return true;
 							} else {
 								return false;
 							}
 						}
+						options.sending($form);
 						return true;
 					},
 					success: function(data) {
@@ -166,9 +167,9 @@
 						}
 					}
 				});
-				e.preventDefault();
-				return false;
 			});
+			e.preventDefault();
+			return false;
 		});
 		var load = function() {
 			var url = $form.attr('data-load-url');
@@ -176,6 +177,13 @@
 				$.ajax({
 					url: url,
 					method: 'get',
+					beforeSend: function() {
+						options.sending($form);
+						return true;
+					},
+					complete: function() {
+						options.complete($form);
+					},
 					success: function(data) {
 						$.each(getFields(), function(key, $field) {
 							$field = $($field);

@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import darkengines.service.Service;
 
-public class EditDevIdentity extends Service {
+public class UpdateContact extends Service {
 
 	@Override
 	public void processRequest(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/WEB-INF/view/EditDevIdentity.jsp").forward(request,response);
+		getServletContext().getRequestDispatcher("/WEB-INF/view/UpdateContact.jsp").forward(request,response);
 		
 	}
 

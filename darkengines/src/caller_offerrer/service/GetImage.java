@@ -23,7 +23,7 @@ public class GetImage extends Service {
 		((HttpServletResponse)response).setContentType("image/png");
 		Long imageId = Long.parseLong(request.getParameter("id"));
 		Session session = DBSessionFactory.GetSession();
-		Image image = (Image)session.createCriteria(Image.class).add(Restrictions.eq("id", imageId));
+		Image image = (Image)session.createCriteria(Image.class).add(Restrictions.eq("id", imageId)).uniqueResult();
 		byte[] bytes = image.getData();
 		session.close();
 		response.getOutputStream().write(bytes);

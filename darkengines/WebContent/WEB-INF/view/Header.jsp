@@ -27,14 +27,14 @@
 	<div class="Header">Je cherche un dev</div>
 	<div class="Menu">
 		<div class="Left">
-		<% if (Util.hasTokenCookie(request.getCookies())) {%>
-			<a href="edit_dev_identity">Mon identité</a>
+		<% if (request.getAttribute("userId") != null) {%>
+			<a href="update_contact">Contact</a>
 			<a href="edit_dev_profile">Mon profil</a>
 		<%} %>
 			<a href="search_dev">Recherche</a>
 		</div>
 		<div class="Right">
-		<% if (Util.hasTokenCookie(request.getCookies())) {%>
+		<% if (request.getAttribute("userId") != null) {%>
 			<a href="login">Déconnexion</a>
 		<%} else { %>
 			<a href="login">Connexion</a>

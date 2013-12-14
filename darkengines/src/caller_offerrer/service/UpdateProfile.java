@@ -34,7 +34,7 @@ public class UpdateProfile extends JSonService<UpdateProfileInputModel, Object> 
 		Profile profile = user.getOffer().getProfile();
 		profile = data.mergeProfile(profile, session);
 		user.getOffer().setProfile(profile);
-		Transaction transaction = session.beginTransaction(); 
+		session.beginTransaction(); 
 		session.saveOrUpdate(user);
 		session.getTransaction().commit();
 		session.flush();

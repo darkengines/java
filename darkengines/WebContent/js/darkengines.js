@@ -48,6 +48,11 @@
 			$form.form({
 				success: function($form, data) {
 					$.cookie('userInfo', JSON.stringify(data));
+					var url = $.url().param('url');
+					if (url == null) {
+						url = '/';
+					}
+					window.location = url;
 				}
 			});
 		});
@@ -58,7 +63,22 @@
 					password: [application.validators.passwordValidator],
 					password_confirmation: [application.validators.passwordConfirmationValidator]
 				},
-				discar: ['password_confirmation']
+				discar: ['password_confirmation'],
+				success: function($form, data) {
+					$.cookie('userInfo', JSON.stringify(data));
+					window.location = '/';
+				}
+			});
+		});
+		
+		$('form.UpdateContact').each(function() {
+			$(this).form({
+				validators: {
+					email: [application.validators.emailValidator, application.validators.emailExists]
+				},
+				success: function() {
+					application.$notifier.notify('Contact sauvegardé');
+				}
 			});
 		});
 		
@@ -146,6 +166,7 @@
 								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
 							}
 						});
+						$field.val(data.diploma);
 					},
 					seniority: function($field, data) {
 						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
@@ -161,6 +182,7 @@
 								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
 							}
 						});
+						$field.val(data.seniority);
 					},
 					photo: function($field, data) {
 						var $photoDisplay = $('.PhotoDisplay', $field.parent());
@@ -177,6 +199,9 @@
 					        };
 					        reader.readAsDataURL($this.get(0).files[0]);
 						});
+						if (data.hasOwnProperty('photoId')) {
+							$photoDisplay.attr('src', 'get_image?id='+data.photoId);
+						}
 					}
 				},
 				transformers: {
@@ -191,8 +216,13 @@
 								callback(e.target.result);
 					        };
 					        reader.readAsDataURL(photo);
+				        } else {
+				        	callback(null);
 				        }
 					}
+				},
+				success: function() {
+					application.$notifier.notify('Profil sauvegardé');
 				}
 			});
 //			$.ajax({
