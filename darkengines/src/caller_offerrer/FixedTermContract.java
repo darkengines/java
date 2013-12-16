@@ -13,4 +13,9 @@ public class FixedTermContract extends Contract {
 	public void setLength(int length) {
 		this.length = length;
 	}
+
+	@Override
+	public Class<? extends Call> getType() {
+		return FixedTermContract.class;
+	}
 }

@@ -6,5 +6,5 @@ import darkengines.database.IdentifiedEntity;
 
 @Entity
 public abstract class Call extends IdentifiedEntity {
-
+	public abstract Class<? extends Call> getType();
 }

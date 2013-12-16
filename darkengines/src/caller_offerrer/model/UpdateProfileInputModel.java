@@ -20,7 +20,6 @@ import caller_offerrer.Image;
 import caller_offerrer.Language;
 import caller_offerrer.Profile;
 import caller_offerrer.ProgrammingLanguage;
-import darkengines.database.DBSessionFactory;
 import darkengines.image.ImageHelper;
 
 public class UpdateProfileInputModel extends TokenizenModel {

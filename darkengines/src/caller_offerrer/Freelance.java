@@ -13,5 +13,10 @@ public class Freelance extends Call {
 	public void setBudget(Float budget) {
 		this.budget = budget;
 	}
+
+	@Override
+	public Class<? extends Call> getType() {
+		return Freelance.class;
+	}
 	
 }
