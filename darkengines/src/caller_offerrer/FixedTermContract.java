@@ -15,7 +15,7 @@ public class FixedTermContract extends Contract {
 	}
 
 	@Override
-	public Class<? extends Call> getType() {
-		return FixedTermContract.class;
+	public CallType getCallType() {
+		return CallType.FixedTermContract;
 	}
 }

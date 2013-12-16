@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 public class PermanentContract extends Contract{
 
 	@Override
-	public Class<? extends Call> getType() {
-		return PermanentContract.class;
+	public CallType getCallType() {
+		return CallType.PermanentContract;
 	}
 	
 }

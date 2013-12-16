@@ -15,8 +15,8 @@ public class Freelance extends Call {
 	}
 
 	@Override
-	public Class<? extends Call> getType() {
-		return Freelance.class;
+	public CallType getCallType() {
+		return CallType.Freelance;
 	}
 	
 }
