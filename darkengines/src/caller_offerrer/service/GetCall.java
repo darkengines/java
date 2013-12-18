@@ -27,18 +27,19 @@ public class GetCall extends JSonService<GetCallInputModel, GetCallOutputModel> 
 	public GetCallOutputModel processJsonRequest(GetCallInputModel data)
 			throws Exception {
 		Session session = DBSessionFactory.GetSession();
-		Caller caller = (Caller)session.createCriteria(Caller.class).add(Restrictions.eq("id", data.getUserId()));
+		Caller caller = (Caller)session.createCriteria(Caller.class).add(Restrictions.eq("id", data.getUserId())).uniqueResult();
 		if (caller == null) {
 			throw new Exception("userId.invalid");
 		}
 		Call call = null;
-		Call[] calls = (Call[])caller.getCalls().toArray();
-		int i = calls.length;
-		while (call == null && i-- > 0) {
-			if (calls[i].getId() == data.getCallId()) call = calls[i];
+		if (caller.getCalls().size() > 0) {
+			Call[] calls = (Call[])caller.getCalls().toArray();
+			int i = calls.length;
+			while (call == null && i-- > 0) {
+				if (calls[i].getId() == data.getCallId()) call = calls[i];
+			}
 		}
-		if (call == null) throw new Exception("callId.invalid");
-		return new GetCallOutputModel(call);
+		return call == null ? null : new GetCallOutputModel(call);
 	}
 
 }

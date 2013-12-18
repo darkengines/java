@@ -230,111 +230,35 @@
 					application.$notifier.notify('Profil sauvegardé');
 				}
 			});
-//			$.ajax({
-//				url: 'get_profile_test',
-//				cache: false,
-//				data: {
-//					data: JSON.stringify({offerrerId: application.user.userId})
-//				},
-//				beforeSend: function() {
-//					application.disableForm($form, true);
-//	            	$notifier.addClass('Loading');
-//	            },
-//				complete: function() {
-//					$notifier.removeClass('Loading');
-//					application.disableForm($form, false);
-//				},
-//				success: function(data) {
-//					if (data != null) {
-//						$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
-//						$frameworks.magicSuggest().addToSelection(data.frameworks);
-//						$languages.magicSuggest().addToSelection(data.languages);
-//						$diploma.val(data.diploma);
-//						$diplomaEditor.slider('value', data.diploma);
-//						$diplomaDisplay.text('BAC+'+data.diploma);
-//						if (data.photo != null && data.photo.length > 0) {
-//							$photoDisplay.attr('src', data.photo);
-//						}
-//						$seniority.val(data.seniority);
-//						$seniorityEditor.slider('value', data.seniority);
-//						$seniorityDisplay.text(data.seniority+(data.seniority>0?' ans':' an'));
-//					}
-//				}
-//			});
-//			$photo.change(function() {
-//				var $this = $(this);
-//				var reader= new FileReader();
-//				reader.onerror = function(e) {
-//					alert(e);
-//				};
-//				reader.onload = function(e) {
-//					$photoDisplay.attr('src', e.target.result);
-//		        };
-//		        reader.readAsDataURL($this.get(0).files[0]);
-//			});
-//			$form.submit(function(e) {
-//				var data = $form.serializeObject();
-//				delete data['diploma_ui'];
-//				
-//		        var photo = $photo.get(0).files[0];
-//		        if (photo != null && typeof(photo)!='undefined' && photo) {
-//		        	var reader= new FileReader();
-//					reader.onerror = function(e) {
-//						alert(e);
-//					};
-//					reader.onload = function(e) {
-//			             data.photo = e.target.result;
-//			             data.token = application.user.token;
-//							$.ajax({
-//								url: $form.attr('action'),
-//								method: 'POST',
-//								data: {
-//									data: JSON.stringify(data)
-//								},
-//								success: function(token) {
-//									application.$notifier.notify('Profil sauvegardé');
-//								},
-//								error: function() {
-//									
-//								},
-//								beforeSend: function() {
-//									application.disableForm($form, true);
-//					            	$notifier.addClass('Loading');
-//					            },
-//								complete: function() {
-//									$notifier.removeClass('Loading');
-//									application.disableForm($form, false);
-//								}
-//							});
-//			        };
-//			        reader.readAsDataURL($photo.get(0).files[0]);
-//		        } else {
-//		        	data.photo = null;
-//		             data.token = application.user.token;
-//						$.ajax({
-//							url: $form.attr('action'),
-//							method: 'POST',
-//							data: {
-//								data: JSON.stringify(data)
-//							},
-//							success: function(token) {
-//								application.$notifier.notify('Profil sauvegardé');
-//							},
-//							error: function() {
-//								
-//							},
-//							beforeSend: function() {
-//								application.disableForm($form, true);
-//				            	$notifier.addClass('Loading');
-//				            },
-//							complete: function() {
-//								$notifier.removeClass('Loading');
-//								application.disableForm($form, false);
-//							}
-//						});
-//		        }
-//				e.preventDefault();
-//			});
+		});
+		callTypes = {
+				0: 'CDI',
+				1: 'CDD',
+				2: 'Freealnce'
+		};
+		$('form.UpdateCall').each(function() {
+			$(this).form({
+				discar: [''],
+				load: {
+					callType: function($field, data) {
+						$field.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								selectionDataSource: data == null ? {} : data.callType,
+								suggestionDataSource: function(query) {
+									return callTypes;
+								}
+							});
+						});
+					},
+				},
+				transformers: {
+					
+				},
+				success: function() {
+					application.$notifier.notify('Profil sauvegardé');
+				}
+			});
 		});
 		$('form.SearchDev').each(function() {
 			var $form = $(this);

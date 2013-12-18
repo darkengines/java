@@ -191,7 +191,7 @@
 							if (options.load.hasOwnProperty(name)) {
 								options.load[name]($field, data);
 							} else {
-								if (data.hasOwnProperty(name)) {
+								if (data != null && data.hasOwnProperty(name)) {
 									$field.val(data[name]);
 								}
 							}

@@ -73,6 +73,30 @@
     <servlet-name>update_contact_test</servlet-name>
     <servlet-class>caller_offerrer.service.UpdateContact</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>get_call_test</servlet-name>
+    <servlet-class>caller_offerrer.service.GetCall</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>update_call_test</servlet-name>
+    <servlet-class>caller_offerrer.service.UpdateCall</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>update_call</servlet-name>
+    <servlet-class>application.UpdateCall</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>update_call</servlet-name>
+    <url-pattern>/update_call</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>update_call_test</servlet-name>
+    <url-pattern>/update_call_test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>get_call_test</servlet-name>
+    <url-pattern>/get_call_test</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>update_contact_test</servlet-name>
     <url-pattern>/update_contact_test</url-pattern>
