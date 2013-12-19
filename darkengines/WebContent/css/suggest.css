@@ -12,6 +12,7 @@
 	overflow-y: scroll;
 	border: 1px rgba(255, 255, 255, 1) solid;
 	border-top: none;
+	cursor: default;
 }
 .SuggestWrapper .SuggestList.Visible {
 	display: block;
@@ -19,6 +20,7 @@
 .SuggestWrapper .SuggestList .SuggestElement {
 	padding: 2px;
 	color: rgba(60,60,60,1.0);
+	cursor: default;
 }
 .SuggestWrapper .SuggestList .SuggestElement:nth-child(2n) {
 	background-color: rgba(192, 192, 192, 1);

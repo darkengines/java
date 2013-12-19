@@ -14,5 +14,23 @@
 				name="callType" />
 				<div class="Validator"></div>
 		</div>
+		<div class="Field">
+			<label for="salary">Salary</label> 
+			<input type="text" id="salary"
+				name="salary" />
+				<div class="Validator"></div>
+		</div>
+		<div class="Field">
+			<label for="length">Length</label> 
+			<input type="text" id="length"
+				name="length" />
+				<div class="Validator"></div>
+		</div>
+		<div class="Field">
+			<label for="budget">Budget</label> 
+			<input type="text" id="budget"
+				name="budget" />
+				<div class="Validator"></div>
+		</div>
 	</form>
 <jsp:include page="Footer.jsp"></jsp:include>

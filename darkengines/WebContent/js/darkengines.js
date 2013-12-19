@@ -245,9 +245,8 @@
 							var $this = $(this);
 							$this.suggest({
 								selectionDataSource: data == null ? {} : data.callType,
-								suggestionDataSource: function(query) {
-									return callTypes;
-								}
+								suggestionDataSource: callTypes,
+								max: 1
 							});
 						});
 					},

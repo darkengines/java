@@ -18,6 +18,11 @@
 		
 		this.selectionDataSource = options.selectionDataSource;
 		this.suggestionDataSource = options.suggestionDataSource;
+		this.rawValue = '';
+		
+		$suggestInput.click(function() {
+			$suggestButton.click();
+		});
 		
 		this.suggestionDataBind = function() {
 			$suggestList.empty();
@@ -36,42 +41,71 @@
 			}
 			$.each(data, function(key, value) {
 				var $suggestElement = $('<div class="SuggestElement">'+value+'</div>');
-				$suggestElement.click(function(e) {
-					//suggestSelected($suggestElement, key);
-					if (!$suggest.selectionDataSource.hasOwnProperty(key)) {
-						$suggest.selectionDataSource[key] = value;
-						$suggest.selectedDataBind();
+				$suggestElement.mouseup(function(e) {
+					if (options.max == 1) {
+						$suggest.selectionDataSource = {key:key, value:value};
+						$container.removeClass('Suggesting');
+						hideSuggestList();
+					} else {
+						if (!options.max || Object.keys($suggest.selectionDataSource).length < options.max) {
+							if (!$suggest.selectionDataSource.hasOwnProperty(key)) {
+								$suggest.selectionDataSource[key] = value;
+								$container.removeClass('Suggesting');
+								hideSuggestList();
+							}
+						} else {
+							//Too much values
+						}
 					}
+					$suggest.selectedDataBind();
+				});
+				$suggestElement.mousedown(function(e) {
+					e.preventDefault();
+					return false;
 				});
 				$suggestElement.mouseover(function() {
 					suggestListSetFocus($suggestElement.index());
+				});
+				$suggestElement.mouseout(function() {
+					unsuggestInput();
 				});
 				$suggestList.append($suggestElement);
 			});
 		};
 		this.selectedDataBind = function() {
-			$suggestSelected.empty();
-			var input = new Array();
-			$.each($suggest.selectionDataSource, function(key, value) {
-				var $wrapper = $('<div class="SelectedWrapper"></div>');
-				var $selected = $('<div class="Selected">'+value+'</div>');
-				var $close = $('<div class="Close"></div>');
-				$selected.append($close);
-				$wrapper.append($selected);
-				$close.click(function() {
-					delete $suggest.selectionDataSource[key];
-					$suggest.selectedDataBind();
+			if (options.max != 1) {
+				$suggestSelected.empty();
+				var input = new Array();
+				$.each($suggest.selectionDataSource, function(key, value) {
+					var $wrapper = $('<div class="SelectedWrapper"></div>');
+					var $selected = $('<div class="Selected">'+value+'</div>');
+					var $close = $('<div class="Close"></div>');
+					$selected.append($close);
+					$wrapper.append($selected);
+					$close.click(function() {
+						delete $suggest.selectionDataSource[key];
+						$suggest.selectedDataBind();
+					});
+					$suggestSelected.append($wrapper);
+					input.push(key);
 				});
-				$suggestSelected.append($wrapper);
-				input.push(key);
-			});
-			$suggest.val(JSON.stringify(input));
+				$suggest.val(JSON.stringify(input));
+			} else {
+				if ($suggest.suggestionDataSource == null) {
+					$suggest.val('');
+				} else {
+					$suggestInput.val($suggest.selectionDataSource.value);
+					$suggest.rawValue = $suggest.selectionDataSource.value;
+					$suggest.val($suggest.selectionDataSource.key);
+				}
+			}
 		};
 
 		$(document).click(function(e) {
 			if (!$.contains($container[0], e.target)) {
 				$suggestList.removeClass('Visible');
 				$container.removeClass('Suggesting');
+				$suggestInput.removeClass('Suggested');
 			}
 		});
 		
@@ -101,7 +135,7 @@
 					break;
 				}
 				case (13): {
-					$($suggestList.children()[getSuggestListFocusIndex()]).click();
+					$($suggestList.children()[getSuggestListFocusIndex()]).mouseup();
 					e.preventDefault();
 					return false;
 					break;
@@ -140,7 +174,7 @@
 					var $children = $suggestList.children();
 					var length = $children.length;
 					var index = getSuggestListFocusIndex();
-					if (index < 0) {
+					if (length > 0 && index < 0) {
 						showSuggestList();
 					}
 					if (index < length-1) {
@@ -185,9 +219,20 @@
 						if ($suggestList.scrollTop() >= h+offset) {
 							$suggestList.scrollTop(Math.abs(h));
 						}
-						$suggestInput.text($element.text());
+						suggestInput($($children[index]).text());
 				}
 			}
+		};
+		
+		var suggestInput = function(text) {
+			$suggest.rawValue = $suggestInput.val();
+			$suggestInput.val(text);
+			$suggestInput.addClass('Suggested');
+		};
+		
+		var unsuggestInput = function() {
+			$suggestInput.val($suggest.rawValue);
+			$suggestInput.removeClass('Suggested');
 		};
 		
 		var getSuggestListFocusIndex = function() {
@@ -199,6 +244,7 @@
 		};
 		
 		$suggestButton.click(function(e) {
+			$suggest.suggestionDataBind();
 			if (!$suggestList.is('.Visible') && $suggestList.children().length > 0) {
 				showSuggestList();
 				
@@ -206,11 +252,11 @@
 				hideSuggestList();
 			}
 		});
-		
 		this.selectedDataBind();
 	};
 	$.fn.suggest.defaults = {
 		selectionDataSource: {},
-		suggestionDataSource: {}
+		suggestionDataSource: {},
+		max: 0,
 	};
 })(jQuery);
