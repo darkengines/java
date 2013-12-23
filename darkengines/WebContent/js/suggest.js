@@ -42,16 +42,18 @@
 			$.each(data, function(key, value) {
 				var $suggestElement = $('<div class="SuggestElement">'+value+'</div>');
 				$suggestElement.mouseup(function(e) {
-					if (options.max == 1) {
+					if (options.max == 1 && $suggest.selectionDataSource.key != key) {
 						$suggest.selectionDataSource = {key:key, value:value};
 						$container.removeClass('Suggesting');
 						hideSuggestList();
+						options.change($suggest.selectionDataSource);
 					} else {
 						if (!options.max || Object.keys($suggest.selectionDataSource).length < options.max) {
 							if (!$suggest.selectionDataSource.hasOwnProperty(key)) {
 								$suggest.selectionDataSource[key] = value;
 								$container.removeClass('Suggesting');
 								hideSuggestList();
+								options.change($suggest.selectionDataSource);
 							}
 						} else {
 							//Too much values
@@ -83,8 +85,11 @@
 					$selected.append($close);
 					$wrapper.append($selected);
 					$close.click(function() {
-						delete $suggest.selectionDataSource[key];
-						$suggest.selectedDataBind();
+						if ($suggest.selectionDataSource.hasOwnProperty(key)) {
+							delete $suggest.selectionDataSource[key];
+							$suggest.selectedDataBind();
+							options.change($suggest.selectionDataSource);
+						}
 					});
 					$suggestSelected.append($wrapper);
 					input.push(key);
@@ -257,6 +262,7 @@
 	$.fn.suggest.defaults = {
 		selectionDataSource: {},
 		suggestionDataSource: {},
+		change: function() {},
 		max: 0,
 	};
 })(jQuery);

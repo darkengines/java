@@ -7,30 +7,30 @@
 		<div class="Title">
 			<h3>Proposition</h3>
 		</div>
-		<div>
-		<div class="Field">
+		<div class="Field Type">
 			<label for="callType">Type</label> 
 			<input type="text" id="callType"
 				name="callType" />
 				<div class="Validator"></div>
 		</div>
-		<div class="Field">
+		<div class="Field CDI CDD">
 			<label for="salary">Salary</label> 
 			<input type="text" id="salary"
 				name="salary" />
 				<div class="Validator"></div>
 		</div>
-		<div class="Field">
+		<div class="Field CDD">
 			<label for="length">Length</label> 
 			<input type="text" id="length"
 				name="length" />
 				<div class="Validator"></div>
 		</div>
-		<div class="Field">
-			<label for="budget">Budget</label> 
-			<input type="text" id="budget"
+		<div class="Field Freelance">
+			<label for="budget">Budget</label> <input type="text" id="budget"
 				name="budget" />
-				<div class="Validator"></div>
-		</div>
-	</form>
+			<div class="Validator"></div>
+		</div><div class="Field Button">
+			<button type="submit" value="Enregistrer">Enregistrer</button>
+		</div></form>
+	
 <jsp:include page="Footer.jsp"></jsp:include>

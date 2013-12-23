@@ -189,7 +189,7 @@ form.UpdateIdentity label {
 	width: 140px;
 	display: inline-block;
 }
-form.UpdateProfile label, form.SearchDev label, form.UpdateContact label {
+form.UpdateProfile label, form.SearchDev label, form.UpdateContact label, form.UpdateCall label {
 	width: 280px;
 	display: inline-block;
 }

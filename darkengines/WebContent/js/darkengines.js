@@ -234,9 +234,10 @@
 		callTypes = {
 				0: 'CDI',
 				1: 'CDD',
-				2: 'Freealnce'
+				2: 'Freelance'
 		};
 		$('form.UpdateCall').each(function() {
+			var $form = $(this);
 			$(this).form({
 				discar: [''],
 				load: {
@@ -246,7 +247,20 @@
 							$this.suggest({
 								selectionDataSource: data == null ? {} : data.callType,
 								suggestionDataSource: callTypes,
-								max: 1
+								max: 1,
+								change: function(dataSource) {
+									var $fields = $('.Field', $form);
+									$fields.each(function() {
+										$field = $(this);
+										if (!$field.is('.Type, .Button')) {
+											if ($field.is('.'+dataSource.value)) {
+												$field.show();
+											} else {
+												$field.hide();
+											}	
+										}
+									});
+								}
 							});
 						});
 					},
