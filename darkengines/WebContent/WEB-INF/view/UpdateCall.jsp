@@ -67,4 +67,5 @@
 		</form>
 	</div>
 </div>
+</div>
 <jsp:include page="Footer.jsp"></jsp:include>

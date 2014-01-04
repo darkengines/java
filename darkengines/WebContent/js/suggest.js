@@ -4,7 +4,7 @@
 		var $suggest = this;
 		var $parent = this.parent();
 		$suggest.attr('type', 'hidden');
-		options = $.extend({}, $.fn.form.defaults, options);
+		options = $.extend({}, $.fn.suggest.defaults, options);
 		var $container = $('<div class="SuggestWrapper"></div>');
 		var $suggestInput = $('<input type="text" class="SuggestInput" />');
 		var $suggestButton = $('<div class="SuggestButton"></div>');

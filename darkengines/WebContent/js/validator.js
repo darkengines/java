@@ -6,7 +6,7 @@
 		$.extend(application, { 
 			validators: {
 				emailValidator: function(field, fields) {
-					var match = (field.match('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$') != null);
+					var match = field && ((''+field).match('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$') != null);
 			    	return {isValid:match, text:match ? 'Ok':'Error'};
 			    },
 			    emailExists: function(field, fields, $field) {
@@ -31,7 +31,7 @@
 			    	return {isValid:!exists, text:exists ? 'Error':'Ok'};
 			    },
 			    passwordValidator: function(field, fields) {
-			    	var match = field.match('^.{5,}$') != null;
+			    	var match = field && (''+field).match('^.{5,}$') != null;
 			    	return {isValid:match, text:match ? 'Ok':'Error'};
 			    },
 			    passwordConfirmationValidator: function(field, fields) {

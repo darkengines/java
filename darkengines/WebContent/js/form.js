@@ -91,7 +91,7 @@
 				});
 			}
 			var $fields = getFields();
-			rec($fields, {}, function(transformed) {
+			rec($fields, json, function(transformed) {
 				callback(transformed);
 			});
 		};
