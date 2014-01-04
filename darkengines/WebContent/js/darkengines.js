@@ -232,44 +232,54 @@
 			});
 		});
 		callTypes = {
-				0: 'CDI',
-				1: 'CDD',
-				2: 'Freelance'
+				PermanentContract: 'CDI',
+				FixedTermContract: 'CDD',
+				Freelance: 'Freelance'
 		};
-		$('form.UpdateCall').each(function() {
-			var $form = $(this);
-			$(this).form({
-				discar: [''],
-				load: {
-					callType: function($field, data) {
-						$field.each(function() {
-							var $this = $(this);
-							$this.suggest({
-								selectionDataSource: data == null ? {} : data.callType,
-								suggestionDataSource: callTypes,
-								max: 1,
-								change: function(dataSource) {
-									var $fields = $('.Field', $form);
-									$fields.each(function() {
-										$field = $(this);
-										if (!$field.is('.Type, .Button')) {
-											if ($field.is('.'+dataSource.value)) {
-												$field.show();
-											} else {
-												$field.hide();
-											}	
-										}
-									});
+		$('.UpdateCall').each(function() {
+			var $this = $(this);
+			$.ajax({
+				url: $this.attr('data-load-url'),
+				cache: false,
+				success: function(data) {
+					if (data == null) data = {};
+					var selected = {key: data.type, value: callTypes[data.type]};
+					$('#callType').suggest({
+						selectionDataSource: data == null ? {} : selected,
+						suggestionDataSource: callTypes,
+						max: 1,
+						change: function(dataSource) {
+							var $forms = $('form', $this); 
+							$forms.each(function() {
+								var $form = $(this);
+								if ($form.is('.'+dataSource.key)) {
+									$form.show();
+								} else {
+									$form.hide();
+								}	
+							});
+						},
+						load: function() {
+							delete data['type'];
+							var $forms = $('form', $this); 
+							$forms.each(function() {
+								var $form = $(this);
+								$form.form({
+									loadMethod: data,
+									load: {
+										
+									}
+								});
+								if ($('#callType').val() != '') {
+									if ($form.is('.'+$('#callType').val())) {
+										$form.show();
+									} else {
+										$form.hide();
+									}
 								}
 							});
-						});
-					},
-				},
-				transformers: {
-					
-				},
-				success: function() {
-					application.$notifier.notify('Profil sauvegardé');
+						}
+					});
 				}
 			});
 		});

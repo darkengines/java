@@ -1,5 +1,7 @@
 package caller_offerrer.service;
 
+import java.util.Set;
+
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -32,11 +34,12 @@ public class GetCall extends JSonService<GetCallInputModel, GetCallOutputModel> 
 			throw new Exception("userId.invalid");
 		}
 		Call call = null;
-		if (caller.getCalls().size() > 0) {
-			Call[] calls = (Call[])caller.getCalls().toArray();
-			int i = calls.length;
+		Set<Call> calls = caller.getCalls();
+		if (calls.size() > 0) {
+			Call[] callsa = (Call[])calls.toArray(new Call[calls.size()]);
+			int i = callsa.length;
 			while (call == null && i-- > 0) {
-				if (calls[i].getId() == data.getCallId()) call = calls[i];
+				if (callsa[i].getId() == data.getCallId()) call = callsa[i];
 			}
 		}
 		return call == null ? null : new GetCallOutputModel(call);

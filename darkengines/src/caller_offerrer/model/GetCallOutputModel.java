@@ -45,16 +45,20 @@ public class GetCallOutputModel {
 		this.type = type;
 	}
 	public GetCallOutputModel(Call call) throws Exception {
-		type = call.getCallType(); 
+		type = call.getCallType();
+		callId = call.getId();
 		switch(type) {
 			case FixedTermContract: {
 				fillFixedTermContract((FixedTermContract)call);
+				break;
 			}
 			case PermanentContract: {
 				fillPermanentContract((PermanentContract)call);
+				break;
 			}
 			case Freelance: {
 				fillFreelance((Freelance)call);
+				break;
 			}
 			default: {
 				throw new Exception("type.invalid");
@@ -68,9 +72,10 @@ public class GetCallOutputModel {
 		salary = contract.getSalary();
 	}
 	protected void fillPermanentContract(PermanentContract contract) {
-		
+		fillContract(contract);
 	}
 	protected void fillFixedTermContract(FixedTermContract contract) {
+		fillContract(contract);
 		length = contract.getLength();
 	}
 }

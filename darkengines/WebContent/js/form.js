@@ -172,33 +172,45 @@
 			return false;
 		});
 		var load = function() {
-			var url = $form.attr('data-load-url');
-			if (typeof(url) != 'undefined' && url != null) {
-				$.ajax({
-					url: url,
-					method: 'get',
-					beforeSend: function() {
-						options.sending($form);
-						return true;
-					},
-					complete: function() {
-						options.complete($form);
-					},
-					success: function(data) {
-						$.each(getFields(), function(key, $field) {
-							$field = $($field);
-							var name = $field.attr('name');
-							if (options.load.hasOwnProperty(name)) {
-								options.load[name]($field, data);
-							} else {
-								if (data != null && data.hasOwnProperty(name)) {
-									$field.val(data[name]);
-								}
+			switch (typeof(options.loadMethod)) {
+				case 'string': {
+					var url = $form.attr(options.loadMethod);
+					if (typeof(url) != 'undefined' && url != null) {
+						$.ajax({
+							url: url,
+							method: 'get',
+							beforeSend: function() {
+								options.sending($form);
+								return true;
+							},
+							complete: function() {
+								options.complete($form);
+							},
+							success: function(data) {
+								dataBind(data);
 							}
 						});
 					}
-				});
+					break;
+				}
+				case 'object': {
+					dataBind(options.loadMethod);
+					break;
+				}
 			}
+		};
+		var dataBind = function(data) {
+			$.each(getFields(), function(key, $field) {
+				$field = $($field);
+				var name = $field.attr('name');
+				if (options.load.hasOwnProperty(name)) {
+					options.load[name]($field, data);
+				} else {
+					if (data != null && data.hasOwnProperty(name)) {
+						$field.val(data[name]);
+					}
+				}
+			});
 		};
 		load();
 		formToJson(function(json) {
@@ -220,6 +232,8 @@
 		validators: {},
 		load: {},
 		discar: {},
-		transformers: {}
+		transformers: {},
+		dataSource: {},
+		loadMethod: 'data-load-url',
 	};
 })(jQuery);

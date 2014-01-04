@@ -17,12 +17,12 @@ public class UpdateCall extends JSonService<UpdateCallInputModel, Object> {
 
 	@Override
 	public Class<UpdateCallInputModel> getInputType() {
-		return null;
+		return UpdateCallInputModel.class;
 	}
 
 	@Override
 	public Class<Object> getOutputType() {
-		return null;
+		return Object.class;
 	}
 
 	@Override
@@ -39,11 +39,20 @@ public class UpdateCall extends JSonService<UpdateCallInputModel, Object> {
 			call = getUserCallById(user, data.getCallId());
 			isNew = call == null;
 		}
-		call = data.mergeCall(call);
+		if (call != null) {
+			session.evict(call);
+		}
+		call = data.toCall();
+		Transaction transaction = session.beginTransaction();
+		session.saveOrUpdate(call);
 		if (isNew) {
 			user.getCalls().add(call);
+		} else {			
+			session.createSQLQuery("update `call` set DTYPE = :dtype where id = :id")
+			.setString("dtype", call.getClass().getSimpleName())
+			.setLong("id", call.getId())
+			.executeUpdate();
 		}
-		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(user);
 		session.flush();
 		transaction.commit();

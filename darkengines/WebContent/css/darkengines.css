@@ -90,7 +90,7 @@ form.Loading h3 .Notification {
 .Field:nth-child(2n+1) {
 	background-color: rgba(42,42,42,1);
 }
-.Field input[type=text], form .Field input[type=password], form .Field input[type=file] {
+.Field input[type=text], .Field input[type=password], .Field input[type=file] {
 	border: solid 1px rgba(255, 255, 255, 1);
 	border-radius: 4px;
 	background-color: rgba(32,32,32,1);
@@ -185,42 +185,42 @@ form.Loading h3 .Notification {
 .Field .Validator.Invalid  {
 	background-image: url(../image/error.png);
 }
-form.UpdateIdentity label {
+.UpdateIdentity label {
 	width: 140px;
 	display: inline-block;
 }
-form.UpdateProfile label, form.SearchDev label, form.UpdateContact label, form.UpdateCall label {
+.UpdateProfile label, .SearchDev label, .UpdateContact label, .UpdateCall label {
 	width: 280px;
 	display: inline-block;
 }
 form.UpdateProfile {
 
 }
-form.UpdateProfile input[name=seniority], form.SearchDev input[name=seniority] {
+.UpdateProfile input[name=seniority], .SearchDev input[name=seniority] {
 	width: 32px;
 }
-form.UpdateProfile .SeniorityDisplay, form.SearchDev .SeniorityDisplay {
+.UpdateProfile .SeniorityDisplay, .SearchDev .SeniorityDisplay {
 	width: 52px;
 	display: inline-block;
 }
-form.UpdateProfile .SeniorityEditor, form.SearchDev .SeniorityEditor {
+.UpdateProfile .SeniorityEditor, .SearchDev .SeniorityEditor {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
 }
-form.UpdateProfile input[name=diploma], form.SearchDev input[name=diploma] {
+.UpdateProfile input[name=diploma], .SearchDev input[name=diploma] {
 	width: 32px;
 }
-form.UpdateProfile .DiplomaDisplay, form.SearchDev .DiplomaDisplay {
+.UpdateProfile .DiplomaDisplay, .SearchDev .DiplomaDisplay {
 	width: 52px;
 	display: inline-block;
 }
-form.UpdateProfile .DiplomaEditor, form.SearchDev .DiplomaEditor {
+.UpdateProfile .DiplomaEditor, .SearchDev .DiplomaEditor {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
 }
-form.UpdateIdentity {
+.UpdateIdentity {
 
 }
 button, input[type=button], input[type=submit] {

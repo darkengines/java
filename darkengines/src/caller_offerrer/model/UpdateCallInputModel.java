@@ -44,7 +44,33 @@ public class UpdateCallInputModel extends TokenizenModel {
 	public void setType(CallType type) {
 		this.type = type;
 	}
+	public Call toCall() throws Exception {
+		Call call = null;
+		switch(type) {
+			case FixedTermContract: {
+				call = mergeFixedTermContract(new FixedTermContract());
+				break;
+			}
+			case PermanentContract: {
+				call = mergePermanentContract(new PermanentContract());
+				break;
+			}
+			case Freelance: {
+				call = mergeFreelance(new Freelance());
+				break;
+			}
+			default: {
+				throw new Exception("type.invalid");
+			}
+		}
+		if (callId != null) {
+			call.setId(callId);
+		}
+		return call;
+	}
 	public Call mergeCall(Call call) throws Exception {
+		call.setId(callId);
+		
 		switch(type) {
 			case FixedTermContract: {
 				if (call == null) call = new FixedTermContract();

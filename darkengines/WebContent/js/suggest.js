@@ -258,11 +258,13 @@
 			}
 		});
 		this.selectedDataBind();
+		options.load();
 	};
 	$.fn.suggest.defaults = {
 		selectionDataSource: {},
 		suggestionDataSource: {},
 		change: function() {},
+		load: function() {},
 		max: 0,
 	};
 })(jQuery);
