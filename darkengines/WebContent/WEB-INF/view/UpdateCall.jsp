@@ -18,12 +18,17 @@
 				type="hidden" name="type" value="PermanentContract" />
 			<input type=hidden value="<%=request.getParameter("callId")%>" name="callId"/>
 			<div class="Fields">
+				<div class="Field">
+					<label for="title">Titre</label> <input type="text" id="title"
+						name="title" />
+					<div class="Validator"></div>
+				</div>
 				<div class="Field CDI CDD">
-					<label for="salary">Salary</label> <input type="text" id="salary"
+					<label for="salary">Salaire</label> <input type="text" id="salary"
 						name="salary" />
 					<div class="Validator"></div>
 				</div>
-				<div class="Field Button">
+				<div class="Field">
 					<button type="submit" value="Enregistrer">Enregistrer</button>
 				</div>
 			</div>
@@ -34,17 +39,22 @@
 				type="hidden" name="type" value="FixedTermContract" />
 				<input type=hidden value="<%=request.getParameter("callId")%>" name="callId"/>
 			<div class="Fields">
+				<div class="Field">
+					<label for="title">Titre</label> <input type="text" id="title"
+						name="title" />
+					<div class="Validator"></div>
+				</div>
 				<div class="Field CDI CDD">
-					<label for="salary">Salary</label> <input type="text" id="salary"
+					<label for="salary">Salaire</label> <input type="text" id="salary"
 						name="salary" />
 					<div class="Validator"></div>
 				</div>
 				<div class="Field CDD">
-					<label for="length">Length</label> <input type="text" id="length"
+					<label for="length">Durée</label> <input type="text" id="length"
 						name="length" />
 					<div class="Validator"></div>
 				</div>
-				<div class="Field Button">
+				<div class="Field">
 					<button type="submit" value="Enregistrer">Enregistrer</button>
 				</div>
 			</div>
@@ -55,17 +65,21 @@
 				type="hidden" name="type" value="Freelance" />
 				<input type=hidden value="<%=request.getParameter("callId")%>" name="callId"/>
 			<div class="Fields">
+				<div class="Field">
+					<label for="title">Titre</label> <input type="text" id="title"
+						name="title" />
+					<div class="Validator"></div>
+				</div>
 				<div class="Field Freelance">
 					<label for="budget">Budget</label> <input type="text" id="budget"
 						name="budget" />
 					<div class="Validator"></div>
 				</div>
-				<div class="Field Button">
+				<div class="Field">
 					<button type="submit" value="Enregistrer">Enregistrer</button>
 				</div>
 			</div>
 		</form>
 	</div>
-</div>
 </div>
 <jsp:include page="Footer.jsp"></jsp:include>

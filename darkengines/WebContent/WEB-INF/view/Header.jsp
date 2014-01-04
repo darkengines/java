@@ -35,7 +35,7 @@
 			<a href="edit_dev_profile">Mon profil</a>
 		<%} %>
 		<% if (request.getAttribute("userType") == UserType.Caller) {%>
-			<a href="update_calls">Mes offres</a>
+			<a href="get_calls">Mes offres</a>
 		<%} %>
 			<a href="search_dev">Recherche</a>
 		</div>

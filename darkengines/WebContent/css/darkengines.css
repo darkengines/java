@@ -223,7 +223,7 @@ form.UpdateProfile {
 .UpdateIdentity {
 
 }
-button, input[type=button], input[type=submit] {
+.Button, button, input[type=button], input[type=submit] {
 	-moz-box-shadow:inset 0px 1px 8px 0px #fed897;
 	-webkit-box-shadow:inset 0px 1px 8px 0px #fed897;
 	box-shadow:inset 0px 1px 8px 0px #fed897;
@@ -257,14 +257,16 @@ button, input[type=button], input[type=submit] {
 	text-decoration:none;
 	text-align:center;
 	text-shadow:0px 2px 2px #cd8a15;
+	cursor: pointer;
+	padding: 0 4px 0 4px;
 }
-button:hover, input[type=button]:hover, input[type=submit]:hover {
+.Button:hover, button:hover, input[type=button]:hover, input[type=submit]:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d29105), color-stop(1, #f6b33d) );
 	background:-moz-linear-gradient( center top, #d29105 5%, #f6b33d 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d29105', endColorstr='#f6b33d');
 	background-color:#d29105;
 }
-button:active, input[type=button]:active, input[type=submit]:active {
+.Button:active, button:active, input[type=button]:active, input[type=submit]:active {
 	position:relative;
 	top:1px;
 }
@@ -344,4 +346,45 @@ button:active, input[type=button]:active, input[type=submit]:active {
 .Profile .Field h5 {
 	padding: 0;
 	margin: 0;
+}
+.GetCalls {
+	
+}
+.GetCalls .Calls .Call {
+	position: relative;
+	width: 100%;
+	padding: 4px 4px 4px 8px;
+}
+.GetCalls .Calls .Call:nth-child(2n) {
+	background-color: rgba(64,64,64,1);
+}
+.GetCalls .Calls .Call:nth-child(2n+1) {
+	background-color: rgba(42,42,42,1);
+}
+.GetCalls .Calls .Call:first-child {
+	border-radius: 4px 4px 0 0;
+}
+.GetCalls .Calls .Call:last-child {
+	border-radius: 0 0 4px 4px;
+}
+.GetCalls .Calls .Call .Title {
+	color: inherit;
+}
+.GetCalls .Calls .Call .Type {
+	color: rgba(240,240,240, 0.8);
+	padding: 0 0 0 8px;
+	font-size: 10px;
+}
+.GetCalls .Calls .Call .Controls {
+	position: absolute;
+	right: 8px;
+	top: 4px;
+	height: 100%
+}
+.GetCalls .Calls .Call .Delete {
+	vertical-align: middle;
+	display: inline-block;
+}
+.GetCalls .Controls {
+	padding: 0 0 8px 0;
 }

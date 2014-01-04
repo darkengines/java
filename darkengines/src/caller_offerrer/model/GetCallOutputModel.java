@@ -13,7 +13,14 @@ public class GetCallOutputModel {
 	private float salary;
 	private float budget;
 	private int length;
+	private String title;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public Long getCallId() {
 		return callId;
 	}
@@ -46,6 +53,7 @@ public class GetCallOutputModel {
 	}
 	public GetCallOutputModel(Call call) throws Exception {
 		type = call.getCallType();
+		title = call.getTitle();
 		callId = call.getId();
 		switch(type) {
 			case FixedTermContract: {

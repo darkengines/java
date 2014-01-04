@@ -17,12 +17,12 @@ public class DeleteCall extends JSonService<UpdateCallInputModel, Object> {
 
 	@Override
 	public Class<UpdateCallInputModel> getInputType() {
-		return null;
+		return UpdateCallInputModel.class;
 	}
 
 	@Override
 	public Class<Object> getOutputType() {
-		return null;
+		return Object.class;
 	}
 
 	@Override

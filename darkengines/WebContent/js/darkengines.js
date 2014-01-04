@@ -283,6 +283,47 @@
 				}
 			});
 		});
+		$('.GetCalls').each(function() {
+			var $this = $(this);
+			var $calls = $('.Calls', $this);
+			var param = {userId: application.user.userId};
+			$.ajax({
+				url: 'get_calls_test',
+				data: {
+					data: JSON.stringify(param)
+				},
+				success: function(data) {
+					$.each(data, function(key, value) {
+						
+						var $call = $('<div class="Call"></div>');
+						var $title = $('<a href="update_call?callId='+value.id+'" class="Title">'+value.title+'</a>');
+						var $type = $('<div class="Type">'+callTypes[value.type]+'</div>');
+						var $controls = $('<div class="Controls"></div>');
+						var param = JSON.stringify({callId:value.id, token:application.user.token});
+						var $delete = $('<a class="Delete Button" href="delete_call_test">Supprimer</a>');
+						$controls.append($delete);
+						$delete.click(function(e) {
+							var $this = $(this);
+							if (window.confirm('Supprimer la proposition '+value.title+' ?')) {
+								$.ajax({
+									url: $this.attr('href'),
+									data: {
+										data: param
+									},
+									success: function() {
+										$call.remove();
+									}
+								});
+							}
+							e.preventDefault();
+							return false;
+						});
+						$call.append($title).append($type).append($controls);
+						$calls.append($call);
+					});
+				}
+			});
+		});
 		$('form.SearchDev').each(function() {
 			var $form = $(this);
 			var $programmingLanguages = $('input[name=programmingLanguageIds]', $form);
@@ -446,54 +487,52 @@
 				e.preventDefault();
 			});
 		});
-//		$('div.Profile').each(function() {
-//			var $container = $(this);
-//			var $photo = $('.Photo');
-//			var $email = $('.Email');
-//			var $programmingLanguages = $('.ProgrammingLanguages', $container);
-//			var $frameworks = $('.Frameworks', $container);
-//			var $languages = $('.Languages', $container);
-//			var $diploma = $('.Diploma', $container);
-//			var $seniority = $('.Seniority', $container);
-//			var $name = $('.Name');
-//			var $sub = $('.Sub');
-//			var $phone = $('.Phone');
-//			
-//			$.ajax({
-//				url: 'get_profile_test',
-//				cache: false,
-//				data: {
-//					data: $.url().param('id')
-//				},
-//				success: function(data) {
-//					$email.text(data.userEmail);
-//					$.each(data.programmingLanguages, function(index, item) {
-//						$programmingLanguages.append(
-//							$('<div class="ms-sel-item">'+item.name+'</div>')
-//						);
-//					});
-//					$.each(data.frameworks, function(index, item) {
-//						$frameworks.append(
-//							$('<div class="ms-sel-item">'+item.name+'</div>')
-//						);
-//					});
-//					$.each(data.languages, function(index, item) {
-//						$languages.append(
-//							$('<div class="ms-sel-item">'+item.name+'</div>')
-//						);
-//					});
-//					$diploma.text(data.diploma);
-//					$seniority.text(data.seniority);
-//					if (data.photo != null && data.photo.length > 0) {
-//						$photo.attr('src', data.photo);
-//					}
-//					$name.text(data.firstName+' '+data.lastName);
-//					var birthDate = new Date(data.birthDate);
-//					$sub.text(data.city+', '+birthDate.toString())
-//					$phone.text(data.phone);
-//					
-//				}
-//			});
-//		});
+		$('div.Profile').each(function() {
+			var $container = $(this);
+			var $photo = $('.Photo');
+			var $email = $('.Email');
+			var $programmingLanguages = $('.ProgrammingLanguages', $container);
+			var $frameworks = $('.Frameworks', $container);
+			var $languages = $('.Languages', $container);
+			var $diploma = $('.Diploma', $container);
+			var $seniority = $('.Seniority', $container);
+			var $name = $('.Name');
+			var $sub = $('.Sub');
+			var $phone = $('.Phone');
+			
+			$.ajax({
+				url: 'get_profile_test',
+				cache: false,
+				data: {
+					data: JSON.stringify({offerrerId: $.url().param('id')})
+				},
+				success: function(data) {
+					$email.text(data.userEmail);
+					$.each(data.programmingLanguages, function(index, item) {
+						$programmingLanguages.append(
+							$('<div class="ms-sel-item">'+item.name+'</div>')
+						);
+					});
+					$.each(data.frameworks, function(index, item) {
+						$frameworks.append(
+							$('<div class="ms-sel-item">'+item.name+'</div>')
+						);
+					});
+					$.each(data.languages, function(index, item) {
+						$languages.append(
+							$('<div class="ms-sel-item">'+item.name+'</div>')
+						);
+					});
+					$diploma.text(data.diploma);
+					$seniority.text(data.seniority);
+					$photo.attr('src', 'get_image?id='+data.photoId);
+					$name.text(data.firstName+' '+data.lastName);
+					var birthDate = new Date(data.birthDate);
+					$sub.text(data.city+', '+birthDate.toString())
+					$phone.text(data.phone);
+					
+				}
+			});
+		});
 	});
 })(jQuery);

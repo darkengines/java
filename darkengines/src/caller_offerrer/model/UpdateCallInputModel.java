@@ -13,7 +13,14 @@ public class UpdateCallInputModel extends TokenizenModel {
 	private float salary;
 	private float budget;
 	private int length;
+	private String title;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public Long getCallId() {
 		return callId;
 	}
@@ -63,6 +70,7 @@ public class UpdateCallInputModel extends TokenizenModel {
 				throw new Exception("type.invalid");
 			}
 		}
+		call.setTitle(title);
 		if (callId != null) {
 			call.setId(callId);
 		}

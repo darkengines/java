@@ -85,6 +85,30 @@
     <servlet-name>update_call</servlet-name>
     <servlet-class>application.UpdateCall</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>get_calls_test</servlet-name>
+    <servlet-class>caller_offerrer.service.GetCalls</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>get_calls</servlet-name>
+    <servlet-class>application.GetCalls</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>delete_call_test</servlet-name>
+    <servlet-class>caller_offerrer.service.DeleteCall</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>delete_call_test</servlet-name>
+    <url-pattern>/delete_call_test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>get_calls</servlet-name>
+    <url-pattern>/get_calls</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>get_calls_test</servlet-name>
+    <url-pattern>/get_calls_test</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>update_call</servlet-name>
     <url-pattern>/update_call</url-pattern>
