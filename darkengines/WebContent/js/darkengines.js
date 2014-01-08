@@ -289,6 +289,7 @@
 			var param = {userId: application.user.userId};
 			$.ajax({
 				url: 'get_calls_test',
+				cache: false,
 				data: {
 					data: JSON.stringify(param)
 				},
