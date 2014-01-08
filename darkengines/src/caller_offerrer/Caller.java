@@ -5,13 +5,22 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Caller extends User {
+	
 	@ManyToMany
 	private Set<Call> calls;
+	@OneToOne
+	private SearchOfferrerQuery searchOfferrerQuery;
+	public void setSearchOfferrerQuery(SearchOfferrerQuery searchOfferrerQuery) {
+		this.searchOfferrerQuery = searchOfferrerQuery;
+	}
+
 	public Caller() {
 		calls = new HashSet<Call>();
+		searchOfferrerQuery = new SearchOfferrerQuery();
 	}
 	
 	public Set<Call> getCalls() {
@@ -24,5 +33,9 @@ public class Caller extends User {
 	
 	public UserType getType() {
 		return UserType.Caller;
+	}
+
+	public SearchOfferrerQuery getSearchOfferrerQuery() {
+		return searchOfferrerQuery;
 	}
 }
