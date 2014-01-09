@@ -1,11 +1,21 @@
 package caller_offerrer.model;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
 import caller_offerrer.Call;
 import caller_offerrer.CallType;
 import caller_offerrer.Contract;
 import caller_offerrer.FixedTermContract;
+import caller_offerrer.Framework;
 import caller_offerrer.Freelance;
+import caller_offerrer.Language;
 import caller_offerrer.PermanentContract;
+import caller_offerrer.ProgrammingLanguage;
 
 public class UpdateCallInputModel extends TokenizenModel {
 	private Long callId;
@@ -14,6 +24,49 @@ public class UpdateCallInputModel extends TokenizenModel {
 	private float budget;
 	private int length;
 	private String title;
+	private Set<Long> programmingLanguageIds;
+	private Set<Long> frameworkIds;
+	private Set<Long> languageIds;
+	private Integer diploma;
+	private Integer seniority;
+	private String description;
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Set<Long> getProgrammingLanguageIds() {
+		return programmingLanguageIds;
+	}
+	public void setProgrammingLanguageIds(Set<Long> programmingLanguageIds) {
+		this.programmingLanguageIds = programmingLanguageIds;
+	}
+	public Set<Long> getFrameworkIds() {
+		return frameworkIds;
+	}
+	public void setFrameworkIds(Set<Long> frameworkIds) {
+		this.frameworkIds = frameworkIds;
+	}
+	public Set<Long> getLanguageIds() {
+		return languageIds;
+	}
+	public void setLanguageIds(Set<Long> languageIds) {
+		this.languageIds = languageIds;
+	}
+	public Integer getDiploma() {
+		return diploma;
+	}
+	public void setDiploma(Integer diplomaId) {
+		this.diploma = diplomaId;
+	}
+	public Integer getSeniority() {
+		return seniority;
+	}
+	public void setSeniority(Integer seniority) {
+		this.seniority = seniority;
+	}
 	
 	public String getTitle() {
 		return title;
@@ -51,7 +104,8 @@ public class UpdateCallInputModel extends TokenizenModel {
 	public void setType(CallType type) {
 		this.type = type;
 	}
-	public Call toCall() throws Exception {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Call toCall(Session session) throws Exception {
 		Call call = null;
 		switch(type) {
 			case FixedTermContract: {
@@ -74,28 +128,37 @@ public class UpdateCallInputModel extends TokenizenModel {
 		if (callId != null) {
 			call.setId(callId);
 		}
-		return call;
-	}
-	public Call mergeCall(Call call) throws Exception {
-		call.setId(callId);
-		
-		switch(type) {
-			case FixedTermContract: {
-				if (call == null) call = new FixedTermContract();
-				return mergeFixedTermContract((FixedTermContract)call);
-			}
-			case PermanentContract: {
-				if (call == null) call = new PermanentContract();
-				return mergePermanentContract((PermanentContract)call);
-			}
-			case Freelance: {
-				if (call == null) call = new Freelance();
-				return mergeFreelance((Freelance)call);
-			}
-			default: {
-				throw new Exception("type.invalid");
+		if (programmingLanguageIds != null) {
+			call.getProgrammingLanguages().clear();
+			if (programmingLanguageIds.size() > 0) {
+				Collection<ProgrammingLanguage> programmingLanguages = session.createCriteria(ProgrammingLanguage.class)
+						.add(Restrictions.in("id", programmingLanguageIds))
+						.list();
+				call.getProgrammingLanguages().addAll((Collection)programmingLanguages);
 			}
 		}
+		if (frameworkIds != null) {
+			call.getFrameworks().clear();
+			if (frameworkIds.size() > 0) {
+				Set<Framework> frameworks = new HashSet<Framework>(session.createCriteria(Framework.class)
+						.add(Restrictions.in("id", frameworkIds))
+						.list());
+				call.getFrameworks().addAll((Collection)frameworks);
+			}
+		}
+		if (languageIds != null) {
+			call.getLanguages().clear();
+			if (languageIds.size() > 0) {
+				Set<Language> languages = new HashSet<Language>(session.createCriteria(Language.class)
+						.add(Restrictions.in("id", languageIds))
+						.list());
+				call.getLanguages().addAll((Collection)languages);
+			}
+		}
+		call.setDiploma(diploma);
+		call.setSeniority(seniority);
+		call.setDescription(description);
+		return call;
 	}
 	protected Freelance mergeFreelance(Freelance freelance) {
 		freelance.setBudget(budget);

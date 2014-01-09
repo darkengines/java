@@ -29,6 +29,35 @@
 					<div class="Validator"></div>
 				</div>
 				<div class="Field">
+					<label for="description">Description</label> 
+					<textarea id="description" name="description"></textarea>
+				</div>
+				<div class="Field">
+					<label for="programmingLanguageIds">Langages de
+						programmation maîtrisés</label> <input type="text"
+						id="programmingLanguageIds" name="programmingLanguageIds" />
+				</div>
+				<div class="Field">
+					<label for="frameworkIds">Frameworks maîtrisés</label> <input type="text" id="frameworkIds"
+						name="frameworkIds" />
+				</div>
+				<div class="Field">
+					<label for="languageIds">Langages parlés</label>
+					<input type="text" id="languageIds" name="languageIds" />
+				</div>
+				<div class="Field">
+					<label for="diploma">Niveau d'études</label> <input type="hidden"
+						id="diploma" name="diploma" />
+						<div class="DiplomaDisplay">Aucun</div>
+					<div class="DiplomaEditor"></div>
+				</div>
+				<div class="Field">
+					<label for="seniority">Années d'expérience</label> <input type="hidden"
+						id="seniority" name="seniority" />
+					<div class="SeniorityDisplay">Aucune</div>
+					<div class="SeniorityEditor"></div>
+				</div>
+				<div class="Field">
 					<button type="submit" value="Enregistrer">Enregistrer</button>
 				</div>
 			</div>
@@ -55,6 +84,35 @@
 					<div class="Validator"></div>
 				</div>
 				<div class="Field">
+					<label for="description">Description</label> 
+					<textarea id="description" name="description"></textarea>
+				</div>
+				<div class="Field">
+					<label for="programmingLanguageIds">Langages de
+						programmation maîtrisés</label> <input type="text"
+						id="programmingLanguageIds" name="programmingLanguageIds" />
+				</div>
+				<div class="Field">
+					<label for="frameworkIds">Frameworks maîtrisés</label> <input type="text" id="frameworkIds"
+						name="frameworkIds" />
+				</div>
+				<div class="Field">
+					<label for="languageIds">Langages parlés</label>
+					<input type="text" id="languageIds" name="languageIds" />
+				</div>
+				<div class="Field">
+					<label for="diploma">Niveau d'études</label> <input type="hidden"
+						id="diploma" name="diploma" />
+						<div class="DiplomaDisplay">Aucun</div>
+					<div class="DiplomaEditor"></div>
+				</div>
+				<div class="Field">
+					<label for="seniority">Années d'expérience</label> <input type="hidden"
+						id="seniority" name="seniority" />
+					<div class="SeniorityDisplay">Aucune</div>
+					<div class="SeniorityEditor"></div>
+				</div>
+				<div class="Field">
 					<button type="submit" value="Enregistrer">Enregistrer</button>
 				</div>
 			</div>
@@ -74,6 +132,35 @@
 					<label for="budget">Budget</label> <input type="text" id="budget"
 						name="budget" />
 					<div class="Validator"></div>
+				</div>
+				<div class="Field">
+					<label for="description">Description</label> 
+					<textarea id="description" name="description"></textarea>
+				</div>
+				<div class="Field">
+					<label for="programmingLanguageIds">Langages de
+						programmation maîtrisés</label> <input type="text"
+						id="programmingLanguageIds" name="programmingLanguageIds" />
+				</div>
+				<div class="Field">
+					<label for="frameworkIds">Frameworks maîtrisés</label> <input type="text" id="frameworkIds"
+						name="frameworkIds" />
+				</div>
+				<div class="Field">
+					<label for="languageIds">Langages parlés</label>
+					<input type="text" id="languageIds" name="languageIds" />
+				</div>
+				<div class="Field">
+					<label for="diploma">Niveau d'études</label> <input type="hidden"
+						id="diploma" name="diploma" />
+						<div class="DiplomaDisplay">Aucun</div>
+					<div class="DiplomaEditor"></div>
+				</div>
+				<div class="Field">
+					<label for="seniority">Années d'expérience</label> <input type="hidden"
+						id="seniority" name="seniority" />
+					<div class="SeniorityDisplay">Aucune</div>
+					<div class="SeniorityEditor"></div>
 				</div>
 				<div class="Field">
 					<button type="submit" value="Enregistrer">Enregistrer</button>

@@ -1,5 +1,8 @@
 (function($) {
 	$(document).ready(function() {
+		$.fn.form.defaults.success = function() {
+			application.$notifier.notify('Modifications sauvegard&#233;es');
+		};
 		$.extend(application, {
 			user: null
 		});
@@ -18,12 +21,11 @@
 		};
 		application.$notifier = $('.MainNotifier');
 		application.$notifier.notify = function(msg) {
-			application.$notifier.text(msg);
-			$(application.$notifier).show( 'slide', {}, 500, function() {
-				setTimeout(function() {
-					$(application.$notifier).removeAttr( "style" ).fadeOut();
-			    }, 1000 );
-			});
+			application.$notifier.html(msg);
+			$(application.$notifier).addClass('Visible');
+			setTimeout(function() {
+				$(application.$notifier).removeClass('Visible');
+		    }, 3000 );
 		};
 		$.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 		$('.Disconnect').click(function() {
@@ -81,9 +83,6 @@
 				validators: {
 					email: [application.validators.emailValidator, application.validators.emailExists]
 				},
-				success: function() {
-					application.$notifier.notify('Contact sauvegardé');
-				}
 			});
 		});
 		
@@ -93,7 +92,7 @@
 				load: {
 					programmingLanguageIds: function($field, data) {
 						$field.each(function() {
-							$this = $(this);
+							var $this = $(this);
 							$this.suggest({
 								selectionDataSource: data.programmingLanguageIds,
 								suggestionDataSource: function(query) {
@@ -225,9 +224,6 @@
 				        	callback(null);
 				        }
 					}
-				},
-				success: function() {
-					application.$notifier.notify('Profil sauvegardé');
 				}
 			});
 		});
@@ -267,7 +263,104 @@
 								$form.form({
 									loadMethod: data,
 									load: {
-										
+										programmingLanguageIds: function($field, data) {
+											$field.each(function() {
+												var $this = $(this);
+												$this.suggest({
+													selectionDataSource: data.programmingLanguageIds,
+													suggestionDataSource: function(query) {
+														var result = {};
+														$.ajax({
+															url: 'programming_languages_test',
+															async: false,
+															data: {
+																data: JSON.stringify(query)
+															},
+															success: function(data) {
+																result = data;
+															},
+														});
+														return result;
+													}
+												});
+											});
+										},
+										frameworkIds: function($field, data) {
+											$field.each(function() {
+												var $this = $(this);
+												$this.suggest({
+													selectionDataSource: data.frameworkIds,
+													suggestionDataSource: function(query) {
+														var result = {};
+														$.ajax({
+															url: 'frameworks_test',
+															async: false,
+															data: {
+																data: JSON.stringify(query)
+															},
+															success: function(data) {
+																result = data;
+															},
+														});
+														return result;
+													}
+												});
+											});
+										},
+										languageIds: function($field, data) {
+											$field.each(function() {
+												var $this = $(this);
+												$this.suggest({
+													selectionDataSource: data.languageIds,
+													suggestionDataSource: function(query) {
+														var result = {};
+														$.ajax({
+															url: 'languages_test',
+															async: false,
+															data: {
+																data: JSON.stringify(query)
+															},
+															success: function(data) {
+																result = data;
+															},
+														});
+														return result;
+													}
+												});
+											});
+										},
+										diploma: function($field, data) {
+											var $diplomaEditor = $('.DiplomaEditor', $field.parent());
+											var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
+											if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+											$diplomaEditor.slider({
+												range: "min",
+												value: data.diploma,
+												min: 0,
+												max: 10,
+												slide: function(event, ui) {
+													$field.val(ui.value);
+													$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+												}
+											});
+											$field.val(data.diploma);
+										},
+										seniority: function($field, data) {
+											var $seniorityEditor = $('.SeniorityEditor', $field.parent());
+											var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
+											if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+											$seniorityEditor.slider({
+												range: "min",
+												value: data.seniority,
+												min: 0,
+												max: 10,
+												slide: function(event, ui) {
+													$field.val(ui.value);
+													$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+												}
+											});
+											$field.val(data.seniority);
+										}
 									}
 								});
 								if ($('#callType').val() != '') {
@@ -329,12 +422,18 @@
 			var $form = $(this);
 			var $resultContainer = $('.SearchResult');
 			var $result = $('.SearchResult .Collection');
+			var $diplomaEditor = $('.DiplomaUi', $form);
+			var $diplomaDisplay = $('.DiplomaDisplay', $form);
+			var $diploma = $('input[name=diploma]', $form);
+			var $seniorityEditor = $('.SeniorityUi', $form);
+			var $seniorityDisplay = $('.SeniorityDisplay', $form);
+			var $seniority = $('input[name=seniority]', $form);
 			$form.form({
 				discar: [''],
 				load: {
 					programmingLanguageIds: function($field, data) {
 						$field.each(function() {
-							$this = $(this);
+							var $this = $(this);
 							$this.suggest({
 								selectionDataSource: data.programmingLanguageIds,
 								suggestionDataSource: function(query) {
@@ -623,20 +722,20 @@
 					})
 				},
 				success: function(data) {
-					$email.text(data.userEmail);
+					$email.text(data.email);
 					$.each(data.programmingLanguages, function(index, item) {
 						$programmingLanguages.append(
-							$('<div class="ms-sel-item">'+item+'</div>')
+							$('<div class="Item">'+item+'</div>')
 						);
 					});
 					$.each(data.frameworks, function(index, item) {
 						$frameworks.append(
-							$('<div class="ms-sel-item">'+item+'</div>')
+							$('<div class="Item">'+item+'</div>')
 						);
 					});
 					$.each(data.languages, function(index, item) {
 						$languages.append(
-							$('<div class="ms-sel-item">'+item+'</div>')
+							$('<div class="Item">'+item+'</div>')
 						);
 					});
 					$diploma.text(data.diploma);

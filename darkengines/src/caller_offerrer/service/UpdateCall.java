@@ -43,7 +43,7 @@ public class UpdateCall extends JSonService<UpdateCallInputModel, Object> {
 		if (call != null) {
 			session.evict(call);
 		}
-		call = data.toCall();
+		call = data.toCall(session);
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(call);
 		if (isNew) {

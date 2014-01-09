@@ -15,6 +15,7 @@ public class CallQuery extends IdentifiedEntity {
 	private Set<Language> languages;
 	private Integer diploma;
 	private Integer seniority;
+	
 	public CallQuery() {
 		programmingLanguages = new HashSet<ProgrammingLanguage>();
 		frameworks = new HashSet<Framework>();

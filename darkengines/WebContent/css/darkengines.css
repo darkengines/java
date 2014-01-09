@@ -189,33 +189,33 @@ form.Loading h3 .Notification {
 	width: 140px;
 	display: inline-block;
 }
-.UpdateProfile label, .SearchDev label, .UpdateContact label, .UpdateCall label {
+label {
 	width: 280px;
 	display: inline-block;
 }
 form.UpdateProfile {
 
 }
-.UpdateProfile input[name=seniority], .SearchDev input[name=seniority] {
+input[name=seniority] {
 	width: 32px;
 }
-.UpdateProfile .SeniorityDisplay, .SearchDev .SeniorityDisplay {
+.SeniorityDisplay {
 	width: 52px;
 	display: inline-block;
 }
-.UpdateProfile .SeniorityEditor, .SearchDev .SeniorityEditor {
+.SeniorityEditor {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
 }
-.UpdateProfile input[name=diploma], .SearchDev input[name=diploma] {
+input[name=diploma] {
 	width: 32px;
 }
-.UpdateProfile .DiplomaDisplay, .SearchDev .DiplomaDisplay {
+.DiplomaDisplay {
 	width: 52px;
 	display: inline-block;
 }
-.UpdateProfile .DiplomaEditor, .SearchDev .DiplomaEditor {
+.DiplomaEditor {
 	width: 256px;
 	margin-left: 16px;
 	display: inline-block;
@@ -288,19 +288,28 @@ form.UpdateProfile {
 	max-height: 128px;
 }
 .MainNotifier {
-	width: 157px;
-	height: 96px;
+	-webkit-transition: left linear 1s;
+    -moz-transition: left linear 1s;
+    -o-transition: left linear 1s;
+    transition: left linear 1s;
+	width: 160px;
+	height: auto;
 	border-radius: 4px;
 	border: solid 4px rgba(228, 182, 62, 1);
-	line-height: 90px;
 	margin: 0;
-	padding: 0;
+	padding: 8px;
 	text-align: center;
 	background-color: rgba(64,64,64,1);
-	display: none;
 	position: fixed;
 	bottom: 8px;
-	left: 8px;
+	left: -100%
+}
+.MainNotifier.Visible {
+	-webkit-transition: left linear 1s;
+    -moz-transition: left linear 1s;
+    -o-transition: left linear 1s;
+    transition: left linear 1s;
+    left: 8px;
 }
 .Identity {
 	background-color: rgba(64,64,64,1);
@@ -387,4 +396,13 @@ form.UpdateProfile {
 }
 .GetCalls .Controls {
 	padding: 0 0 8px 0;
+}
+.Item {
+	display: inline-block;
+	border-radius: 4px;
+	background-color: rgba(240, 173, 0, 1);
+	padding: 2px 4px 2px 4px;
+	position: relative;
+	border: dotted rgba(33,33,33,1.0) 1px;
+	color: rgba(32,32,32,1);
 }
