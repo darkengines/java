@@ -46,6 +46,7 @@ public class CreateAccount extends JSonService<CreateAccountInputModel, CreateAc
 		}
 		if (data.getType() == UserType.Caller) {
 			Caller caller = (Caller)user;
+			session.save(caller.getSearchOfferrerQuery());
 		}
 		session.save(user);
 		UserSession userSession = new UserSession(user, 0);

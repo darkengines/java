@@ -327,167 +327,279 @@
 		});
 		$('form.SearchDev').each(function() {
 			var $form = $(this);
-			var $programmingLanguages = $('input[name=programmingLanguageIds]', $form);
-			var $frameworks = $('input[name=frameworkIds]', $form);
-			var $languages = $('input[name=languageIds]', $form);
-			var $notifier = $('.Notification', $form);
-			var $diplomaEditor = $('.DiplomaUi', $form);
-			var $diplomaDisplay = $('.DiplomaDisplay', $form);
-			var $diploma = $('input[name=diploma]', $form);
-			var $seniorityEditor = $('.SeniorityUi', $form);
-			var $seniorityDisplay = $('.SeniorityDisplay', $form);
-			var $seniority = $('input[name=seniority]', $form);
-			var $resultContainer = $('.SearchResult', $form);
-			var $result = $('.SearchResult .Collection', $form);
-			$programmingLanguages.each(function() {
-				$this = $(this);
-				$this.magicSuggest({
-					data: function(query, reponse) {
-						$.ajax({
-							url: 'programming_languages_test',
-							data: {
-								data: JSON.stringify(query)
-							},
-							success: function(data) {
-								reponse($.map(data, function(value, key) {
-					            	 return {name:value, id:key};
-					            }));
-							},
+			var $resultContainer = $('.SearchResult');
+			var $result = $('.SearchResult .Collection');
+			$form.form({
+				discar: [''],
+				load: {
+					programmingLanguageIds: function($field, data) {
+						$field.each(function() {
+							$this = $(this);
+							$this.suggest({
+								selectionDataSource: data.programmingLanguageIds,
+								suggestionDataSource: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'programming_languages_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
 						});
 					},
-					selectionPosition: 'bottom',
-				});
-			});
-			$frameworks.each(function() {
-				$this = $(this);
-				$this.magicSuggest({
-					data: function(query, reponse) {
-						$.ajax({
-							url: 'frameworks_test',
-							data: {
-								data: JSON.stringify(query)
-							},
-							success: function(data) {
-								reponse($.map(data, function(value, key) {
-					            	 return {name:value, id:key};
-					            }));
-							},
+					frameworkIds: function($field, data) {
+						$field.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								selectionDataSource: data.frameworkIds,
+								suggestionDataSource: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'frameworks_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
 						});
 					},
-					selectionPosition: 'right',
-				});
-			});
-			$languages.each(function() {
-				$this = $(this);
-				$this.magicSuggest({
-					data: function(query, reponse) {
-						$.ajax({
-							url: 'languages_test',
-							data: {
-								data: JSON.stringify(query)
-							},
-							success: function(data) {
-								reponse($.map(data, function(value, key) {
-					            	 return {name:value, id:key};
-					            }));
-							},
+					languageIds: function($field, data) {
+						$field.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								selectionDataSource: data.languageIds,
+								suggestionDataSource: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'languages_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
 						});
 					},
-					selectionPosition: 'right',
-				});
-			});
-			$diploma.each(function() {
-				var $this = $(this);
-				$diplomaEditor.slider({
-					range: "min",
-					value: 0,
-					min: 0,
-					max: 8,
-					slide: function( event, ui ) {
-						$this.val(ui.value);
-						$diplomaDisplay.text('BAC+'+ui.value);
+					diploma: function($field, data) {
+						var $diplomaEditor = $('.DiplomaEditor', $field.parent());
+						var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
+						if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+						$diplomaEditor.slider({
+							range: "min",
+							value: data.diploma,
+							min: 0,
+							max: 10,
+							slide: function(event, ui) {
+								$field.val(ui.value);
+								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+							}
+						});
+						$field.val(data.diploma);
+					},
+					seniority: function($field, data) {
+						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
+						var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
+						if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+						$seniorityEditor.slider({
+							range: "min",
+							value: data.seniority,
+							min: 0,
+							max: 10,
+							slide: function(event, ui) {
+								$field.val(ui.value);
+								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+							}
+						});
+						$field.val(data.seniority);
 					}
-				});
-			});
-			$seniority.each(function() {
-				var $this = $(this);
-				$seniorityEditor.slider({
-					range: "min",
-					value: 0,
-					min: 0,
-					max: 10,
-					slide: function( event, ui ) {
-						$this.val(ui.value);
-						$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
-					}
-				});
-			});
-			/*$.ajax({
-				url: 'get_profile_test',
-				cache: false,
-				data: {
-					data: application.user.userId
 				},
-				beforeSend: function() {
-					application.disableForm($form, true);
-	            	$notifier.addClass('Loading');
-	            },
-				complete: function() {
-					$notifier.removeClass('Loading');
-					application.disableForm($form, false);
+				transformers: {
+					
 				},
-				success: function(data) {
+				success: function($form, data) {
 					if (data != null) {
-						$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
-						$frameworks.magicSuggest().addToSelection(data.frameworks);
-						$languages.magicSuggest().addToSelection(data.languages);
-						if (data.diploma != null) {
-							$diploma_ui.val(data.diploma.name);
-							$diploma.val(data.diploma.id);
-						}
-						$seniority.val(data.seniority);
-						$seniority_ui.slider('value', data.seniority);
-					}
-				}
-			});*/
-			$form.submit(function(e) {
-				var data = $form.serializeObject();
-				delete data['diploma_ui'];
-				if (application.user != null) {
-					data.token = application.user.token;
-				}
-				$.ajax({
-					url: $form.attr('action'),
-					data: {
-						data: JSON.stringify(data)
-					},
-					success: function(data) {
 						$resultContainer.show();
 						$result.empty();
 						if (data.length > 0) {
 							$.each(data, function(index, profile) {
-								var $container = $('<a href="get_profile?id='+profile.userId+'" style="background-image: url('+profile.photo+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
+								var $container = $('<a href="get_profile?id='+profile.id+'" style="background-image: url(get_image?id='+profile.photoId+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
 								$result.append($container); 
 							});
 						} else {
 							$result.text('Aucun résultat');
 						}
-					},
-					error: function() {
-						
-					},
-					beforeSend: function() {
-						application.disableForm($form, true);
-		            	$notifier.addClass('Loading');
-		            },
-					complete: function() {
-						$notifier.removeClass('Loading');
-						application.disableForm($form, false);
 					}
-				});
-				e.preventDefault();
+				}
 			});
 		});
+//		var $programmingLanguages = $('input[name=programmingLanguageIds]', $form);
+//		var $frameworks = $('input[name=frameworkIds]', $form);
+//		var $languages = $('input[name=languageIds]', $form);
+//		var $notifier = $('.Notification', $form);
+//		var $diplomaEditor = $('.DiplomaUi', $form);
+//		var $diplomaDisplay = $('.DiplomaDisplay', $form);
+//		var $diploma = $('input[name=diploma]', $form);
+//		var $seniorityEditor = $('.SeniorityUi', $form);
+//		var $seniorityDisplay = $('.SeniorityDisplay', $form);
+//		var $seniority = $('input[name=seniority]', $form);
+//		var $resultContainer = $('.SearchResult', $form);
+//		var $result = $('.SearchResult .Collection', $form);
+//		$programmingLanguages.each(function() {
+//			$this = $(this);
+//			$this.magicSuggest({
+//				data: function(query, reponse) {
+//					$.ajax({
+//						url: 'programming_languages_test',
+//						data: {
+//							data: JSON.stringify(query)
+//						},
+//						success: function(data) {
+//							reponse($.map(data, function(value, key) {
+//				            	 return {name:value, id:key};
+//				            }));
+//						},
+//					});
+//				},
+//				selectionPosition: 'bottom',
+//			});
+//		});
+//		$frameworks.each(function() {
+//			$this = $(this);
+//			$this.magicSuggest({
+//				data: function(query, reponse) {
+//					$.ajax({
+//						url: 'frameworks_test',
+//						data: {
+//							data: JSON.stringify(query)
+//						},
+//						success: function(data) {
+//							reponse($.map(data, function(value, key) {
+//				            	 return {name:value, id:key};
+//				            }));
+//						},
+//					});
+//				},
+//				selectionPosition: 'right',
+//			});
+//		});
+//		$languages.each(function() {
+//			$this = $(this);
+//			$this.magicSuggest({
+//				data: function(query, reponse) {
+//					$.ajax({
+//						url: 'languages_test',
+//						data: {
+//							data: JSON.stringify(query)
+//						},
+//						success: function(data) {
+//							reponse($.map(data, function(value, key) {
+//				            	 return {name:value, id:key};
+//				            }));
+//						},
+//					});
+//				},
+//				selectionPosition: 'right',
+//			});
+//		});
+//		$diploma.each(function() {
+//			var $this = $(this);
+//			$diplomaEditor.slider({
+//				range: "min",
+//				value: 0,
+//				min: 0,
+//				max: 8,
+//				slide: function( event, ui ) {
+//					$this.val(ui.value);
+//					$diplomaDisplay.text('BAC+'+ui.value);
+//				}
+//			});
+//		});
+//		$seniority.each(function() {
+//			var $this = $(this);
+//			$seniorityEditor.slider({
+//				range: "min",
+//				value: 0,
+//				min: 0,
+//				max: 10,
+//				slide: function( event, ui ) {
+//					$this.val(ui.value);
+//					$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+//				}
+//			});
+//		});
+//		$.ajax({
+//			url: 'get_profile_test',
+//			cache: false,
+//			data: {
+//				data: application.user.userId
+//			},
+//			beforeSend: function() {
+//				application.disableForm($form, true);
+//            	$notifier.addClass('Loading');
+//            },
+//			complete: function() {
+//				$notifier.removeClass('Loading');
+//				application.disableForm($form, false);
+//			},
+//			success: function(data) {
+//				if (data != null) {
+//					$programmingLanguages.magicSuggest().addToSelection(data.programmingLanguages);
+//					$frameworks.magicSuggest().addToSelection(data.frameworks);
+//					$languages.magicSuggest().addToSelection(data.languages);
+//					if (data.diploma != null) {
+//						$diploma_ui.val(data.diploma.name);
+//						$diploma.val(data.diploma.id);
+//					}
+//					$seniority.val(data.seniority);
+//					$seniority_ui.slider('value', data.seniority);
+//				}
+//			}
+//		});
+//		$form.submit(function(e) {
+//			var data = $form.serializeObject();
+//			delete data['diploma_ui'];
+//			if (application.user != null) {
+//				data.token = application.user.token;
+//			}
+//			$.ajax({
+//				url: $form.attr('action'),
+//				data: {
+//					data: JSON.stringify(data)
+//				},
+//				success: function(data) {
+//					
+//				},
+//				error: function() {
+//					
+//				},
+//				beforeSend: function() {
+//					application.disableForm($form, true);
+//	            	$notifier.addClass('Loading');
+//	            },
+//				complete: function() {
+//					$notifier.removeClass('Loading');
+//					application.disableForm($form, false);
+//				}
+//			});
+//			e.preventDefault();
 		$('div.Profile').each(function() {
 			var $container = $(this);
 			var $photo = $('.Photo');

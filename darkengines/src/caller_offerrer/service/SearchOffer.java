@@ -45,31 +45,35 @@ public class SearchOffer extends JSonService<SearchOfferInputModel, Set> {
 		Session session = DBSessionFactory.GetSession();
 		
 		Criteria criteria = session.createCriteria(Offerrer.class, "user");
+		criteria.createAlias("offer", "offer");
 		DetachedCriteria subQuery = DetachedCriteria.forClass(Profile.class, "profile")
-			.add(Property.forName("profile.id").eqProperty("user.offer.profile.id"))
+			.add(Property.forName("profile.id").eqProperty("offer.profile.id"))
 			.setProjection(Projections.property("profile.id"));
-
-			DetachedCriteria sub = DetachedCriteria.forClass(Profile.class, "profile")
-				.createAlias("profile.programmingLanguages", "programmingLanguage")
-				.add(Restrictions.in("programmingLanguage.id", data.getProgrammingLanguageIds()))
-				.add(Property.forName("profile.id").eqProperty("user.profile.id"))
-				.setProjection(Projections.rowCount());
-			criteria.add(Subqueries.eq(new Long(data.getProgrammingLanguageIds().size()), sub));
-
-			sub = DetachedCriteria.forClass(Profile.class, "profile")
-				.createAlias("profile.frameworks", "framework")
-				.add(Restrictions.in("framework.id", data.getFrameworkIds()))
-				.add(Property.forName("profile.id").eqProperty("user.profile.id"))
-				.setProjection(Projections.rowCount());
-			criteria.add(Subqueries.eq(new Long(data.getFrameworkIds().size()), sub));
-
-			sub = DetachedCriteria.forClass(Profile.class, "profile")
-				.createAlias("profile.languages", "language")
-				.add(Restrictions.in("language.id", data.getLanguageIds()))
-				.add(Property.forName("profile.id").eqProperty("user.profile.id"))
-				.setProjection(Projections.rowCount());
-			criteria.add(Subqueries.eq(new Long(data.getLanguageIds().size()), sub));
-
+			
+		    if (data.getProgrammingLanguageIds() != null && data.getProgrammingLanguageIds().size() > 0) {
+				DetachedCriteria sub = DetachedCriteria.forClass(Profile.class, "profile")
+					.createAlias("profile.programmingLanguages", "programmingLanguage")
+					.add(Restrictions.in("programmingLanguage.id", data.getProgrammingLanguageIds()))
+					.add(Property.forName("profile.id").eqProperty("offer.id"))
+					.setProjection(Projections.rowCount());
+				criteria.add(Subqueries.eq(new Long(data.getProgrammingLanguageIds().size()), sub));
+		    }
+		    if (data.getFrameworkIds() != null && data.getFrameworkIds().size() > 0) {
+				DetachedCriteria sub = DetachedCriteria.forClass(Profile.class, "profile")
+					.createAlias("profile.frameworks", "framework")
+					.add(Restrictions.in("framework.id", data.getFrameworkIds()))
+					.add(Property.forName("profile.id").eqProperty("offer.id"))
+					.setProjection(Projections.rowCount());
+				criteria.add(Subqueries.eq(new Long(data.getFrameworkIds().size()), sub));
+		    }
+			if (data.getLanguageIds() != null && data.getLanguageIds().size() > 0) {
+				DetachedCriteria sub = DetachedCriteria.forClass(Profile.class, "profile")
+					.createAlias("profile.languages", "language")
+					.add(Restrictions.in("language.id", data.getLanguageIds()))
+					.add(Property.forName("profile.id").eqProperty("offer.id"))
+					.setProjection(Projections.rowCount());
+				criteria.add(Subqueries.eq(new Long(data.getLanguageIds().size()), sub));
+			}
 		if (data.getDiploma() != null) {
 			subQuery.add(Restrictions.ge("diploma", data.getDiploma()));
 		}
@@ -87,6 +91,11 @@ public class SearchOffer extends JSonService<SearchOfferInputModel, Set> {
 			Caller caller = (Caller)User.getUserByToken(data.getToken(), session);
 			if (caller != null) {
 				caller.setSearchOfferrerQuery(data.mergeQuery(caller.getSearchOfferrerQuery(), session));
+				session.beginTransaction();
+				session.saveOrUpdate(caller.getSearchOfferrerQuery());
+				session.saveOrUpdate(caller);
+				session.flush();
+				session.getTransaction().commit();
 			}
 		}
 		session.close();

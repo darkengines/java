@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-
 import darkengines.database.IdentifiedEntity;
 
 public class CallQuery extends IdentifiedEntity {

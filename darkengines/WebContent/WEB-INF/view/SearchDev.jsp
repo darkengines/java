@@ -2,8 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="Header.jsp"></jsp:include>
 <div class="Content">
-	<form method="post" action="search_dev_test" class="SearchDev">
-		<input name="diplomaId" type="hidden" />
+	<form method="post" action="search_offerrer_test" class="SearchDev" data-load-url="get_search_offer_query_test?data={token:<%=request.getAttribute("token")%>}">
+		<input type="hidden" name="token" value="<%=request.getAttribute("token")%>" />
 		<div class="Title">
 			<h3>
 				Rechercher un dev <span class="Notification"></span>
