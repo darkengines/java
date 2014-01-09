@@ -31,7 +31,7 @@
   </servlet>
   <servlet>
     <servlet-name>get_profile_test</servlet-name>
-    <servlet-class>caller_offerrer.service.GetProfile</servlet-class>
+    <servlet-class>caller_offerrer.service.ReadProfile</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>update_profile_test</servlet-name>
@@ -105,6 +105,14 @@
     <servlet-name>get_search_offer_query_test</servlet-name>
     <servlet-class>caller_offerrer.service.GetSearchOfferQuery</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>read_offer_test</servlet-name>
+    <servlet-class>caller_offerrer.service.ReadOffer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>read_offer_test</servlet-name>
+    <url-pattern>/read_offer_test</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>get_search_offer_query_test</servlet-name>
     <url-pattern>/get_search_offer_query_test</url-pattern>

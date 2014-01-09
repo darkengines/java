@@ -440,7 +440,7 @@
 						$result.empty();
 						if (data.length > 0) {
 							$.each(data, function(index, profile) {
-								var $container = $('<a href="get_profile?id='+profile.id+'" style="background-image: url(get_image?id='+profile.photoId+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
+								var $container = $('<a href="get_profile?id='+profile.offerrerId+'" style="background-image: url(get_image?id='+profile.photoId+'); background-position: 50% 50%; background-repeat: none;" class="ProfileSummary"></a>');
 								$result.append($container); 
 							});
 						} else {
@@ -614,36 +614,35 @@
 			var $phone = $('.Phone');
 			
 			$.ajax({
-				url: 'get_profile_test',
+				url: 'read_offer_test',
 				cache: false,
 				data: {
-					data: JSON.stringify({offerrerId: $.url().param('id')})
+					data: JSON.stringify({
+						offerrerId: $.url().param('id'),
+						token: application.user != null ? application.user.token : null
+					})
 				},
 				success: function(data) {
 					$email.text(data.userEmail);
 					$.each(data.programmingLanguages, function(index, item) {
 						$programmingLanguages.append(
-							$('<div class="ms-sel-item">'+item.name+'</div>')
+							$('<div class="ms-sel-item">'+item+'</div>')
 						);
 					});
 					$.each(data.frameworks, function(index, item) {
 						$frameworks.append(
-							$('<div class="ms-sel-item">'+item.name+'</div>')
+							$('<div class="ms-sel-item">'+item+'</div>')
 						);
 					});
 					$.each(data.languages, function(index, item) {
 						$languages.append(
-							$('<div class="ms-sel-item">'+item.name+'</div>')
+							$('<div class="ms-sel-item">'+item+'</div>')
 						);
 					});
 					$diploma.text(data.diploma);
 					$seniority.text(data.seniority);
 					$photo.attr('src', 'get_image?id='+data.photoId);
-					$name.text(data.firstName+' '+data.lastName);
-					var birthDate = new Date(data.birthDate);
-					$sub.text(data.city+', '+birthDate.toString())
 					$phone.text(data.phone);
-					
 				}
 			});
 		});
