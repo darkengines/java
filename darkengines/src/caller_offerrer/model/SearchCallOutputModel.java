@@ -55,6 +55,9 @@ public class SearchCallOutputModel {
 		callId = call.getId();
 		title = call.getTitle();
 		description = call.getDescription();
+		if (description.length() > 256) {
+			description = String.format("%s...", description.substring(0, 255));
+		}
 		type = call.getCallType();
 	}
 }
