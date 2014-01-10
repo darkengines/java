@@ -7,11 +7,22 @@ import javax.persistence.OneToOne;
 public class Offerrer extends User {
 	@OneToOne
 	private Offer offer;
+	@OneToOne
+	private SearchCallQuery searchCallQuery;
 	
 	public Offerrer() {
 		offer = new Offer();
+		searchCallQuery = new SearchCallQuery();
 	}
 	
+	public SearchCallQuery getSearchCallQuery() {
+		return searchCallQuery;
+	}
+
+	public void setSearchCallQuery(SearchCallQuery searchCallQuery) {
+		this.searchCallQuery = searchCallQuery;
+	}
+
 	public Offer getOffer() {
 		return offer;
 	}

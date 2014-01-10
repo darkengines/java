@@ -109,6 +109,30 @@
     <servlet-name>read_offer_test</servlet-name>
     <servlet-class>caller_offerrer.service.ReadOffer</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>get_search_call_query_test</servlet-name>
+    <servlet-class>caller_offerrer.service.GetSearchCallQuery</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>search_call_test</servlet-name>
+    <servlet-class>caller_offerrer.service.SearchCall</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>search_call</servlet-name>
+    <servlet-class>application.SearchCall</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>search_call</servlet-name>
+    <url-pattern>/search_call</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>search_call_test</servlet-name>
+    <url-pattern>/search_call_test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>get_search_call_query_test</servlet-name>
+    <url-pattern>/get_search_call_query_test</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>read_offer_test</servlet-name>
     <url-pattern>/read_offer_test</url-pattern>

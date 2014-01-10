@@ -282,6 +282,34 @@ input[name=diploma] {
 	border: 1px solid #ffffff;
 	border-radius: 4px;
 }
+.SearchResult .CallSummary {
+	width: 100%;
+	height: 128px;
+	display: block;
+	border: 1px solid #ffffff;
+	border-radius: 4px;
+	padding: 0 0 16px 0;
+	position: relative;
+	color: inherit;
+}
+.SearchResult .CallSummary .Title {
+	color: inherit;
+}
+.SearchResult .CallSummary .Type {
+	color: rgba(240,240,240, 0.8);
+	padding: 0 0 0 8px;
+	font-size: 10px;
+}
+.SearchResult .CallSummary .Description {
+	overflow: hidden;
+	  -o-text-overflow: ellipsis; /* pour Opera 9 */
+	  text-overflow: ellipsis; /* pour le reste du monde */
+}
+.SearchResult .CallSummary .Footer {
+	position: absolute;
+	bottom: 4px;
+	width: 100%;
+}
 .PhotoDisplay {
 	display: block;
 	max-width: 128px;

@@ -549,6 +549,142 @@
 				}
 			});
 		});
+		$('form.SearchCall').each(function() {
+			var $form = $(this);
+			var $resultContainer = $('.SearchResult');
+			var $result = $('.SearchResult .Collection');
+			var $diplomaEditor = $('.DiplomaUi', $form);
+			var $diplomaDisplay = $('.DiplomaDisplay', $form);
+			var $diploma = $('input[name=diploma]', $form);
+			var $seniorityEditor = $('.SeniorityUi', $form);
+			var $seniorityDisplay = $('.SeniorityDisplay', $form);
+			var $seniority = $('input[name=seniority]', $form);
+			$form.form({
+				discar: [''],
+				load: {
+					programmingLanguageIds: function($field, data) {
+						$field.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								selectionDataSource: data.programmingLanguageIds,
+								suggestionDataSource: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'programming_languages_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
+						});
+					},
+					frameworkIds: function($field, data) {
+						$field.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								selectionDataSource: data.frameworkIds,
+								suggestionDataSource: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'frameworks_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
+						});
+					},
+					languageIds: function($field, data) {
+						$field.each(function() {
+							var $this = $(this);
+							$this.suggest({
+								selectionDataSource: data.languageIds,
+								suggestionDataSource: function(query) {
+									var result = {};
+									$.ajax({
+										url: 'languages_test',
+										async: false,
+										data: {
+											data: JSON.stringify(query)
+										},
+										success: function(data) {
+											result = data;
+										},
+									});
+									return result;
+								}
+							});
+						});
+					},
+					diploma: function($field, data) {
+						var $diplomaEditor = $('.DiplomaEditor', $field.parent());
+						var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
+						if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+						$diplomaEditor.slider({
+							range: "min",
+							value: data.diploma,
+							min: 0,
+							max: 10,
+							slide: function(event, ui) {
+								$field.val(ui.value);
+								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+							}
+						});
+						$field.val(data.diploma);
+					},
+					seniority: function($field, data) {
+						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
+						var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
+						if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+						$seniorityEditor.slider({
+							range: "min",
+							value: data.seniority,
+							min: 0,
+							max: 10,
+							slide: function(event, ui) {
+								$field.val(ui.value);
+								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+							}
+						});
+						$field.val(data.seniority);
+					}
+				},
+				transformers: {
+					
+				},
+				success: function($form, data) {
+					if (data != null) {
+						$resultContainer.show();
+						$result.empty();
+						if (data.length > 0) {
+							$.each(data, function(index, call) {
+								var $container = $('<div class="CallSummary"></div>');
+								var $title = $('<a href="get_call?id='+call.callId+'" class="Title">'+call.title+'</a>');
+								var $type = $('<div class="Type">'+call.type+'</div>');
+								var $description = $('<div class="Description">'+call.description+'</div>');
+								var $footer = $('<div class="Footer">'+'footer'+'</div>');
+								$container.append($title).append($type).append($description).append($footer);
+								$result.append($container); 
+							});
+						} else {
+							$result.text('Aucun résultat');
+						}
+					}
+				}
+			});
+		});
 //		var $programmingLanguages = $('input[name=programmingLanguageIds]', $form);
 //		var $frameworks = $('input[name=frameworkIds]', $form);
 //		var $languages = $('input[name=languageIds]', $form);

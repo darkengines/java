@@ -33,11 +33,12 @@
 		<%} %>
 		<% if (request.getAttribute("userType") == UserType.Offerrer) {%>
 			<a href="edit_dev_profile">Mon profil</a>
+			<a href="search_call">Recherche</a>
 		<%} %>
 		<% if (request.getAttribute("userType") == UserType.Caller) {%>
 			<a href="get_calls">Mes offres</a>
-		<%} %>
 			<a href="search_dev">Recherche</a>
+		<%} %>
 		</div>
 		<div class="Right">
 		<% if (request.getAttribute("userId") != null) {%>

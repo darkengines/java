@@ -1,7 +1,6 @@
 package caller_offerrer.model;
 
 import caller_offerrer.Offerrer;
-import caller_offerrer.User;
 
 public class SearchOfferOutputModel {
 	private Long offerrerId;

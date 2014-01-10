@@ -11,9 +11,10 @@ import org.hibernate.criterion.Restrictions;
 import caller_offerrer.Framework;
 import caller_offerrer.Language;
 import caller_offerrer.ProgrammingLanguage;
+import caller_offerrer.SearchCallQuery;
 import caller_offerrer.SearchOfferrerQuery;
 
-public class SearchOfferInputModel {
+public class SearchCallInputModel {
 	private String token;
 	private Set<Long> programmingLanguageIds;
 	private Set<Long> frameworkIds;
@@ -58,7 +59,7 @@ public class SearchOfferInputModel {
 		this.seniority = seniority;
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public SearchOfferrerQuery mergeQuery(SearchOfferrerQuery query, Session session) throws IOException {
+	public SearchCallQuery mergeQuery(SearchCallQuery query, Session session) throws IOException {
 		if (programmingLanguageIds != null) {
 			query.getProgrammingLanguages().clear();
 			if (programmingLanguageIds.size() > 0) {
