@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import darkengines.database.IdentifiedEntity;
+import darkengines.database.MonitoredEntity;
 
 @Entity
-public class Profile extends IdentifiedEntity {
+public class Profile extends MonitoredEntity {
 	@ManyToMany()
 	private Set<ProgrammingLanguage> programmingLanguages;
 	@ManyToMany()
@@ -21,12 +21,15 @@ public class Profile extends IdentifiedEntity {
 	private Integer seniority;
 	@OneToOne
 	private Image image;
+	
 	public Profile() {
+		super();
 		image = new Image();
 		programmingLanguages = new HashSet<ProgrammingLanguage>();
 		frameworks = new HashSet<Framework>();
 		languages = new HashSet<Language>();
 	}
+	
 	public Set<ProgrammingLanguage> getProgrammingLanguages() {
 		return programmingLanguages;
 	}

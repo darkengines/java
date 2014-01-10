@@ -24,6 +24,7 @@ public class DBSessionFactory {
 	public static SessionFactory CreateSessionFactory() {
 		Configuration configuration = new Configuration();
 	    configuration.configure();
+	    
 	    Reflections reflections = ReflectionsFactory.getReflections();
 	    Set<Class<?>> entities = reflections.getTypesAnnotatedWith(Entity.class);
 	    for (Class<?> c: entities) {
