@@ -7,7 +7,7 @@ PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
 	<session-factory>
 		<!-- Database connection settings -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://192.168.0.2/darkengines</property>
+		<property name="hibernate.connection.url">jdbc:mysql://127.0.0.1/darkengines</property>
 		<property name="hibernate.connection.username">root</property>
 
 		<property name="hibernate.connection.password">2701104$reg2rt</property>

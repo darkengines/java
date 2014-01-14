@@ -671,11 +671,16 @@
 						if (data.length > 0) {
 							$.each(data, function(index, call) {
 								var $container = $('<div class="CallSummary"></div>');
-								var $title = $('<a href="get_call?id='+call.callId+'" class="Title">'+call.title+'</a>');
-								var $type = $('<div class="Type">'+call.type+'</div>');
+								var $header = $('<div class="Header"></div>');
+								var $title = $('<div class="Title"><a href="get_call?id='+call.callId+'">'+call.title+'</a></div>');
 								var $description = $('<div class="Description">'+call.description+'</div>');
-								var $footer = $('<div class="Footer">'+'footer'+'</div>');
-								$container.append($title).append($type).append($description).append($footer);
+								var $infos = $('<div class="Infos"></div>');
+								var $date = $('<div class="CreatedOn">'+new Date(call.createdOn*1).toString('le dd/MM/yyyy à HH:mm')+'</div>');
+								var $type = $('<div class="Type">'+callTypes[call.type]+'</div>');
+								var $money = $('<div class="Money">'+callTypes[call.amount]+'</div>');
+								$infos.append().append($type).append($date).append($money);
+								$header.append($title).append($infos);
+								$container.append($header).append($description);
 								$result.append($container); 
 							});
 						} else {

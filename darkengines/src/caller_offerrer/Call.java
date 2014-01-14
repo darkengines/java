@@ -1,5 +1,6 @@
 package caller_offerrer;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,10 +10,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import darkengines.database.IdentifiedEntity;
+import darkengines.database.MonitoredEntity;
 
 @Entity
 @Table(name="`call`")
-public abstract class Call extends IdentifiedEntity {
+public abstract class Call extends MonitoredEntity {
 	private String title;
 	@ManyToMany()
 	private Set<ProgrammingLanguage> programmingLanguages;

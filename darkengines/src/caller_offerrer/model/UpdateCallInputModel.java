@@ -1,6 +1,7 @@
 package caller_offerrer.model;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -158,6 +159,7 @@ public class UpdateCallInputModel extends TokenizenModel {
 		call.setDiploma(diploma);
 		call.setSeniority(seniority);
 		call.setDescription(description);
+		call.setUpdatedOn(new Date());
 		return call;
 	}
 	protected Freelance mergeFreelance(Freelance freelance) {

@@ -6,8 +6,8 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass()
 public abstract class MonitoredEntity extends IdentifiedEntity {
-	private Date createdOn;
-	private Date updatedOn;
+	protected Date createdOn;
+	protected Date updatedOn;
 	public MonitoredEntity() {
 		createdOn = new Date();
 	}

@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -96,6 +97,7 @@ public class UpdateProfileInputModel extends TokenizenModel {
 		}
 		profile.setDiploma(diploma);
 		profile.setSeniority(seniority);
+		profile.setUpdatedOn(new Date());
 		if (photo != null && !photo.isEmpty()) {
 			Base64 codec = new Base64();
 			byte[] bytes = codec.decodeBase64(photo.split(",")[1]);

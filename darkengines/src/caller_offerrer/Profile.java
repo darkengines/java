@@ -1,5 +1,6 @@
 package caller_offerrer;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +29,7 @@ public class Profile extends MonitoredEntity {
 		programmingLanguages = new HashSet<ProgrammingLanguage>();
 		frameworks = new HashSet<Framework>();
 		languages = new HashSet<Language>();
+		createdOn = new Date();
 	}
 	
 	public Set<ProgrammingLanguage> getProgrammingLanguages() {

@@ -287,18 +287,67 @@ input[name=diploma] {
 	display: block;
 	border: 1px solid #ffffff;
 	border-radius: 4px;
-	padding: 4px;
+	padding: 0px;
 	margin: 0 0 4px 0;
 	position: relative;
 	color: inherit;
 }
-.SearchResult .CallSummary .Title {
-	color: inherit;
+.SearchResult .CallSummary .Description {
+	padding: 4px;
 }
-.SearchResult .CallSummary .Type {
-	color: rgba(240,240,240, 0.8);
+.SearchResult .Header {
+	border-bottom: dotted 1px;
+	line-height: 32px;
+	height: 32px;
+	width: 100%;
+	font-weight: normal;
+	font-size: 16px;
+	display: block;
+	background: none;
+	padding: 0 0 29px 0;
+	text-align: left;
+	margin: 0 0 16px 0;
+	position: relative;
+	padding: 4px;
+}
+.SearchResult .CallSummary .Header .Title {
+	color: inherit;
+	font-size: 22px;
+	display: inline-block;
+}
+.SearchResult .CallSummary .Header .Title a {
+	color: inherit;
+	height: inherit;
+	text-decoration: none;
+}
+.SearchResult .Header .Infos {
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	top: 0px;
+}
+.SearchResult .Header .Infos div {
+	display: inline-block;
+	color: rgba(240,240,240, 0.9);
 	padding: 0 0 0 8px;
-	font-size: 10px;
+	font-size: 14px;
+	padding-left: 28px;
+	background-position: 0px 50%;
+	height: 24px;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	margin-right: 16px;
+	vertical-align: middle;
+	line-height: 24px;
+}
+.SearchResult .Header .Infos div.CreatedOn {
+	background-image: url(../image/clock.svg);
+}
+.SearchResult .Header .Infos div.Type {
+	background-image: url(../image/label.svg);
+}
+.SearchResult .Header .Infos div.Money {
+	background-image: url(../image/coin.svg);
 }
 .SearchResult .CallSummary .Description {
 	overflow: hidden;

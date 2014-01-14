@@ -1,5 +1,6 @@
 package caller_offerrer.service;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -38,7 +39,9 @@ public class UpdateCall extends JSonService<UpdateCallInputModel, Object> {
 		if (data.getCallId() != null) {
 			call = getUserCallById(user, data.getCallId());
 			isNew = call == null;
-			if (isNew) data.setCallId(null);
+			if (isNew)  {
+				data.setCallId(null);
+			}
 		}
 		if (call != null) {
 			session.evict(call);
@@ -47,6 +50,7 @@ public class UpdateCall extends JSonService<UpdateCallInputModel, Object> {
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(call);
 		if (isNew) {
+			call.setCreatedOn(new Date());
 			user.getCalls().add(call);
 		} else {			
 			session.createSQLQuery("update `call` set DTYPE = :dtype where id = :id")

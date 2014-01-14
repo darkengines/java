@@ -1,5 +1,7 @@
 package caller_offerrer.model;
 
+import java.util.Date;
+
 import caller_offerrer.Call;
 import caller_offerrer.CallType;
 
@@ -9,7 +11,17 @@ public class SearchCallOutputModel {
 	private String title;
 	private String description;
 	private CallType type;
+	private Date createdOn;
+	private Integer amount;
 	
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
 	public Long getCallerId() {
 		return callerId;
 	}
@@ -58,6 +70,8 @@ public class SearchCallOutputModel {
 		if (description.length() > 256) {
 			description = String.format("%s...", description.substring(0, 255));
 		}
+		createdOn = call.getCreatedOn();
 		type = call.getCallType();
+		amount = 10000;
 	}
 }

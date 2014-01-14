@@ -18,6 +18,7 @@
   <script type="text/javascript" src="js/jquery_magicsuggest.js"></script>
   <script type="text/javascript" src="js/modernizr.js"></script>
   <script type="text/javascript" src="js/modernize.js"></script>
+  <script type="text/javascript" src="js/date.js"></script>
   <script type="text/javascript" src="js/form.js"></script>
   <script type="text/javascript" src="js/validator.js"></script>
   <script type="text/javascript" src="js/darkengines.js"></script>
