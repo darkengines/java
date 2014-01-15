@@ -18,4 +18,9 @@ public class FixedTermContract extends Contract {
 	public CallType getCallType() {
 		return CallType.FixedTermContract;
 	}
+
+	@Override
+	public float getRemuneration() {
+		return salary;
+	}
 }

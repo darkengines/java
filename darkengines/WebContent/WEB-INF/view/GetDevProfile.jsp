@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<jsp:include page="Header.jsp"></jsp:include>
+<%@ include file="Header.jsp" %>
 <div class="Content">
 	<div class="Left">
 	<div class="Box" >
@@ -52,4 +50,4 @@
 		</div>
 	</div>
 </div>
-<jsp:include page="Footer.jsp"></jsp:include>
+<%@ include file="Footer.jsp" %>

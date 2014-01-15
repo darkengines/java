@@ -12,8 +12,16 @@ public class SearchCallOutputModel {
 	private String description;
 	private CallType type;
 	private Date createdOn;
-	private Integer amount;
+	private float remuneration;
 	
+	public float getRemuneration() {
+		return remuneration;
+	}
+
+	public void setRemuneration(float remuneration) {
+		this.remuneration = remuneration;
+	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -72,6 +80,6 @@ public class SearchCallOutputModel {
 		}
 		createdOn = call.getCreatedOn();
 		type = call.getCallType();
-		amount = 10000;
+		remuneration = call.getRemuneration();
 	}
 }

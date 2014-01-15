@@ -677,7 +677,7 @@
 								var $infos = $('<div class="Infos"></div>');
 								var $date = $('<div class="CreatedOn">'+new Date(call.createdOn*1).toString('le dd/MM/yyyy à HH:mm')+'</div>');
 								var $type = $('<div class="Type">'+callTypes[call.type]+'</div>');
-								var $money = $('<div class="Money">'+callTypes[call.amount]+'</div>');
+								var $money = $('<div class="Money">'+call.remuneration+'€</div>');
 								$infos.append().append($type).append($date).append($money);
 								$header.append($title).append($infos);
 								$container.append($header).append($description);

@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<jsp:include page="Header.jsp"></jsp:include>
+<%@ include file="Header.jsp" %>
 <div class="Content">
 	<form method="post" class="CreateAccount" action="create_account_test">
 		<div class="Title">
@@ -30,4 +28,4 @@
 		</div>
 	</form>
 </div>
-<jsp:include page="Footer.jsp"></jsp:include>
+<%@ include file="Footer.jsp" %>

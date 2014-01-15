@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<jsp:include page="Header.jsp"></jsp:include>
+<%@ include file="Header.jsp" %>
 <div class="Content">
 	<form method="post" action="search_offerrer_test" class="SearchDev" data-load-url="get_search_offer_query_test?data={token:<%=request.getAttribute("token")%>}">
 		<input type="hidden" name="token" value="<%=request.getAttribute("token")%>" />
@@ -45,4 +43,4 @@
 		<div class="Collection"></div>
 	</div>
 </div>
-<jsp:include page="Footer.jsp"></jsp:include>
+<%@ include file="Footer.jsp" %>

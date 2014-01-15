@@ -18,5 +18,8 @@ public class Freelance extends Call {
 	public CallType getCallType() {
 		return CallType.Freelance;
 	}
-	
+	@Override
+	public float getRemuneration() {
+		return budget;
+	}
 }

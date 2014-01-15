@@ -9,5 +9,10 @@ public class PermanentContract extends Contract{
 	public CallType getCallType() {
 		return CallType.PermanentContract;
 	}
+
+	@Override
+	public float getRemuneration() {
+		return salary;
+	}
 	
 }

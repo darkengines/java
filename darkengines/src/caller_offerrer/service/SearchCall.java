@@ -50,25 +50,22 @@ public class SearchCall extends JSonService<SearchCallInputModel, Set> {
 			DetachedCriteria sub = DetachedCriteria.forClass(Call.class, "call")
 				.createAlias("call.programmingLanguages", "programmingLanguage")
 				.add(Restrictions.in("programmingLanguage.id", data.getProgrammingLanguageIds()))
-				.add(Property.forName("call.id").eqProperty("callMain.id"))
-				.setProjection(Projections.rowCount());
-			criteria.add(Subqueries.eq(new Long(data.getProgrammingLanguageIds().size()), sub));
+				.add(Property.forName("call.id").eqProperty("callMain.id"));
+			criteria.add(Subqueries.exists(sub));
 	    }
 	    if (data.getFrameworkIds() != null && data.getFrameworkIds().size() > 0) {
 			DetachedCriteria sub = DetachedCriteria.forClass(Call.class, "call")
 				.createAlias("call.frameworks", "framework")
 				.add(Restrictions.in("framework.id", data.getFrameworkIds()))
-				.add(Property.forName("call.id").eqProperty("callMain.id"))
-				.setProjection(Projections.rowCount());
-			criteria.add(Subqueries.eq(new Long(data.getFrameworkIds().size()), sub));
+				.add(Property.forName("call.id").eqProperty("callMain.id"));
+			criteria.add(Subqueries.exists(sub));
 	    }
 		if (data.getLanguageIds() != null && data.getLanguageIds().size() > 0) {
 			DetachedCriteria sub = DetachedCriteria.forClass(Call.class, "call")
 				.createAlias("call.languages", "language")
 				.add(Restrictions.in("language.id", data.getLanguageIds()))
-				.add(Property.forName("call.id").eqProperty("callMain.id"))
-				.setProjection(Projections.rowCount());
-			criteria.add(Subqueries.eq(new Long(data.getLanguageIds().size()), sub));
+				.add(Property.forName("call.id").eqProperty("callMain.id"));
+			criteria.add(Subqueries.exists(sub));
 		}
 		if (data.getDiploma() != null) {
 			criteria.add(Restrictions.ge("diploma", data.getDiploma()));

@@ -58,7 +58,6 @@ body {
 .Content {
 	margin: 8px auto auto auto;
 	width: 100%;
-	height: 1024px;
 }
 form.Loading h3 .Notification {
 	background-image: url(../image/ajax-loader.gif);
@@ -291,24 +290,26 @@ input[name=diploma] {
 	margin: 0 0 4px 0;
 	position: relative;
 	color: inherit;
+	overflow: hidden;
 }
 .SearchResult .CallSummary .Description {
 	padding: 4px;
 }
-.SearchResult .Header {
+.SearchResult .CallSummary .Header {
 	border-bottom: dotted 1px;
-	line-height: 32px;
-	height: 32px;
+	line-height: inherit;
+	height: 38px;
 	width: 100%;
 	font-weight: normal;
 	font-size: 16px;
 	display: block;
 	background: none;
-	padding: 0 0 29px 0;
-	text-align: left;
+	padding: 0px
+	 text-align: left;
 	margin: 0 0 16px 0;
 	position: relative;
 	padding: 4px;
+	background-color: rgba(64,64,64,1);
 }
 .SearchResult .CallSummary .Header .Title {
 	color: inherit;
@@ -320,13 +321,16 @@ input[name=diploma] {
 	height: inherit;
 	text-decoration: none;
 }
-.SearchResult .Header .Infos {
+.SearchResult .CallSummary .Header .Infos {
 	display: inline-block;
 	position: absolute;
 	right: 0;
+	height: 100%;
+	line-height: 100%;
+	vertical-align: middle;
 	top: 0px;
 }
-.SearchResult .Header .Infos div {
+.SearchResult .CallSummary .Header .Infos div {
 	display: inline-block;
 	color: rgba(240,240,240, 0.9);
 	padding: 0 0 0 8px;
@@ -334,19 +338,21 @@ input[name=diploma] {
 	padding-left: 28px;
 	background-position: 0px 50%;
 	height: 24px;
-	background-size: auto 100%;
+	background-size: auto 75%;
+	vertical-align: middle;
+	line-height: 285%;
 	background-repeat: no-repeat;
 	margin-right: 16px;
 	vertical-align: middle;
-	line-height: 24px;
+	height: 100%;
 }
-.SearchResult .Header .Infos div.CreatedOn {
+.SearchResult .CallSummary .Header .Infos div.CreatedOn {
 	background-image: url(../image/clock.svg);
 }
-.SearchResult .Header .Infos div.Type {
+.SearchResult .CallSummary .Header .Infos div.Type {
 	background-image: url(../image/label.svg);
 }
-.SearchResult .Header .Infos div.Money {
+.SearchResult .CallSummary .Header .Infos div.Money {
 	background-image: url(../image/coin.svg);
 }
 .SearchResult .CallSummary .Description {

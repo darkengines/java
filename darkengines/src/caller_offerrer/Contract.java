@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 @Entity
 public abstract class Contract extends Call {
-	private float salary;
+	protected float salary;
 
 	public float getSalary() {
 		return salary;

@@ -79,4 +79,5 @@ public abstract class Call extends MonitoredEntity {
 	public void setSeniority(Integer seniority) {
 		this.seniority = seniority;
 	}
+	public abstract float getRemuneration();
 }
