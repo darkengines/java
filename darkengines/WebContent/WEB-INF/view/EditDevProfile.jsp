@@ -38,6 +38,9 @@
 				<div class="SeniorityEditor"></div>
 			</div>
 			<div class="Field">
+				<label for="description">Description</label> <textarea id="description" name="description" ></textarea>
+			</div>
+			<div class="Field">
 				<button name="submit">Enregistrer</button>
 			</div>
 		</div>

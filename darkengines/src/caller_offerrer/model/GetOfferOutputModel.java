@@ -22,7 +22,7 @@ public class GetOfferOutputModel {
 		programmingLanguageIds = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getProgrammingLanguages());
 		frameworkIds = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getFrameworks());
 		languageIds = darkengines.set.Util.toMap(offerrer.getOffer().getProfile().getLanguages());
-		description = offerrer.getOffer().getDescription();
+		description = offerrer.getOffer().getProfile().getDescription();
 		seniority = offerrer.getOffer().getProfile().getSeniority();
 		diploma = offerrer.getOffer().getProfile().getDiploma();
 		email = offerrer.getContact().getEmail();

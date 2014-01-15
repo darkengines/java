@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -22,7 +23,17 @@ public class Profile extends MonitoredEntity {
 	private Integer seniority;
 	@OneToOne
 	private Image image;
+	@Column(length=2048)
+	private String description;
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Profile() {
 		super();
 		image = new Image();

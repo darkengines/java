@@ -675,7 +675,7 @@
 								var $title = $('<div class="Title"><a href="get_call?id='+call.callId+'">'+call.title+'</a></div>');
 								var $description = $('<div class="Description">'+call.description+'</div>');
 								var $infos = $('<div class="Infos"></div>');
-								var $date = $('<div class="CreatedOn">'+new Date(call.createdOn*1).toString('le dd/MM/yyyy à HH:mm')+'</div>');
+								var $date = $('<div class="CreatedOn">'+new Date(call.createdOn*1).toString('le dd/MM/yyyy &#224; HH:mm')+'</div>');
 								var $type = $('<div class="Type">'+callTypes[call.type]+'</div>');
 								var $money = $('<div class="Money">'+call.remuneration+'€</div>');
 								$infos.append().append($type).append($date).append($money);

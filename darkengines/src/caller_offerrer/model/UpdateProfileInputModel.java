@@ -30,6 +30,13 @@ public class UpdateProfileInputModel extends TokenizenModel {
 	private Integer diploma;
 	private Integer seniority;
 	private String photo;
+	private String description;
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public Set<Long> getProgrammingLanguageIds() {
 		return programmingLanguageIds;
 	}
@@ -98,6 +105,7 @@ public class UpdateProfileInputModel extends TokenizenModel {
 		profile.setDiploma(diploma);
 		profile.setSeniority(seniority);
 		profile.setUpdatedOn(new Date());
+		profile.setDescription(description);
 		if (photo != null && !photo.isEmpty()) {
 			Base64 codec = new Base64();
 			byte[] bytes = codec.decodeBase64(photo.split(",")[1]);
