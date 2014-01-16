@@ -121,6 +121,22 @@
     <servlet-name>search_call</servlet-name>
     <servlet-class>application.SearchCall</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>read_call_test</servlet-name>
+    <servlet-class>caller_offerrer.service.ReadCall</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>read_call</servlet-name>
+    <servlet-class>application.ReadCall</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>read_call</servlet-name>
+    <url-pattern>/read_call</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>read_call_test</servlet-name>
+    <url-pattern>/read_call_test</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>search_call</servlet-name>
     <url-pattern>/search_call</url-pattern>

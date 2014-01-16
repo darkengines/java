@@ -6,8 +6,6 @@ import org.hibernate.criterion.Restrictions;
 import caller_offerrer.Caller;
 import caller_offerrer.Offerrer;
 import caller_offerrer.User;
-import caller_offerrer.model.GetOfferInputModel;
-import caller_offerrer.model.GetOfferOutputModel;
 import caller_offerrer.model.ReadOfferInputModel;
 import caller_offerrer.model.ReadOfferOutputModel;
 import darkengines.database.DBSessionFactory;

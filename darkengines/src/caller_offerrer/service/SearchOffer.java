@@ -20,11 +20,10 @@ import caller_offerrer.Profile;
 import caller_offerrer.User;
 import caller_offerrer.model.SearchOfferInputModel;
 import caller_offerrer.model.SearchOfferOutputModel;
-
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "rawtypes" })
 public class SearchOffer extends JSonService<SearchOfferInputModel, Set> {
 
 	@Override
@@ -36,6 +35,7 @@ public class SearchOffer extends JSonService<SearchOfferInputModel, Set> {
 	public Class<Set> getOutputType() {
 		return Set.class;
 	}
+	@SuppressWarnings("unused")
 	private boolean isListNullOrEmpty(List list) {
 		return list == null || list.size() == 0;
 	}

@@ -17,15 +17,13 @@ import org.hibernate.criterion.Subqueries;
 import caller_offerrer.Call;
 import caller_offerrer.Caller;
 import caller_offerrer.Offerrer;
-import caller_offerrer.Profile;
 import caller_offerrer.User;
 import caller_offerrer.model.SearchCallInputModel;
 import caller_offerrer.model.SearchCallOutputModel;
-import caller_offerrer.model.SearchOfferOutputModel;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "rawtypes" })
 public class SearchCall extends JSonService<SearchCallInputModel, Set> {
 
 	@Override
@@ -37,6 +35,7 @@ public class SearchCall extends JSonService<SearchCallInputModel, Set> {
 	public Class<Set> getOutputType() {
 		return Set.class;
 	}
+	@SuppressWarnings("unused")
 	private boolean isListNullOrEmpty(List list) {
 		return list == null || list.size() == 0;
 	}
@@ -71,10 +70,10 @@ public class SearchCall extends JSonService<SearchCallInputModel, Set> {
 			criteria.add(Subqueries.lt(0l, sub));
 		}
 		if (data.getDiploma() != null) {
-			criteria.add(Restrictions.ge("diploma", data.getDiploma()));
+			criteria.add(Restrictions.le("diploma", data.getDiploma()));
 		}
 		if (data.getSeniority() != null) {
-			criteria.add(Restrictions.ge("seniority", data.getSeniority()));
+			criteria.add(Restrictions.le("seniority", data.getSeniority()));
 		}
 		
 		ArrayList<Call> calls = (ArrayList<Call>)criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import darkengines.database.IdentifiedEntity;
 

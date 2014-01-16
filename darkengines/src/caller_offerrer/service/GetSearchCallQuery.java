@@ -1,17 +1,11 @@
 package caller_offerrer.service;
 
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
-import caller_offerrer.Caller;
 import caller_offerrer.Offerrer;
 import caller_offerrer.User;
-import caller_offerrer.model.GetOfferInputModel;
-import caller_offerrer.model.GetOfferOutputModel;
 import caller_offerrer.model.GetSearchCallQueryInputModel;
 import caller_offerrer.model.GetSearchCallQueryOutputModel;
-import caller_offerrer.model.GetSearchOfferQueryInputModel;
-import caller_offerrer.model.GetSearchOfferQueryOutputModel;
 import darkengines.database.DBSessionFactory;
 import darkengines.service.JSonService;
 
