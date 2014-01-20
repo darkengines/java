@@ -672,7 +672,7 @@
 							$.each(data, function(index, call) {
 								var $container = $('<div class="CallSummary"></div>');
 								var $header = $('<div class="Header"></div>');
-								var $title = $('<div class="Title"><a href="get_call?id='+call.callId+'">'+call.title+'</a></div>');
+								var $title = $('<div class="Title"><a href="read_call?id='+call.callId+'">'+call.title+'</a></div>');
 								var $description = $('<div class="Description">'+call.description+'</div>');
 								var $infos = $('<div class="Infos"></div>');
 								var $date = $('<div class="CreatedOn">'+new Date(call.createdOn*1).toString('le dd/MM/yyyy &#224; HH:mm')+'</div>');
@@ -883,6 +883,55 @@
 					$seniority.text(data.seniority);
 					$photo.attr('src', 'get_image?id='+data.photoId);
 					$phone.text(data.phone);
+				}
+			});
+		});
+		$('div.ReadCall').each(function() {
+			var $container = $(this);
+			var $description = $('.Description', $container);
+			var $type = $('.Type', $container);
+			var $length = $('.Length', $container);
+			var $remuneration = $('.Remuneration', $container);
+			var $email = $('.Email');
+			var $programmingLanguages = $('.ProgrammingLanguages', $container);
+			var $frameworks = $('.Frameworks', $container);
+			var $languages = $('.Languages', $container);
+			var $diploma = $('.Diploma', $container);
+			var $seniority = $('.Seniority', $container);
+			var $title = $('.Title', $container);
+			$.ajax({
+				url: 'read_call_test',
+				cache: false,
+				data: {
+					data: JSON.stringify({
+						callId: $.url().param('id'),
+						token: application.user != null ? application.user.token : null
+					})
+				},
+				success: function(data) {
+					$email.text(data.email);
+					$.each(data.programmingLanguages, function(index, item) {
+						$programmingLanguages.append(
+							$('<div class="Item">'+item+'</div>')
+						);
+					});
+					$.each(data.frameworks, function(index, item) {
+						$frameworks.append(
+							$('<div class="Item">'+item+'</div>')
+						);
+					});
+					$.each(data.languages, function(index, item) {
+						$languages.append(
+							$('<div class="Item">'+item+'</div>')
+						);
+					});
+					$title.text(data.title);
+					$diploma.text(data.diploma);
+					$seniority.text(data.seniority);
+					$description.text(data.description);
+					$type.text(callTypes[data.type]);
+					$length.text(data.length);
+					$remuneration.text(data.remuneration);
 				}
 			});
 		});

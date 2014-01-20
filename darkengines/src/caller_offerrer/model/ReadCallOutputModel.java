@@ -20,6 +20,7 @@ public class ReadCallOutputModel {
 	private Float remuneration;
 	private CallType type;
 	private int length;
+	private String title;
 	
 	public Long getCallerId() {
 		return callId;
@@ -77,6 +78,8 @@ public class ReadCallOutputModel {
 			email = caller.getContact().getEmail();
 			phone = caller.getContact().getPhone();
 		}
+		setTitle(call.getTitle());
+		type = call.getCallType();
 	}
 
 	public Map<Long, String> getProgrammingLanguages() {
@@ -141,6 +144,14 @@ public class ReadCallOutputModel {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }
