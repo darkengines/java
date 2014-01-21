@@ -495,13 +495,32 @@ input[name=diploma] {
 	font-size: 16px;
 	line-height: auto;
 	display: block;
-	padding: 0;
 	text-align: left;
 	margin: 0;
-	background: none;
+	background-image: none;
 	line-height: 100%;
 }
+.ReadCall .Header .Title {
+	display: inline-block;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0 16px 8px 0;
+}
+.ReadCall .Header .Type {
+	display: inline-block;
+}
+.ReadCall .Field h5 {
+	margin: 4px 0 8px 4px;
+}
+.ReadCall .Length {
+	display: inline-block;
+}
+.ReadCall .Remuneration {
 
-.ReadCall {
-	
+}
+.ReadCall .Remuneration:after {
+	content: €;
+}
+.ReadCall .Description {
+	text-align: justify;
 }
