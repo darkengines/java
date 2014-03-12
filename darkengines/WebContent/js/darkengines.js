@@ -159,7 +159,7 @@
 					diploma: function($field, data) {
 						var $diplomaEditor = $('.DiplomaEditor', $field.parent());
 						var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
-						if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+						$diplomaDisplay.text(formatDiploma(data.diploma));
 						$diplomaEditor.slider({
 							range: "min",
 							value: data.diploma,
@@ -167,7 +167,7 @@
 							max: 10,
 							slide: function(event, ui) {
 								$field.val(ui.value);
-								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+								$diplomaDisplay.text(formatDiploma(ui.value));
 							}
 						});
 						$field.val(data.diploma);
@@ -175,7 +175,7 @@
 					seniority: function($field, data) {
 						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
 						var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
-						if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+						$seniorityDisplay.text(formatSeniority(data.seniority));
 						$seniorityEditor.slider({
 							range: "min",
 							value: data.seniority,
@@ -183,7 +183,7 @@
 							max: 10,
 							slide: function(event, ui) {
 								$field.val(ui.value);
-								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+								$seniorityDisplay.text(formatSeniority(ui.value));
 							}
 						});
 						$field.val(data.seniority);
@@ -332,7 +332,7 @@
 										diploma: function($field, data) {
 											var $diplomaEditor = $('.DiplomaEditor', $field.parent());
 											var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
-											if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+											$diplomaDisplay.text(formatDiploma(data.diploma));
 											$diplomaEditor.slider({
 												range: "min",
 												value: data.diploma,
@@ -340,7 +340,7 @@
 												max: 10,
 												slide: function(event, ui) {
 													$field.val(ui.value);
-													$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+													$diplomaDisplay.text(formatDiploma(ui.value));
 												}
 											});
 											$field.val(data.diploma);
@@ -348,7 +348,7 @@
 										seniority: function($field, data) {
 											var $seniorityEditor = $('.SeniorityEditor', $field.parent());
 											var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
-											if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+											$seniorityDisplay.text(formatSeniority(data.seniority));
 											$seniorityEditor.slider({
 												range: "min",
 												value: data.seniority,
@@ -356,7 +356,7 @@
 												max: 10,
 												slide: function(event, ui) {
 													$field.val(ui.value);
-													$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+													$seniorityDisplay.text(formatSeniority(ui.value));
 												}
 											});
 											$field.val(data.seniority);
@@ -500,7 +500,7 @@
 					diploma: function($field, data) {
 						var $diplomaEditor = $('.DiplomaEditor', $field.parent());
 						var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
-						if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+						$diplomaDisplay.text(formatDiploma(data.diploma));
 						$diplomaEditor.slider({
 							range: "min",
 							value: data.diploma,
@@ -508,7 +508,7 @@
 							max: 10,
 							slide: function(event, ui) {
 								$field.val(ui.value);
-								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+								$diplomaDisplay.text(formatDiploma(ui.value));
 							}
 						});
 						$field.val(data.diploma);
@@ -516,7 +516,7 @@
 					seniority: function($field, data) {
 						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
 						var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
-						if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+						$seniorityDisplay.text(formatSeniority(data.seniority));
 						$seniorityEditor.slider({
 							range: "min",
 							value: data.seniority,
@@ -524,7 +524,7 @@
 							max: 10,
 							slide: function(event, ui) {
 								$field.val(ui.value);
-								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+								$seniorityDisplay.text(formatSeniority(ui.value));
 							}
 						});
 						$field.val(data.seniority);
@@ -631,7 +631,7 @@
 					diploma: function($field, data) {
 						var $diplomaEditor = $('.DiplomaEditor', $field.parent());
 						var $diplomaDisplay = $('.DiplomaDisplay', $field.parent());
-						if (data.diploma != null) $diplomaDisplay.text(data.diploma+(data.diploma > 1 ? ' ans' : ' an'));
+						$diplomaDisplay.text(formatDiploma(data.diploma));
 						$diplomaEditor.slider({
 							range: "min",
 							value: data.diploma,
@@ -639,7 +639,7 @@
 							max: 10,
 							slide: function(event, ui) {
 								$field.val(ui.value);
-								$diplomaDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+								$diplomaDisplay.text(formatDiploma(ui.value));
 							}
 						});
 						$field.val(data.diploma);
@@ -647,7 +647,7 @@
 					seniority: function($field, data) {
 						var $seniorityEditor = $('.SeniorityEditor', $field.parent());
 						var $seniorityDisplay = $('.SeniorityDisplay', $field.parent());
-						if (data.diploma != null) $seniorityDisplay.text(data.seniority+(data.seniority > 1 ? ' ans' : ' an'));
+						$seniorityDisplay.text(formatSeniority(data.seniority));
 						$seniorityEditor.slider({
 							range: "min",
 							value: data.seniority,
@@ -655,7 +655,7 @@
 							max: 10,
 							slide: function(event, ui) {
 								$field.val(ui.value);
-								$seniorityDisplay.text(ui.value+(ui.value > 1 ? ' ans' : ' an'));
+								$seniorityDisplay.text(formatSeniority(ui.value));
 							}
 						});
 						$field.val(data.seniority);
@@ -677,7 +677,7 @@
 								var $infos = $('<div class="Infos"></div>');
 								var $date = $('<div class="CreatedOn">'+new Date(call.createdOn*1).toString('le dd/MM/yyyy &#224; HH:mm')+'</div>');
 								var $type = $('<div class="Type">'+callTypes[call.type]+'</div>');
-								var $money = $('<div class="Money">'+call.remuneration+'€</div>');
+								var $money = $('<div class="Money">'+formatSalary(call.remuneration)+'</div>');
 								$infos.append().append($type).append($date).append($money);
 								$header.append($title).append($infos);
 								$container.append($header).append($description);
@@ -840,6 +840,22 @@
 //				}
 //			});
 //			e.preventDefault();
+		var formatDiploma = function(x) {
+			if (x == 0) return 'Indifférent';
+			if (x == 1) return 'Baccalauréat';
+			return 'BAC+'+x;
+		};
+		var formatSeniority = function(x) {
+			if (x == 0) return 'Indifférent';
+			return x+plurial('an', 'ans', x);
+		};
+		var plurial = function(sing, plu, x) {
+			return x <= 1 ? sing : plu;
+		};
+		var formatSalary = function(x) {
+			if (x == 0) return 'Non renseigné / Selon expérience';
+			return x+'€';
+		};
 		$('div.Profile').each(function() {
 			var $container = $(this);
 			var $photo = $('.Photo');
@@ -879,8 +895,8 @@
 							$('<div class="Item">'+item+'</div>')
 						);
 					});
-					$diploma.text(data.diploma);
-					$seniority.text(data.seniority);
+					$diploma.text(formatDiploma(data.diploma));
+					$seniority.text(formatSeniority(data.seniority));
 					$photo.attr('src', 'get_image?id='+data.photoId);
 					$phone.text(data.phone);
 				}
@@ -926,12 +942,12 @@
 						);
 					});
 					$title.text(data.title);
-					$diploma.text(data.diploma);
-					$seniority.text(data.seniority);
+					$diploma.text(formatDiploma(data.diploma));
+					$seniority.text(formatSeniority(data.seniority));
 					$description.text(data.description);
 					$type.text(callTypes[data.type]);
 					$length.text(data.length);
-					$remuneration.text(data.remuneration);
+					$remuneration.text(formatSalary(data.remuneration));
 				}
 			});
 		});
